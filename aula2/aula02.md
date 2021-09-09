@@ -32,10 +32,10 @@ assumindo o controle do hardware. A memória primária, ou RAM (*Random Access
 Memory*), é uma memória volátil (não mantém os dados após o cessamento da
 energia) de acesso direto ao processador. Os programas necessitam estar nessa
 memória para serem executados. Já a memória secundária, também chamada de Drive
-(ou disco), passa por um sistema I/O (Input Output), o qual é encarregado por
+(ou disco), passa por um sistema I/O (*Input Output*), o qual é encarregado por
 gerenciar a entrada e saída de dados com outros dispositivos. A Figura 1 mostra
 como as subdivisões de um sistema computacional, destacando as do sistema
-operacional. Figura 1 Sistema Computacional.
+operacional.
 
 
 
@@ -67,19 +67,19 @@ precisamos entender alguns comandos do Linux.
 13.	`objdump`: Mostra informações sobre um arquivo objeto
 14.	`objdump -d`: desmota (disassembly) um arquivo objeto.
 `$ objdump -d file.o`
-15.	Vim: Vi Improved – Editor de texto.
+15.	`Vim`: Vi Improved – Editor de texto.
 `$vim file`
-16.	Vi: Editor de texto.
+16.	`Vi`: Editor de texto.
 17.	`-o`: output – resultado de um comando
 18.	`as`: compilador assembly
 19.	`gcc`: compilador GNU para a linguagem C, gera arquivo executável a partir de um arquivo `.c`.
 `$gcc  file.c -o file`
 20.	`gcc -E`: gera arquivo pré-processado (`.pre`).
 `$gcc -E file.c -o file.pre`
-21.	`gcc -S`: gera arquivo assembly (.s)
+21.	`gcc -S`: gera arquivo assembly (`.s`)
 `$gcc -S file.c -o file.s`
-22.	`gcc -c`: converte em linguagem de máquina sem vincular, gerando um arquivo objeto não executável (.o)
-`$gcc -c file.c -o file.o
+22.	`gcc -c`: converte em linguagem de máquina sem vincular, gerando um arquivo objeto não executável (`.o`)
+`$gcc -c file.c -o file.o`
 23.	`man #`: mostra o manual de uma função de alguma sessão
 `$ man 3 printf`
 24.	`man man`: mostra o manual do man
@@ -227,7 +227,7 @@ i386       | int $0x80   | eax           | ax  | edx   | -
 mips       | syscall     | v0            | 0   | v1    | a3
 riscv      | ecall       | a7            | 0   | a1    | -
 x86-64     | syscall     | rax           | ax  | rdx   | -
-x32        | yscall      | a2            | 2   | -     | -
+x32        | syscall     | a2            | 2   | -     | -
 
 
 
@@ -236,12 +236,13 @@ A Tabela 1 mostra que para que a função syscall de um processador com arquitet
 A Tabela 2 mostra que o primeiro argumento a ser usado na arquitetura x86-64 deve ser passado para o registrador rdi. A tabela completa pode ser encontrada no manual do syscall. O valor passado para esse registrador será retornado pelo syscall.
 
 
-Tabela 2 Argumentos das chamadas do sistema
-Arch / ABI	rg1	rg2	rg3	rg4	rg5	rg6	rg7	notes
-x86-64	rdi	rsi	rdx	r10	r8	r9	-
+*Tabela 2 Argumentos das chamadas do sistema*
 
-A função movq, utilizada no programa assembly, move o valor especificado para um dado registrador. No exemplo, movemos o valor 60 para o registrador rax, e o valor 10 para o registrador rdi.
-A instrução syscall, que, como mostrado na Tabela 1, usa o valor contido no registrador rax, no caso 60, para fazer referência a função a ser chamada, e, como argumento, é passado o valor 10 para o registrador rdi que, como pode ser visto na Tabela 2, se refere ao primeiro argumento de uma syscall.
-Ao ser executada, a instrução syscall bloqueia o programa e passa o controle ao sistema operacional, para que assim possa processar a função requisitada no kernel space, retornando, no final da execução, ao programa. No caso, o syscall terá como retorno o próprio argumento, o valor 10, que é visto usando a função “echo $?”.
-	É interessante notar que, ao usar a função “objdump -d” com o arquivo exit.o, é possível ver que os números 60 e 10 foram substituídos por 0x3c e 0xa. O valor 0x é uma referência para hexadecimal, e os valores “3c” e “a” são os equivalentes a 60 e 10 em hexadecimal.
-*ifndef
+Arch / ABI | rg1 | rg2 | rg3 | rg4 | rg5 | rg6 | rg7 | notes
+-----------|-----|-----|-----|-----|-----|-----|-----|-------
+x86-64     | rdi | rsi | rdx | r10 | r8  | r9  |  -  |
+
+A função `movq`, utilizada no programa assembly, move o valor especificado para um dado registrador. No exemplo, movemos o valor 60 para o registrador `rax`, e o valor 10 para o registrador `rdi`.
+A instrução syscall, que, como mostrado na Tabela 1, usa o valor contido no registrador `rax`, no caso 60, para fazer referência a função a ser chamada, e, como argumento, é passado o valor 10 para o registrador `rdi` que, como pode ser visto na Tabela 2, se refere ao primeiro argumento de uma syscall.
+Ao ser executada, a instrução syscall bloqueia o programa e passa o controle ao sistema operacional, para que assim possa processar a função requisitada no kernel space, retornando, no final da execução, ao programa. No caso, o syscall terá como retorno o próprio argumento, o valor 10, que é visto usando a função `echo $?`.
+	É interessante notar que, ao usar a função `objdump -d` com o arquivo `exit.o`, é possível ver que os números 60 e 10 foram substituídos por 0x3c e 0xa. O valor 0x é uma referência para hexadecimal, e os valores “3c” e “a” são os equivalentes a 60 e 10 em hexadecimal.
