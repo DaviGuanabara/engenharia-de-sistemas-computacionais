@@ -130,7 +130,7 @@ A Figura 2 mostra as etapas de compilação do gcc.
 
 Figura 2 Etapas de compilação do gcc
  
-
+(https://github.com/DaviGuanabara/engenharia-de-sistemas-computacionais/blob/c98d1e6c2b6e7599125af337c7e2fe4975207277/aula2/compilac%CC%A7a%CC%83o.png)
 
 Compilando um arquivo .c
 
