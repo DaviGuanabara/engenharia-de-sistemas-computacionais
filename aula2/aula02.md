@@ -1,0 +1,247 @@
+## Introdução à sistemas computacionais
+
+
+## Aula 02
+
+
+### Introdução
+
+O Sistema Operacional (SO) é um software que gerencia os recursos de hardware
+e os torna simples de ser usados por aplicações. Esse gerenciamento é feito
+pelo núcleo, ou Kernel, do SO, o qual tem permissões especiais de uso. As
+aplicações criadas pelos usuários se encontram no User Space, um local com
+abstrações para o fácil uso desses recursos. A mudança do espaço pode ser
+requisitada pela aplicação, com um processo chamado de `trap`, o qual faz
+referência à uma interceptação, como cair no alçapão de uma casa, tendo assim
+acesso ao subterrâneo, no caso o núcleo do SO. Esse processo passa pelas
+chamadas de sistema (System Calls), as quais são uma interface de comunicação
+entre o espaço de usuário e o kernel. As aplicações no espaço de usuário contam
+com as abstrações GNU libc, uma biblioteca que segue o padrão POSIX, e outros,
+de normas de compatibilidade entre os sistemas operacionais, tornando, assim,
+os programas portáteis. Outras abstrações importantes são a de processos, que
+são programas em execução, e a de File System (FS), responsável por gerenciar
+os arquivos, usando, por exemplo, diretórios para agrupá-los. A inicialização
+do sistema computacional começa pelo carregamento do BIOS (*Basic Input Output
+System*), o qual é armazenado em uma memória flash (uma EEPROM, ou
+*Electrically Erasable and Programmable Read Only Memory*) na placa mãe,
+e é encarregado por tarefas básicas de gerenciamento do hardware, como o POST
+(*Power On Self Test*), processo incubido por verificar o estado operacional do
+sistema. O BIOS também é responsável por carregar o SO, da memória secundária
+para a memória primária, processo que finaliza com o sistema operacional
+assumindo o controle do hardware. A memória primária, ou RAM (*Random Access
+Memory*), é uma memória volátil (não mantém os dados após o cessamento da
+energia) de acesso direto ao processador. Os programas necessitam estar nessa
+memória para serem executados. Já a memória secundária, também chamada de Drive
+(ou disco), passa por um sistema I/O (Input Output), o qual é encarregado por
+gerenciar a entrada e saída de dados com outros dispositivos. A Figura 1 mostra
+como as subdivisões de um sistema computacional, destacando as do sistema
+operacional. Figura 1 Sistema Computacional.
+
+
+
+![Figura 1](funcionamento%20do%20computador.png)
+*Figura 1: Sistema Computacional*
+
+
+### Prática
+
+Com o intuito de mostrar como funciona as chamadas do sistema e como funciona
+a compilação, vamos criar um programa `Hello world` na linguagem C. Para tal,
+precisamos entender alguns comandos do Linux.
+
+#### Comandos Linux
+
+1.	`mkdir`: cria um novo diretório
+2.	`grep`: procura um texto em um arquivo
+3.	`rm`: remover um arquivo
+4.	`mv`: move o arquivo
+5.	`ls`: lista os elementos de um diretório
+6.	`ls -a`: lista arquivos
+7.	`ls -l`: lista permissões
+8.	`ls -F`: edita os nomes, como `*` no final do nome dos arquivos executáveis
+8.	`ls -F`: edita os nomes, como `*` no final do nome dos arquivos executáveis
+9.	`ll`: um alias para `ls -alF`
+10.	`file`: inspecionar um arquivo
+11.	`cd`: mudar o diretório
+12.	`ld`: vinculador, responsável por gerar um arquivo executável a partir de um objeto
+13.	`objdump`: Mostra informações sobre um arquivo objeto
+14.	`objdump -d`: desmota (disassembly) um arquivo objeto.
+`$ objdump -d file.o`
+15.	Vim: Vi Improved – Editor de texto.
+`$vim file`
+16.	Vi: Editor de texto.
+17.	`-o`: output – resultado de um comando
+18.	`as`: compilador assembly
+19.	`gcc`: compilador GNU para a linguagem C, gera arquivo executável a partir de um arquivo `.c`.
+`$gcc  file.c -o file`
+20.	`gcc -E`: gera arquivo pré-processado (`.pre`).
+`$gcc -E file.c -o file.pre`
+21.	`gcc -S`: gera arquivo assembly (.s)
+`$gcc -S file.c -o file.s`
+22.	`gcc -c`: converte em linguagem de máquina sem vincular, gerando um arquivo objeto não executável (.o)
+`$gcc -c file.c -o file.o
+23.	`man #`: mostra o manual de uma função de alguma sessão
+`$ man 3 printf`
+24.	`man man`: mostra o manual do man
+25.	`echo`: mostra o texto resultado na saída padrão.
+26.	`./` : executa um arquivo executável
+
+
+### Etapas de compilação
+
+
+O processo de compilação de um código está relacionado com transformar um
+arquivo texto de uma linguagem específica, para um arquivo binário executável.
+O compilador da linguagem C usado no Linux, `gcc`, realiza esse processo em
+4 etapas. A primeira dessas etapas é o pré-processamento, responsável por lidar
+com as diretivas de pré-processamento, como o `#include` e `#define`, que anexa um
+arquivo e substitui os macros, respectivamente. Tem como resultado um arquivo
+de extensão pre (`.pre`). A segunda etapa é a conversão do arquivo pré-processado
+para o assembly. Ela utiliza o *toolchain*, pacote de ferramentas contendo
+instruções específicas do processador de destino, como ARM. A saída é um
+arquivo de extensão s (`.s`). A terceira etapa é a geração de um código objeto em
+binário, o qual é um arquivo de extensão o (`.o`). Por fim, há a vinculação
+(*linking*) do código objeto gerado na etapa anterior com outros códigos
+objetos a fim de substituir as referências à símbolos definidos fora do código
+objeto original. Tem como saída um arquivo binário executável sem extensão.
+A Figura 2 mostra as etapas de compilação do gcc.
+
+
+![Figura 2](compilac%CC%A7a%CC%83o.png)
+*Figura 2: Etapas de compilação do `gcc`*
+
+
+#### Compilando um arquivo `.c`
+
+A seguir será mostrado um passo a passo, da criação de um arquivo `.c` até sua compilação.
+
+Dentro do editor de texto Linux, escreva o código `Hello World` disponível a seguir.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+        printf("Hello World!\n");
+	return 0;
+}
+```
+
+Salve com o nome `hw.c`
+Abra o terminal, vá até o diretório no qual foi salvo o arquivo `hw.c`, e digite:
+
+```bash
+$ gcc hw.c -o hw
+$ ./hw
+```
+
+Será assim gerado um arquivo `hw` executável, com sua execução em seguida.
+
+Com o `gcc`, pode-se também gerar os arquivos das etapas explicadas anteriormente, com 1, 2 e 3 gerando os arquivos pré-processados, arquivo assembly e código objeto, respectivamente.
+
+```bash
+$ gcc -E hw.c -o hw.pre
+$ gcc -S hw.c -o hw.s
+$ gcc -c hw.c -o hw.o
+```
+
+É possível também ler o código objeto no formato de assembly com a função de desassembly:
+
+```bash
+$ objdump -d hw.o
+
+hw.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   		%rbp
+   5:	48 89 e5             	mov    		%rsp,%rbp
+   8:	48 8d 3d 00 00 00 00 	lea    		0x0(%rip),%rdi        	# f <main+0xf>
+   f:	b8 00 00 00 00       	mov    		$0x0,%eax
+  14:	e8 00 00 00 00       	callq  		19 <main+0x19>
+  19:	b8 00 00 00 00       	mov    		$0x0,%eax
+  1e:	5d                   	pop    		%rbp
+  1f:	c3                   	retq
+```
+
+
+#### Executando uma chamada do sistema
+
+Para executar uma chamada do sistema, vamos, primeiro, criar um arquivo assembly (`.s`) chamado de `01-exit64.s` com o conteúdo abaixo:
+
+```asm
+.section .data
+.section .text
+.globl _start
+
+_start:
+
+
+# C code
+# exit(0);
+	# mnemonic	# parameters	# comments
+	movq		$60, %rax	# system call exit(2)
+	movq		$10, %rdi	# the shell will receive this value
+
+	syscall
+```
+
+Após isso, devemos gerar um código objeto, usando um compilador assembly:
+
+```bash
+$ as 01-exit64.s -o exit.o
+```
+
+Depois gerar um arquivo executável, pelo processo de vinculação:
+
+```bash
+$ ld exit.o -o exit
+```
+
+Para executar e visualizar, basta digitar:
+
+```bash
+$ ./exit
+$ echo $?
+```
+
+#### Entendendo System Call
+
+Para entender melhor o resultado gerado anteriormente, podemos acessar o manual do system call com:
+
+```bash
+$ man syscall
+```
+
+A primeira tabela do manual será parecida com a table a seguir:
+
+*Tabela 1 System Call por Arquitetura*
+
+Arch / ABI | Instruction | System Call # | val | val 2 | Error
+-----------|-------------|---------------|-----|-------|-------
+arm64      | svc #0      | x8            | 0   | x1    | -
+i386       | int $0x80   | eax           | ax  | edx   | -
+mips       | syscall     | v0            | 0   | v1    | a3
+riscv      | ecall       | a7            | 0   | a1    | -
+x86-64     | syscall     | rax           | ax  | rdx   | -
+x32        | yscall      | a2            | 2   | -     | -
+
+
+
+A Tabela 1 mostra que para que a função syscall de um processador com arquitetura x86-64 seja chamada, devemos primeiro ajustar o registrador rax com o valor equivalente à função desejada. No exemplo dado, o valor 60 se refere a função “exit”, que encerra a execução de um programa. As diferentes funções e seus respectivos valores podem ser acessados em: https://elixir.bootlin.com/linux/latest/source/arch/x86/entry/syscalls/syscall_64.tbl
+
+A Tabela 2 mostra que o primeiro argumento a ser usado na arquitetura x86-64 deve ser passado para o registrador rdi. A tabela completa pode ser encontrada no manual do syscall. O valor passado para esse registrador será retornado pelo syscall.
+
+
+Tabela 2 Argumentos das chamadas do sistema
+Arch / ABI	rg1	rg2	rg3	rg4	rg5	rg6	rg7	notes
+x86-64	rdi	rsi	rdx	r10	r8	r9	-
+
+A função movq, utilizada no programa assembly, move o valor especificado para um dado registrador. No exemplo, movemos o valor 60 para o registrador rax, e o valor 10 para o registrador rdi.
+A instrução syscall, que, como mostrado na Tabela 1, usa o valor contido no registrador rax, no caso 60, para fazer referência a função a ser chamada, e, como argumento, é passado o valor 10 para o registrador rdi que, como pode ser visto na Tabela 2, se refere ao primeiro argumento de uma syscall.
+Ao ser executada, a instrução syscall bloqueia o programa e passa o controle ao sistema operacional, para que assim possa processar a função requisitada no kernel space, retornando, no final da execução, ao programa. No caso, o syscall terá como retorno o próprio argumento, o valor 10, que é visto usando a função “echo $?”.
+	É interessante notar que, ao usar a função “objdump -d” com o arquivo exit.o, é possível ver que os números 60 e 10 foram substituídos por 0x3c e 0xa. O valor 0x é uma referência para hexadecimal, e os valores “3c” e “a” são os equivalentes a 60 e 10 em hexadecimal.
+*ifndef
