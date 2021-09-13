@@ -44,7 +44,7 @@ do sistema operacional de assegurar que ambas as seções não se sobreponham.
 Cada processo é representado, no sistema operacional, pelo PCB (*Process Block
 Control*), uma lista encadeada contendo informações como:
 
-1.	*Process state - Podendo ser: `New`, `Running`, `Waiting`, `Ready`,
+1.	*Process state* - Podendo ser: `New`, `Running`, `Waiting`, `Ready`,
         `Terminated`.
 2.	*Program Counter* - Contador que indica o endereço da próxima
         instrução.
@@ -63,12 +63,12 @@ Control*), uma lista encadeada contendo informações como:
 
 No código a seguir, temos a duas declarações da variável `a`. Isso é possível
 pois cada declaração está dentro de um contexto de execução diferente, de forma
-que cada função representa uma posição de memória distinto, e, dessa forma,
+que cada função representa uma posição de memória distinto, e, assim,
 seus conteúdos ocupam um espaço, ou `Stack Frame`, específico da seção `stack`.
 Então, quando uma função é chamada, o `Program Counter` é desviado para essa
 a posição da memória, passando a executar as instruções lá inseridas, até ser
 redirecionado de volta ao endereço inicial (no qual a função foi chamada),
-descartando esse `Stack Frame`. O conteúdo contido no `Stack Frame` descartado não
+descartando esse `Stack Frame`. O conteúdo contido no `Stack Frame` descartado, não
 é removido da memória, por causa do custo computacional de fazê-lo, fato
 gerador do chamado lixo de memória (`Stack Frame` sem contexto), diminuindo,
 assim, o `stack`. Quando um novo `Stack Frame` é concebido, esse sobrescreve o lixo
@@ -111,7 +111,7 @@ referido, e sim um específico para o seu tipo. No caso de uma arquitetura de
 
 O trecho de código da Figura 1,
 
-```c
+```C
 int *values;
 values = (int *) malloc(sizeof(int)*5);
 
@@ -137,7 +137,7 @@ quais `&` revela o endereço de memória do valor "apontado", `*` acessa o
 conteúdo da memória e, por fim, `p` sem nenhum operador retorna o endereço da
 variável `p` na `stack`.
 
-```c
+```C
 int *values;
 int *p = malloc(sizeof(int)*4);
 
