@@ -1,22 +1,22 @@
 
-##Processos e threads
+## Processos e threads
 
-###Thread é uma parte do processo
+### Thread é uma parte do Processo
 
 Como dito na aula anterior, um processo é uma entidade ativa a qual se refere à um programa em execução. Porém, a CPU não recebe essa 
 entidade na sua integralidade para processamento, e sim uma parte da mesma chamada de Thread. Nessa está contido os elementos necessários para
 a mudança de contexto da CPU (*CPU Context Switch*), como os valores dos registradores utilizados, a memória Stack e o PC (Program Counter).
 Em sistemas mais antigos (*single-threaded*, ou única *thread* por processo), cada nova tarefa a ser executada deve-se passar pela criação de um novo processo.
 
-####Concurrency vs Parallelism
+#### Concurrency vs Parallelism
 
 Uma observação importante é que um programa, em um sistema com um único núcleo de processamento, pode rodar em simultâneo (*concurrency*) com outros, com a alternação do processo a ser executado pela CPU em certos períodos de tempo, porém não em paralelo (parallelism).
 
-#####Concurrency
+##### Concurrency
 
 Os processos são distribuidos para a CPU com a técnica *Round-Robin*, com a qual é gerada uma fila de processos, e a saída de cada fila vai para o processador. Após um certo período de tempo de processamento, esse processo para de ser processado, o seu contexto é salvo, e o mesmo volta para o final da fila. Um novo processo então é carregado, e o contexto da CPU alterando para o relativo ao novo processo. A mudança de contexto da CPU (*CPU context-switch*) é o que torna possível a CPU retormar o processamento do momento de um processo específico no momento que o mesmo foi encerrado.
 
-###Criação de novos processos
+### Criação de novos processos
 
 Na linguagem `C`, a criação de um novo processo passa pela função `clone()`, a qual copia, conforme instruções do programador, todos os elementos do processo original
 para o novo processo, consumindo, assim, recursos como a memória, com a locação múltipla dos mesmos dados. Uma tentativa de otimização vem na função `fork()`, que utiliza
@@ -32,7 +32,7 @@ equivalendo ao PID (*Process Identifier*, ou identificador do processo) do proce
 4. PID do processo filho, no processo pai. 
 
 
-###Porquê devemos criar novos processos ?
+### Porquê devemos criar novos processos ?
 
 Há dois motivos para a criação de novos processos (em sistemas mais antigos):
 
@@ -43,12 +43,12 @@ Há dois motivos para a criação de novos processos (em sistemas mais antigos):
 Apesar da otimização citada na seção anterior (com o `CoW`), o procedimento de criação de um novo processo é custoso de recursos computacionais, sendo o *multi-threading* (múltiplas threads no mesmo processo) uma solução para a criação de múltiplas tarefas com o mesmo programa (caso 2).
 Assim, a seguir falaremos da função `execve()` e do multi-threading.
 
-###Execve()
+### Execve()
 
 A função `execve()` tem como objetivo alterar a imagem de execução, que está contida no processo, para a do novo programa, isso é, o *Data*, *Heap*, *Stack* e *Text* serão carregados com o conteúdo do novo programa.
 
 
-###Multi-threading
+### Multi-threading
 
 
 
