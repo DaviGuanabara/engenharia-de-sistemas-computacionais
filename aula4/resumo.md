@@ -65,3 +65,4 @@ O *multi-threading* trás consigo diversas vantagens, como:
 3. Economia: é mais econômico criar uma *Thread* do que um processo. É mais rápido trocar o contexto da CPU (*CPU context-switch*) entre *Threads* do que entre processos.
 4. Escalabilidade: *Threads* podem usufruir do paralelismo, rodando em múltiplas CPU's em simultâneo de forma assíncrona.
 
+*** Ponteiros e funções
