@@ -3,14 +3,14 @@
 
 ### Thread é uma parte do Processo
 
-Como dito na aula anterior, um processo é uma entidade ativa a qual se refere à um programa em execução. Porém, a CPU não recebe essa 
-entidade na sua integralidade para processamento, e sim uma parte da mesma chamada de Thread. Nessa está contido os elementos necessários para
-a mudança de contexto da CPU (*CPU Context Switch*), como os valores dos registradores utilizados, a memória Stack e o PC (Program Counter).
-Em sistemas mais antigos (*single-threaded*, ou única *thread* por processo), cada nova tarefa a ser executada deve-se passar pela criação de um novo processo.
+Como dito na aula anterior, um processo é uma entidade ativa a qual se refere à um programa em execução. Porém, a CPU não recebe essa entidade na sua integralidade para processamento, e sim uma parte da mesma chamada de *Thread* (a *Thread* pode ser definida como uma unidade de processamento do processo). Nessa está contido os elementos necessários para a mudança de contexto da CPU (*CPU Context Switch*), como os valores dos registradores utilizados, a memória Stack e o PC (*Program Counter*).
+
+
+Em sistemas *single-threaded* (única *thread* por processo, normalmente encontrado em sistemas mais antigos), cada nova tarefa a ser executada deve-se passar pela criação de um novo processo.
 
 #### Concurrency vs Parallelism
 
-Uma observação importante é que um programa, em um sistema com um único núcleo de processamento, pode rodar em simultâneo (*concurrency*) com outros, com a alternação do processo a ser executado pela CPU em certos períodos de tempo, porém não em paralelo (parallelism).
+Uma observação importante é que um programa, em um sistema com um único núcleo de processamento, pode rodar em simultâneo (*concurrency*) com outros, com a alternação do processo a ser executado pela CPU em certos períodos de tempo, porém não em paralelo (*parallelism*).
 
 ##### Concurrency
 
