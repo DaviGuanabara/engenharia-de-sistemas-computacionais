@@ -41,8 +41,8 @@ superior está chamado de *high-memory*, e o inferior de *low-memory*. É papel
 do sistema operacional de assegurar que ambas as seções não se sobreponham.
 
 
-Cada processo é representado, no sistema operacional, pelo PCB (*Process Block
-Control*), uma lista encadeada contendo informações como:
+Cada processo é representado, no sistema operacional, pelo PCB (*Process Control
+Block*), uma lista encadeada contendo informações como:
 
 1.	*Process state* - Podendo ser: `New`, `Running`, `Waiting`, `Ready`,
         `Terminated`.
