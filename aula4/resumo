@@ -7,6 +7,6 @@ limitação, passando à *multi-threading* (múltiplas *threads* por processo).
 quebrando a limitação de uma única thread por processo.
 Nos sistemas mais antigos, cada processador tinha, exclusivamente, uma única thread, sendo assim um sistema *single-thread*. 
 
-![Figura 1](Aloca%C3%A7%C3%A3o%20de%20mem%C3%B3ria%20de%20um%20programa%20c.png)
-*Figura 1: Alocação de memória de um programa em C*
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 108.*
+![Figura 1](single-multi-threaded.png)
+*Figura 1: Single and Multi-Threaded Example*
+*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 160.*
