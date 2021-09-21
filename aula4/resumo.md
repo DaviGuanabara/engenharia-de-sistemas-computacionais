@@ -1,32 +1,69 @@
 
 ## Processos e threads
 
+
 ### Thread é uma parte do Processo
 
-Como dito na aula anterior, um processo é uma entidade ativa a qual se refere à um programa em execução. Porém, a CPU não recebe essa entidade na sua integralidade para processamento, e sim uma parte da mesma chamada de *Thread* (a *Thread* pode ser definida como uma unidade de processamento do processo). Nessa está contido os elementos necessários para a mudança de contexto da CPU (*CPU Context Switch*), como os valores dos registradores utilizados, a memória Stack e o PC (*Program Counter*).
+Como dito na aula anterior, um processo é uma entidade ativa a qual se refere à
+um programa em execução. Porém, a CPU não recebe essa entidade na sua
+integralidade para processamento, e sim uma parte da mesma chamada de *Thread*
+(a *Thread* pode ser definida como uma unidade de processamento do processo).
+Nessa está contido os elementos necessários para a mudança de contexto da CPU
+(*CPU Context Switch*), como os valores dos registradores utilizados, a memória
+Stack e o PC (*Program Counter*).
 
+Em sistemas *single-threaded* (única *thread* por processo, normalmente
+encontrado em sistemas mais antigos), cada nova tarefa a ser executada deve-se
+passar pela criação de um novo processo.
 
-Em sistemas *single-threaded* (única *thread* por processo, normalmente encontrado em sistemas mais antigos), cada nova tarefa a ser executada deve-se passar pela criação de um novo processo.
 
 #### Concurrency vs Parallelism
 
-Uma observação importante é que um programa, em um sistema com um único núcleo de processamento, pode rodar em simultâneo (*concurrency*) com outros programas, devido a alternação do processo a ser executado pela CPU em certos períodos de tempo, porém não em paralelo (*parallelism*), por não ter múltiplos núcleos.
+Uma observação importante é que um programa, em um sistema com um único núcleo
+de processamento, pode rodar em simultâneo (*concurrency*) com outros
+programas, devido a alternação do processo a ser executado pela CPU em certos
+períodos de tempo, porém não em paralelo (*parallelism*), por não ter múltiplos
+núcleos.
+
 
 ##### Concurrency
 
-Os processos são distribuidos para a CPU com a técnica *Round-Robin*, com a qual é gerada uma fila de processos, e a saída de cada fila vai para o processador. Após um certo período de tempo, esse processamento é interrompido, o seu contexto é salvo, e o processo volta para o final da fila (observar que há políticas de prioridades. No exemplo está sendo considerado que todos os processos têm a mesma prioridade). Um novo processo então é chamado para execução, com o seu contexto de CPU sendo carregado. Essa mudança de contexto da CPU (*CPU context-switch*) é o que torna possível a CPU retormar o processamento de um processo específico do momento que o mesmo foi anteriormente interrompido. Esse ciclo continua até a conclusão de todos os processos.
+Os processos são distribuidos para a CPU com a técnica *Round-Robin*, com a
+qual é gerada uma fila de processos, e a saída de cada fila vai para o
+processador. Após um certo período de tempo, esse processamento é interrompido,
+o seu contexto é salvo, e o processo volta para o final da fila (observar que
+há políticas de prioridades. No exemplo está sendo considerado que todos os
+processos têm a mesma prioridade). Um novo processo então é chamado para
+execução, com o seu contexto de CPU sendo carregado. Essa mudança de contexto
+da CPU (*CPU context-switch*) é o que torna possível a CPU retormar o
+processamento de um processo específico do momento que o mesmo foi
+anteriormente interrompido. Esse ciclo continua até a conclusão de todos os
+processos.
+
 
 ### Criação de novos processos
 
-Na linguagem `C`, a criação de um novo processo passa pela função `clone()`, a qual copia, conforme instruções do programador, todos os elementos do processo original para o novo processo, consumindo, assim, recursos como a memória, com a locação múltipla dos mesmos dados. Uma tentativa de otimização pode ser observada na função `fork()` (que é uma implementação específica da função `clone()`), que utiliza o conceito de `CoW` (*Copy on Write*, ou cópia na escrita, que é uma funcionalidade do sistema de gerenciamento de memória), somente copiando os dados, para o novo endereço de memória, caso haja alteração dos mesmos. Isso é possível com o uso dos ponteiros, discutidos na aula anterior, para a leitura dos dados.
-É importante notar que a execução do processo criado continuará a partir da última posição do IP (*Instruction Pointer*, ou ponteiro de instrução), fazendo com que as instruções escritas antes do `clone()` ou `fork()` nunca sejam lidas.
+Na linguagem C, a criação de um novo processo passa pela função `clone(2)`, a
+qual copia, conforme instruções do programador, todos os elementos do processo
+original para o novo processo, consumindo, assim, recursos como a memória, com
+a locação múltipla dos mesmos dados. Uma tentativa de otimização pode ser
+observada na função `fork(2)` (que é uma implementação específica da função
+`clone(2)`), que utiliza o conceito de `CoW` (*Copy on Write*, ou cópia na
+escrita, que é uma funcionalidade do sistema de gerenciamento de memória),
+somente copiando os dados, para o novo endereço de memória, caso haja alteração
+dos mesmos. Isso é possível com o uso dos ponteiros, discutidos na aula
+anterior, para a leitura dos dados.  É importante notar que a execução do
+processo criado continuará a partir da última posição do IP (*Instruction
+Pointer*, ou ponteiro de instrução), fazendo com que as instruções escritas
+antes do `clone(2)` ou `fork(2)` nunca sejam lidas.
 
 A função `fork()` retorna:
 
 1. -1, caso tenha falhado;
-2. 0, para o processo filho, com o PPID (*Parent Process Identifier*, ou identificador do processo pai)
-equivalendo ao PID (*Process Identifier*, ou identificador do processo) do processo pai
-4. PID do processo filho, no processo pai. 
+2. 0, para o processo filho, com o PPID (*Parent Process Identifier*, ou
+   identificador do processo pai) equivalendo ao PID (*Process Identifier*, ou
+   identificador do processo) do processo pai
+3. PID do processo filho, no processo pai. 
 
 ```C
 #include <stdio.h>
@@ -35,42 +72,44 @@ equivalendo ao PID (*Process Identifier*, ou identificador do processo) do proce
 
 int main()
 {
-        printf("Antes do fork: %d \n", getpid());
+        printf("Before fork: %d \n", getpid());
         pid_t returned = fork(void);
         
         if(returned == 0){
                 printf("Child here: %d \n", getpid());
         } else {
                 printf("Parent here: %d, child pid: %d \n", getpid(), returned);
-          
         }
         
-        
         return 0;
-       
 }
-
 ```
 
 
-### Porquê devemos criar novos processos ?
+### Por que devemos criar novos processos?
 
 Há dois motivos para a criação de novos processos (em sistemas mais antigos):
 
-1. Inicialização de um novo programa, com o `execve()`.
+1. Inicialização de um novo programa, com o `execve(2)`.
 2. Múltiplas tarefas de um mesmo programa.
 
+Apesar da otimização citada na seção anterior (com o `CoW`), o procedimento de
+criação de um novo processo é custoso de recursos computacionais, sendo o
+*multi-threading* (múltiplas threads no mesmo processo) uma solução para a
+criação de múltiplas tarefas de um mesmo programa (caso 2).
 
-Apesar da otimização citada na seção anterior (com o `CoW`), o procedimento de criação de um novo processo é custoso de recursos computacionais, sendo o *multi-threading* (múltiplas threads no mesmo processo) uma solução para a criação de múltiplas tarefas de um mesmo programa (caso 2).
 
+### `execve(2)`
 
-### Execve()
+A função `execve(2)` tem como objetivo alterar a imagem de execução, que está
+contida no processo, para a do novo programa, isso é, o *Data*, *Heap*, *Stack*
+e *Text* serão carregados com o conteúdo do novo programa.
 
-A função `execve()` tem como objetivo alterar a imagem de execução, que está contida no processo, para a do novo programa, isso é, o *Data*, *Heap*, *Stack* e *Text* serão carregados com o conteúdo do novo programa.
+A execução do programa `hello.c`, dentro do `execv.c`, ambos escritos abaixo,
+retornará o mesmo `pid` (*Process Identification*) do que no primeiro programa,
+pois o processo é o mesmo, mas a imagem é diferente.
 
-A execução do programa hello.c, dentro do execv.c, ambos escritos abaixo, retornará o mesmo `pid` (*Process Identification*) do que no primeiro programa, pois o processo é o mesmo, mas a imagem é diferente.
-
-execv.c
+Arquivo `execv.c`:
 ```C
 #include <stdio.h>
 #include <sys/types.h>
@@ -86,20 +125,17 @@ int main()
         //Troca a imagem de execução.
         int ret = execve("hello", argv, envp); //Caso positivo, as linhas a seguir não existirão mais;
         
+	printf("supposed never executed\n");
         if(ret == -1) {
                 perror("execve failed");
                 return 1;
         }
         
-        printf("never executed \n");
-        
         return 0;
-       
 }
-
 ```
 
-hello.c
+Arquivo `hello.c`:
 ```C
 #include <stdio.h>
 #include <sys/types.h>
@@ -109,21 +145,23 @@ int main()
 {
         printf("hello world from pid(%d)\n", getpid());
         return 0;
-       
 }
 
 ```
-*Obs: o programa irá buscar um arquivo em código de máquina, e não em `c`. Assim:
+\*Obs: o programa irá buscar um arquivo em código de máquina, e não em C. Assim:
 
+```bash
 $ make hello.c
 $ make execv && ./execv
+```
 
 
 ### Multi-threading
 
-
-
-É importante notar que os sistemas operacionais evoluíram, com os mais antigos limitando-se à *single-threading* (uma *thread* por processo), e os mais novos rompendo essa limitação, passando à *multi-threading* (múltiplas *threads* por processo), como mostrado na Figura 1.
+É importante notar que os sistemas operacionais evoluíram, com os mais antigos
+limitando-se à *single-threading* (uma *thread* por processo), e os mais novos
+rompendo essa limitação, passando à *multi-threading* (múltiplas *threads* por
+processo), como mostrado na Figura 1.
 
 
 *Figura 1: Single and Multi-Threaded Example*
@@ -132,18 +170,29 @@ $ make execv && ./execv
 
 O *multi-threading* trás consigo diversas vantagens, como:
 
-1. Responsividade: Um programa continua rodando mesmo quando uma parte sua é bloqueada, trava ou demora para concluir.
-2. Compartilhamento de Recursos: As *Threads* compartilham o mesmo código e dados por padrão.
-3. Economia: é mais econômico criar uma *Thread* do que um processo. É mais rápido trocar o contexto da CPU (*CPU context-switch*) entre *Threads* do que entre processos.
-4. Escalabilidade: *Threads* podem usufruir do paralelismo, rodando em múltiplas CPU's em simultâneo de forma assíncrona.
+1. Responsividade: Um programa continua rodando mesmo quando uma parte sua é
+   bloqueada, trava ou demora para concluir.
+2. Compartilhamento de Recursos: As *Threads* compartilham o mesmo código e
+   dados por padrão.
+3. Economia: é mais econômico criar uma *Thread* do que um processo. É mais
+   rápido trocar o contexto da CPU (*CPU context-switch*) entre *Threads* do
+   que entre processos, desde que estejam em *userspace*.
+4. Escalabilidade: *Threads* podem usufruir do paralelismo, rodando em
+   múltiplas CPU's em simultâneo de forma assíncrona.
 
-É com o *multi-threading* que um programa consegue tirar vantagem de vários núcleos de processamento, de forma a utilizar tanto o *Concurrency* como o *Parallelism* (multiplas *threads* com um único núcleo ocorre o *Concurrency* mas não o *Parallelism*).
+É com o *multi-threading* que um programa consegue tirar vantagem de vários
+núcleos de processamento, de forma a utilizar tanto o *Concurrency* como o
+*Parallelism* (multiplas *threads* com um único núcleo ocorre o *Concurrency*
+mas não o *Parallelism*).
 
 
 ### Função como argumento de outra função.
 
-Utilizando Ponteiros, podemos passar uma função como argumento de outra função, basta coletar o endereço de memória da mesma (o nome da função coincide com o endereço dela) e passar para um ponteiro. Depois passar o ponteiro no argumento da função. 
-A seguir temos um código de exemplo de como utilizar ponteiros para funções (bastando passar a variável `fp` como argumento de uma função).
+Utilizando Ponteiros, podemos passar uma função como argumento de outra função,
+basta coletar o endereço de memória da mesma (o nome da função coincide com o
+endereço dela) e passar para um ponteiro. Depois passar o ponteiro no argumento
+da função.  A seguir temos um código de exemplo de como utilizar ponteiros para
+funções (bastando passar a variável `fp` como argumento de uma função).
 
 ```C
 int funca(int); //declarando uma função sem definir
@@ -167,5 +216,4 @@ int funcb(int n)
         return 100 * n
 }
 ```
-
 
