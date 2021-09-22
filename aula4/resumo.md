@@ -217,3 +217,17 @@ int funcb(int n)
 }
 ```
 
+### Complemento Final
+
+Para saber mais, procurar sobre as funções do bash $:
+
+1. ps aux
+2. ps aux | wc -l
+3. ps -ef
+4. top (u)
+5. htop
+6. lscpu
+
+Função `C`:
+1. atoi() -> alphabet to integer
+7. 
