@@ -1,3 +1,26 @@
+## Retomando aos processos
+
+Nas últimas, foram debatidos diversos aspectos dos processos dos SO (Sistemas Operacionais). Esses aspectos orbitam os 6 pontos enfatizado a seguir:
+
+
+
+1. Identificar os componentes de um processo.
+2. Criação e Término de processos
+3. Comunicação entre processos: *Shared Memory* x *Message Passing*.
+4. Exemplos de comunicação com pipes e *POSIX Shared Memory*.
+5. Arquitetura Produtor-Consumidor
+6. Projetar Módulos do kernel que interajam com o Linux
+
+
+Para o capítulo atual, foi proposto uma breve introdução aos elementos já debatidos anteriormente, com a adição de novos elementos ainda não citados.
+
+### Componentes de um processo.
+
+Um processo pdoe ser visto
+Na memória principal, um processo é um conjunto de quatro sessões
+
+
+
 ## Threads - criação em `C`
 
 Há duas grandes vantagens
