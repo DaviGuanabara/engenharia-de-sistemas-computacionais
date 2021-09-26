@@ -87,10 +87,32 @@ O ciclo de criação e término de um processo, mostrado na Figura 9, passa pela
 Alguns sistemas não permitem que um processo "viva" sem que o "pai" exista. Então, se o "pai" for encerrado, todos os "filhos" serão encerrados. Da mesma forma que os filhos dos filhos. Fenômeno chamado de *cascading termination*
 
 Ao chamar a função `exit()`, um processo filho tem seus recursos deslocados pelo sistema operacional. Porém ele continua na tabela de processos até o processo pai executar a função `wait()`, pois nessa tabela está contido o estado de saída do mesmo. Durante essa transição, de seus recursos terem sido deslocados mas ainda estar na tabela de processos, o processo é chamado de `Zumbie`, o que, normalmente, ocorre para todos os processos em um curto período de tempo.
-Se o pai não chamar a função `wait()` e terminar sua execução, os processos filhos passarão a ser chamados de processos `orfãos`. O Sistema Operacional Linux utiliza de outros processos para herdar os `òrfãos` e libera-los da tabela de processos chamando a função `wait()`.
+Se o pai não chamar a função `wait()` e terminar sua execução, os processos filhos passarão a ser chamados de processos `òrfãos`. O Sistema Operacional Linux utiliza de outros processos para herdar os `òrfãos` e libera-los da tabela de processos chamando a função `wait()`.
+
 
 
 ### Comunicação entre processos: *Shared Memory* x *Message Passing*.
+
+Um processo pode ter sido criado com o objetivo de executar um algoritmo que independe de outros processos (processo chamado de independente). Ou, pode ter sido criado para cooperar com outros processos (processo chamado de cooperativo). Para que a cooperação ocorra, é necessário criar um canal de comunicação (um *Interprocess Communication - IPC* ), de tal maneira que os dados possam ser transmitidos de uma para outra. Há dois métodos para tal: o *Shared Memory* (compartilhamento de memória); e o *Message Passing* (sistema de passagem de mensagem).
+
+Há várias razões para ter um processo cooperativo.
+1. Troca de informações: Compartilhamento de informações interessantes.
+2. Aceleração computacional: Dividir uma tarefa em várias pequenas partes.
+3. Modularidade: Com as funções do sistema dividido em diferentes processos ou threads.
+
+
+#### Shared Memory
+
+Esse método torna acess
+
+shared memory and message passing.
+
+
+
+
+
+
+
 
 
 Ao ser executado, o processo não é carregado integralmente para a CPU, e sim uma unidade de trabalho chamada de Thread.
