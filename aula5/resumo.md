@@ -69,7 +69,7 @@ O responsável por depositar e recolher os PCB's dessas filas é o *process Sche
 *Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 113.*
 
 
-O *CPU Scheduling*, por sua vez, tem como papel recolher unm processo da fila *ready* para um núcleo de processamento. Para ser alocado na CPU, é necessário salvar o estado do processo anteriormente alocado, bem como os elementos necessários para continuar processando-o posteriormente, e carregar o novo contexto de execução. No decorrer dessa tarefa, chamada de *Context Switch*, a CPU fica ociosa, como mostra a Figura 7.
+O *CPU Scheduling*, por sua vez, tem como papel recolher um processo da fila *ready* para um núcleo de processamento. Para ser alocado na CPU, é necessário salvar o estado do processo anteriormente alocado, bem como os elementos necessários para continuar processando-o posteriormente, e carregar o novo contexto de execução. No decorrer dessa tarefa, chamada de *Context Switch*, a CPU fica ociosa, como mostra a Figura 7.
 
 
 *Figura 7: Diagrama da troca de contexto*
@@ -101,7 +101,7 @@ O ciclo de criação e término de um processo, mostrado na Figura 9, passa pela
 Alguns sistemas não permitem que um processo "viva" sem que o "pai" exista. Então, se o "pai" for encerrado, todos os "filhos" serão encerrados. Da mesma forma que os filhos dos filhos. Fenômeno chamado de *cascading termination*
 
 Ao chamar a função `exit()`, um processo filho tem seus recursos deslocados pelo sistema operacional. Porém ele continua na tabela de processos até o processo pai executar a função `wait()`, pois nessa tabela está contido o estado de saída do mesmo. Durante essa transição, de seus recursos terem sido deslocados mas ainda estar na tabela de processos, o processo é chamado de `Zumbie`, o que, normalmente, ocorre para todos os processos (ao serem terminados) por um curto período de tempo.
-Se o pai não chamar a função `wait()` e terminar sua execução, os processos filhos passarão a ser chamados de processos `òrfãos`. O Sistema Operacional Linux utiliza de outros processos para herdar os `òrfãos` e libera-los da tabela de processos chamando a função `wait()`.
+Se o pai não chamar a função `wait()` e terminar sua execução, os processos filhos passarão a ser chamados de processos `órfãos`. O Sistema Operacional Linux utiliza de outros processos para herdar os `órfãos` e libera-los da tabela de processos chamando a função `wait()`.
 
 
 
@@ -117,7 +117,7 @@ Há várias razões para ter um processo cooperativo.
 
 #### Shared Memory
 
-*Shared Memory* é o método que torna uma faixa de endereços de memória acessível à diferentes processos. Por quesões de segurança, o sistema operacional (de forma padrão) não permite que os processos tenham acesso aos espaços de memória dos outros. Para que esse método ocorra, é fundamental que todos os processos participantes desse método concordem em compartilhar a sua faixa de memória. Após executado, o sistema operacional não mais intervem, deixando para os processos a responsabilidade de garantir que não ocorra o problema chamado *Race Conditions* (ou condição de simultaneidade).
+*Shared Memory* é o método que torna uma faixa de endereços de memória acessível à diferentes processos. Por quesões de segurança, o sistema operacional (de forma padrão) não permite que os processos tenham acesso aos espaços de memória dos outros. Para que esse método ocorra, é fundamental que todos os processos participantes desse método concordem em compartilhar a sua faixa de memória. Após executado, o sistema operacional não mais intervem, deixando para os processos a responsabilidade de garantir que não ocorra o problema chamado *Race Conditions* (ou condição de disputa).
 
 O *Race Conditions* decorre de um problema de *concurrency* (simultaneidade) entre os diferentes processos, como a escrita em um mesmo endereço de memória transcorrendo por mais de um processo ao mesmo tempo.
 
