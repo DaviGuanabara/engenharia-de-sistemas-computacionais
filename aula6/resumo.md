@@ -368,7 +368,7 @@ There are now 0 bottles of beer on the wall
 
 ### Técnicas de paralelismo.
 
-Fundamentalmente, existem dois tipos diferentes de paralelismo, o paralelismo de tarefas, que consiste em dividir multiplas tarefas compartilhando os dados necessários, e o paralelismo de dados, o qual há uma distribuição dos dados sobre as tarefas.
+Fundamentalmente, existem dois tipos diferentes de paralelismo, o paralelismo de tarefas (*task parallelism*), que consiste em dividir multiplas tarefas compartilhando os dados necessários, e o paralelismo de dados (*data parallelism*), o qual há uma distribuição dos dados sobre as tarefas.
 
 
 *Figura 5: Processos com uma ou múltiplas threads*
