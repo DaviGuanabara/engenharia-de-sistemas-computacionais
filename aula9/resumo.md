@@ -44,5 +44,5 @@ Normalmente a transmissão não ocorre de um modo direto entre o emissor e o rec
 
 ### Repasse.
 
-O repasse dos dados é feita utilizando a técnica *store and fowarding*.
+O repasse dos dados é feita utilizando a técnica *store and fowarding*, no qual cada pacote "pula" de um dispositivo para o outro, sendo armazenado (store) e repassado (foward) em seguida.
 
