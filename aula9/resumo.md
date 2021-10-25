@@ -1,5 +1,5 @@
 
-#### Packet-switching: srote-and-foard
+#### Packet-switching: store-and-foard
 
 Até agora, falamos sobre as pontas da internet. Agora vamos falar sobre o seu núcleo.
 
