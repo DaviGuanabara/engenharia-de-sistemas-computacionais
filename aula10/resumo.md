@@ -8,9 +8,13 @@ Quando um usuário acessa um *site* na Internet, o mesmo digita um nome, por exe
 Sabendo que o sistema de endereçamento utilizado é baseado no TCP/IP, como o navegador é capaz de converter o nome digitado no endereço de IP (*Internet Protocol*) do servidor requisitado ?
 Essa tradução é feita pelo *Domain Name System* (DNS).
 
-O DNS é um protocolo da camada de aplicação no qual fornece o serviço de tradução de *hostnames* (nome dos servidores) em IP *address*. Seu funcionamento é baseado em um sistema de banco de dados distribuidos o qual é implementado em uma hierarquia de servidores.
+O DNS é um protocolo da camada de aplicação que roda em UDP (usando a porta 53) no qual fornece o serviço de tradução de *hostnames* (nome dos servidores) em IP *address*. Seu funcionamento é baseado em um sistema de banco de dados distribuidos implementado em uma hierarquia de servidores. 
 
 
-Ele func
+Essa arquitetura fora adotada, em contraste com o *design* centralizado, por evitar:
 
-funciona como um banco de dados distribuidos com servidores em hierarquia, com
+1. Único ponto de falha
+2. Volume de tráfego
+3. Banco de dados distante do usuário
+4. Manutenção
+5. Baixa escalabilidade
