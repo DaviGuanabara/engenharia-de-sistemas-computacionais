@@ -18,12 +18,12 @@ URL: http://www.google.com/search?q=alguma+coisa
 
 A mensagem HTTP *request* segue o seguinte padrão:
 
-*Request Line*         : `GET /somedir/page.html HTTP/1.1 \r\n`  (= Método + URL + HTTP *version* + *carriage return and line feed*) \
+*Request Line*: `GET /somedir/page.html HTTP/1.1 \r\n`  (= Método + URL + HTTP *version* + *carriage return and line feed*) \
 *Header lines* (line 1): `HOST: www.google.com.br \r\n`          (*host* no qual hospeda o objeto requisitado) \
 *Header lines* (line 2): `Connection: Mozilla/5.0 \r\n`          (navegador *Firefox*) \
 *Header lines* (line 3): `Accept-language: fr \r\n`              (prefere a versão em língua francesa) \
-*Header lines* (line x): `... \r\n`                              (outras configurações) \ 
-*Entity body* (line x) : `\r\n`                                   (pode ficar vazio, como no método *GET*, ou preenchido, como no método *POST*)
+*Header lines* (line x): `... \r\n`                              (outras configurações) \
+*Entity body*  (line y): `\r\n`                                  (pode ficar vazio, como no método *GET*, ou preenchido, como no método *POST*)
 
 
 
@@ -31,14 +31,14 @@ A mensagem HTTP *request* segue o seguinte padrão:
 
 A mensagem HTTP *response* segue o seguinte padrão:
 
-*Status Line*          : `HTTP/1.1 200 OK \r\n`                                  (Tudo ocorreu bem) \
+*Status Line*: `HTTP/1.1 200 OK \r\n`                                  (Tudo ocorreu bem) \
 *Header lines* (line 1): `Connection: close \r\n`                                (*server* irá encerrar a conexão) \
 *Header lines* (line 2): `Date: Tue, 18 Aug 2015 15:44:04 GMT \r\n`              (data em que o *response* foi enviado) \
 *Header lines* (line 3): `Server: Apache/2.2.3 \r\n`                             (nome do servidor) \
 *Header lines* (line 4): `Last-Modified: Tue, 18 Aud 2015 15:11:03 GMT`          (data da última modificação) \
 *Header lines* (line 5): `Content-Length: 6821 \r\n`                             (número de bytes do objeto enviado - O mesmo está em *Entity body*) \
 *Header lines* (line 6): `Content-Type: text/html \r\n`                          (indica o formato do objeto, no caso uma página html) \
-*Entity body*          : `... \r\n`                                              (dados do objeto)
+*Entity body* (line y): `... \r\n`                                              (dados do objeto)
 
 
 
