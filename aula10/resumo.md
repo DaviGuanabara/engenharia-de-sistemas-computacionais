@@ -76,7 +76,7 @@ Figura 02: Modelo Recursivo \
 Nos dois casos apresentados anteriormente, foi necessário 8 DNS *query messages* para a execução do serviço de tradução de *hostname* para IP *address*. Porém, de forma a minimizar os impactos de tantas requisições, o *local server* utiliza um sistema de armazenamento temporário (pois o mapeamento entre *hostname* e IP *address* não é permanente, alterando-se com o tempo) da tradução, fazendo com o número de DNS *query messages* caia para apenas 2, o *request* e o *response* entre o usuário e o *local server*.
 
 
-##### Resource Records
+##### *Resource Records*
 
 
 O DNS é um banco de dados distribuidos que armazena uma tupla de 4 elementos, *Name*, *Value*, *Type* e *time to live* (TTL), o qual é utilizado para prover, entre outros, o mapeamento *hostname* para IP *address*. O dado armazenado em cada um dos 2 primeiros elementos citados da tupla variam conforme o *type*. O último elemento especifica quando o *resource record* deve ser removido do *cache*.
@@ -108,4 +108,10 @@ O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
 2.4. *recursion-available field*: ajustado na resposta se o DNS *server* suporta recursão
 3. *Number fields*: cada campo indica o número de ocorrências de cada sessão de dados
 4. *Questions*: contém informações como: *host address* e *name*, para *type* A.
-5. *Answers*: populado pelo DNS *server*, contém os *resource records* para o *name* originalmente requisitado.
+5. *Answers*: populado pelo DNS *server*, contém os *resource records* para o *hostname* requisitado.
+6. *Authority*: *records* de *authority servers*
+7. *Additional information*: contém outras informações interessantes.
+
+##### Adicionando RR no banco de dados DNS
+
+A verificação (de unicidade) e adição de um novo RR no DNS é feito através de entidades comerciais chamadas de *registrar*, as quais são acreditados pela *Internet Assigned Names and Numbers* (ICANN). Para a adição, é necessário prover o *domain name*, por exemplo `google.com.br`, e o endereço de IP do DNS primário e secundário `dns1.network`
