@@ -106,6 +106,5 @@ O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
 2.2. *authoritative flag*: indica se o *response* vem de um *authorative server*
 2.3. *recursion-desire*: indica o desejo do modelo recursão para as requisições (como mostrado anteriormente)
 2.4. *recursion-available field*: ajustado na resposta se o DNS *server* suporta recursão
-3. *Number fields*: cada campo indica o número de ocorrências de cada campo 
-
-
+3. *Number fields*: cada campo indica o número de ocorrências de cada sessão de dados
+4. *Questions*: contém informações como: *host address* e *name*, para *type* A.
