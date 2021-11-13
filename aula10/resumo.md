@@ -45,7 +45,7 @@ No modelo iterativo, o *local server* envia um *request* para cada um dos servid
 4. Com o *response* do TLD *server*: *Request* para o *Authorative server*
 5. Envia uma resposta para o usuário.
 
-![image](https://user-images.githubusercontent.com/6050827/141654101-f0195c23-4b3c-4264-b334-26ec1392bd3b.png)
+![image](imagens/modelo%20iterativo.png)
 
 
 
