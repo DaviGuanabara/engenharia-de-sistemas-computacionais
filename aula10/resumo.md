@@ -20,4 +20,32 @@ Essa arquitetura fora adotada, em contraste com o *design* centralizado, por evi
 5. Baixa escalabilidade
 
 
-#### Hierarquia 
+#### Hierarquia e funcionamento
+
+
+A hierarquia de servidores de DNS é comporta por:
+
+0. *Local*: Não pertence a hierarquia, mas é de suma importância. É proporcionado pelo *Internet Service Provider* (IPS, debatido em aulas anteriores) 
+1. *Root*: cópia de 13 servidores, gerenciados por 12 diferentes organizações, e coordenado pela Internet Assigned Numbers Authority (IANA)
+2. *top-level domain* (TLD): fornece o IP *address* para os *authoratives servers*. É mantido por diferentes empresas, como o Verisign Global Registry (*.com*) e Educause (*.edu*)
+3. *Authoritative*: toda organização com acesso público deve prover servidores DNS (que pode ser mantido por eles ou por terceiros), com o *primary* sendo o servidor principal e o *secondary* o de *backup*.
+
+Voltando ao exemplo do `www.google.com.br`, quando um usuário digita esse *hostname* e aperta enter, o navegador (*browser*) gera uma uma estrutura de dados, chamada de DNS *query* *message* (ou mensagem de consulta DNS), com uma série de informações, como o nome `www.google.com.br`, que serão enviadas para o *local* DNS *server*.
+
+
+A partir do *local* DNS *server*, pode ocorrer duas formas de interação: recursiva e iterativa.
+
+##### Iterativa
+
+No modelo iterativo, o *local server* envia um *request* para cada um dos servidores da hierarquia:
+
+1. Recebe o *request* do computador do usuário
+2. *Request* para o *Root server*
+3. Com o *response* do *Root server*: *request* para o TLD *server*
+4. Com o *response* do TLD *server*: *Request* para o *Authorative server*
+5. Envia uma resposta para o usuário.
+
+![image](https://user-images.githubusercontent.com/6050827/141654101-f0195c23-4b3c-4264-b334-26ec1392bd3b.png)
+
+
+
