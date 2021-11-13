@@ -67,7 +67,7 @@ No modelo recursivo, a sequência de *requests* ocorrem em cadeia entre os servi
 8. Usuário: *response* do *local server*
 
 
-
+Figura 02: Modelo Recursivo \
 ![image](imagens/modelo%20recursivo.png)
 
 
@@ -88,4 +88,12 @@ A seguir será mostrado os dados contidos em *Name* e *Value* para cada caso de 
 1. A: *Name* = *hostname*, *Value* = IP *address* `(relay1.bar.foo.com, 145.37.93.126, A)` 
 2. NS: *Name* = *domain*, *Value* = *Authorative hostname server* `(foo.com, dns.foo.com, NS)` 
 3. *CNAME*: *Name* = apelido (*alias*) para *hostname* , *Value* = *hostname* `(foo.com, relay1.bar.foo.com, CNAME)` 
-4. MX: *Name* = apelido (*alias*) do *mail hostname*, *Value* = *mail hostname* `(foo.com, mail.bar.foo.com, MX)` 
+4. MX: *Name* = apelido (*alias*) do *mail hostname*, *Value* = *mail hostname* `(foo.com, mail.bar.foo.com, MX)`
+
+
+##### DNS *Messages*
+
+Figura 03: Formato do DNS *message* \
+![image](imagens/modelo%20message%20format.png)
+
+
