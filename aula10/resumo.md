@@ -15,6 +15,9 @@ Essa arquitetura fora adotada, em contraste com o *design* centralizado, por evi
 
 1. Único ponto de falha
 2. Volume de tráfego
-3. Banco de dados distante do usuário
-4. Manutenção
+3. Manutenção
+4. Distância do usuário (tempo de resposta)
 5. Baixa escalabilidade
+
+
+#### Hierarquia 
