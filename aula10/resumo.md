@@ -97,6 +97,15 @@ Figura 03: Formato do DNS *message* \
 ![image](imagens/DNS%20message%20format.png)
 
 
-O formato da mensagem DNS é dado na Figura 03
+O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
+
+
+1. Identificador: número de 16 bits que identifica a *query*
+2. Flags: cada flag é um indicador de 1 bit, no qual: 
+2.1. *query*/*reply*: indica se é uma *query* (0) ou um *reply* (1)
+2.2. *authoritative flag*: indica se o *response* vem de um *authorative server*
+2.3. *recursion-desire*: indica o desejo do modelo recursão para as requisições (como mostrado anteriormente)
+2.4. *recursion-available field*: ajustado na resposta se o DNS *server* suporta recursão
+3. *Number fields*: cada campo indica o número de ocorrências de cada campo 
 
 
