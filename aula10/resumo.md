@@ -75,3 +75,17 @@ No modelo recursivo, a sequência de *requests* ocorrem em cadeia entre os servi
 
 Nos dois casos apresentados anteriormente, foi necessário 8 DNS *query messages* para a execução do serviço de tradução de *hostname* para IP *address*. Porém, de forma a minimizar os impactos de tantas requisições, o *local server* utiliza um sistema de armazenamento temporário (pois o mapeamento entre *hostname* e IP *address* não é permanente, alterando-se com o tempo) da tradução, fazendo com o número de DNS *query messages* caia para apenas 2, o *request* e o *response* entre o usuário e o *local server*.
 
+
+##### Resource Records
+
+
+O DNS é um banco de dados distribuidos que armazena uma tupla de 4 elementos, *Name*, *Value*, *Type* e *time to live* (TTL), o qual é utilizado para prover, entre outros, o mapeamento *hostname* para IP *address*. O dado armazenado em cada um dos 2 primeiros elementos citados da tupla variam conforme o *type*. O último elemento especifica quando o *resource record* deve ser removido do *cache*.
+
+A seguir será mostrado os dados contidos em *Name* e *Value* para cada caso de *Type* (os exemplos mostrados não contém o TTL).
+
+*Type* =
+
+1. A: *Name* = *hostname*, *Value* = IP *address* `(relay1.bar.foo.com, 145.37.93.126, A)` 
+2. NS: *Name* = *domain*, *Value* = *Authorative hostname server* `(foo.com, dns.foo.com, NS)` 
+3. *CNAME*: *Name* = apelido (*alias*) para *hostname* , *Value* = *hostname* `(foo.com, relay1.bar.foo.com, CNAME)` 
+4. MX: *Name* = apelido (*alias*) do *mail hostname*, *Value* = *mail hostname* `(foo.com, mail.bar.foo.com, MX)` 
