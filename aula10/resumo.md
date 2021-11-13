@@ -108,3 +108,4 @@ O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
 2.4. *recursion-available field*: ajustado na resposta se o DNS *server* suporta recursão
 3. *Number fields*: cada campo indica o número de ocorrências de cada sessão de dados
 4. *Questions*: contém informações como: *host address* e *name*, para *type* A.
+5. *Answers*: populado pelo DNS *server*, contém os *resource records* para o *name* originalmente requisitado.
