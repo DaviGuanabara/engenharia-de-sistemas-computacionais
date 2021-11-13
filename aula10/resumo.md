@@ -41,9 +41,11 @@ No modelo iterativo, o *local server* envia um *request* para cada um dos servid
 
 1. Recebe o *request* do computador do usuário
 2. *Request* para o *Root server*
-3. Com o *response* do *Root server*: *request* para o TLD *server*
-4. Com o *response* do TLD *server*: *Request* para o *Authorative server*
-5. Envia uma resposta para o usuário.
+3. *Responde* do *Root server*
+4. *Request* para TLD *server*
+5. Com o *response* do *Root server*: *request* para o TLD *server*
+6. Com o *response* do TLD *server*: *Request* para o *Authorative server*
+7. Envia uma resposta para o usuário.
 
 ![image](imagens/modelo%20iterativo.png)
 
