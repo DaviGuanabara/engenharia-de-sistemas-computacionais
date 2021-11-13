@@ -37,7 +37,7 @@ A partir do *local* DNS *server*, pode ocorrer duas formas de interação: recur
 
 ##### Iterativa
 
-No modelo iterativo, o *local server* envia um *request* para cada um dos servidores da hierarquia:
+No modelo iterativo, o *local server* envia um *request* para cada um dos servidores da hierarquia, como mostrado na Figura 01:
 
 1. Usuário: *request* para *local server*
 2. *local server*: *request* para o *Root server*
@@ -48,35 +48,30 @@ No modelo iterativo, o *local server* envia um *request* para cada um dos servid
 7. *local server*: *response* do *Authorative server*
 8. Usuário: *response* do *local server*
 
-
-5. *Response* do *Root server*
-6. *Request* para TLD *server*
-7. 4. *Request* para TLD *server*
-8. 4. *Request* para TLD *server*
-9. 4. *Request* para TLD *server*
-10. Recebe o *request* do computador do usuário
-
-
-
-9. Com o *response* do *Root server*: *request* para o TLD *server*
-10. Com o *response* do TLD *server*: *Request* para o *Authorative server*
-11. Envia uma resposta para o usuário.
-
+Figura 01: Modelo Iterativo \
 ![image](imagens/modelo%20iterativo.png)
 
 
 ##### Recursivo
 
-No modelo iterativo, o *local server* envia um *request* para cada um dos servidores da hierarquia:
+No modelo recursivo, a sequência de *requests* ocorrem em cadeia entre os servidores:
 
-1. Recebe o *request* do computador do usuário
-2. *Request* para o *Root server*
-3. *Responde* do *Root server*
-4. *Request* para TLD *server*
-5. Com o *response* do *Root server*: *request* para o TLD *server*
-6. Com o *response* do TLD *server*: *Request* para o *Authorative server*
-7. Envia uma resposta para o usuário.
+
+1. Usuário: *request* para o *local server*
+2. *Local server*: *request* para *root server*
+3. *Root server*: *request* para TLD *server*
+4. TLD *server*: *request* para *Authorative server*
+5. TLD *server*: *response* do *Authorative server*
+6. *Root server*: *response* do TLD *server*
+7. *Local server*: *response* do *root server*
+8. Usuário: *response* do *local server*
+
+
 
 ![image](imagens/modelo%20recursivo.png)
 
+
+##### DNS *caching*
+
+Nos dois casos apresentados anteriormente, foi necessário 8 DNS *query messages* para a execução do serviço de tradução de *hostname* para IP *address*. Porém, de forma a minimizar os impactos de tantas requisições, o *local server* utiliza um sistema de armazenamento temporário (pois o mapeamento entre *hostname* e IP *address* não é permanente, alterando-se com o tempo) da tradução, fazendo com o número de DNS *query messages* caia para apenas 2, o *request* e o *response* entre o usuário e o *local server*.
 
