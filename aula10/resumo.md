@@ -94,6 +94,9 @@ A seguir será mostrado os dados contidos em *Name* e *Value* para cada caso de 
 ##### DNS *Messages*
 
 Figura 03: Formato do DNS *message* \
-![image](imagens/modelo%20message%20format.png)
+![image](imagens/DNS%20message%20format.png)
+
+
+O formato da mensagem DNS é dado na Figura 03
 
 
