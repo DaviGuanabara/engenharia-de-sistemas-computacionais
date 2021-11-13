@@ -39,6 +39,36 @@ A partir do *local* DNS *server*, pode ocorrer duas formas de interação: recur
 
 No modelo iterativo, o *local server* envia um *request* para cada um dos servidores da hierarquia:
 
+1. Usuário: *request* para *local server*
+2. *local server*: *request* para o *Root server*
+3. *local server*: *response* do *Root server*
+4. *local server*: *request* para o TLD *server*
+5. *local server*: *response* do TLD *server*
+6. *local server*: *request* para o *Authorative server*
+7. *local server*: *response* do *Authorative server*
+8. Usuário: *response* do *local server*
+
+
+5. *Response* do *Root server*
+6. *Request* para TLD *server*
+7. 4. *Request* para TLD *server*
+8. 4. *Request* para TLD *server*
+9. 4. *Request* para TLD *server*
+10. Recebe o *request* do computador do usuário
+
+
+
+9. Com o *response* do *Root server*: *request* para o TLD *server*
+10. Com o *response* do TLD *server*: *Request* para o *Authorative server*
+11. Envia uma resposta para o usuário.
+
+![image](imagens/modelo%20iterativo.png)
+
+
+##### Recursivo
+
+No modelo iterativo, o *local server* envia um *request* para cada um dos servidores da hierarquia:
+
 1. Recebe o *request* do computador do usuário
 2. *Request* para o *Root server*
 3. *Responde* do *Root server*
@@ -47,7 +77,6 @@ No modelo iterativo, o *local server* envia um *request* para cada um dos servid
 6. Com o *response* do TLD *server*: *Request* para o *Authorative server*
 7. Envia uma resposta para o usuário.
 
-![image](imagens/modelo%20iterativo.png)
-
+![image](imagens/modelo%20recursivo.png)
 
 
