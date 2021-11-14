@@ -91,12 +91,23 @@ O DNS é um banco de dados distribuidos que armazena uma tupla de 4 elementos, *
 
 A seguir será mostrado os dados contidos em *Name* e *Value* para cada caso de *Type* (os exemplos mostrados não contém o TTL).
 
-*Type* =
+`tupla = (name, value, type, ttl)`
 
-1. A: *Name* = *hostname*, *Value* = IP *address* `(relay1.bar.foo.com, 145.37.93.126, A)` 
-2. NS: *Name* = *domain*, *Value* = *Authorative hostname server* `(foo.com, dns.foo.com, NS)` 
-3. *CNAME*: *Name* = apelido (*alias*) para *hostname* , *Value* = *hostname* `(foo.com, relay1.bar.foo.com, CNAME)` 
-4. MX: *Name* = apelido (*alias*) do *mail hostname*, *Value* = *mail hostname* `(foo.com, mail.bar.foo.com, MX)`
+*Type* A \
+*Name* = *hostname*, *Value* = IP *address* \
+Tupla: `(relay1.bar.foo.com, 145.37.93.126, A)` 
+
+*Type* NS \
+*Name* = *domain*, *Value* = *Authorative hostname server* \
+Tupla: `(foo.com, dns.foo.com, NS)` 
+
+*Type CNAME* \
+*Name* = apelido (*alias*) para *hostname* , *Value* = *hostname* \
+Tupla: `(foo.com, relay1.bar.foo.com, CNAME)`
+
+*Type MX* \
+*Name* = apelido (*alias*) do *mail hostname*, *Value* = *mail hostname* \
+Tupla: `(foo.com, mail.bar.foo.com, MX)`
 
 
 ##### DNS *Messages*
@@ -109,20 +120,20 @@ O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
 
 
 1. Identificador: número de 16 bits que identifica a *query*
-2. Flags: cada flag é um indicador de 1 bit, no qual: 
-2.1. *query*/*reply*: indica se é uma *query* (0) ou um *reply* (1)
-2.2. *authoritative flag*: indica se o *response* vem de um *authorative server*
-2.3. *recursion-desire*: indica o desejo do modelo recursão para as requisições (como mostrado anteriormente)
-2.4. *recursion-available field*: ajustado na resposta se o DNS *server* suporta recursão
+2. Flags: cada flag é um indicador de 1 bit, no qual: \
+2.1. *query*/*reply*: indica se é uma *query* (0) ou um *reply* (1) \
+2.2. *authoritative flag*: indica se o *response* vem de um *authorative server* \
+2.3. *recursion-desire*: indica o desejo do modelo recursão para as requisições (como mostrado anteriormente) \
+2.4. *recursion-available field*: ajustado na resposta, indica se o DNS *server* suporta recursão 
 3. *Number fields*: cada campo indica o número de ocorrências de cada sessão de dados
 4. *Questions*: contém informações como: *host address* e *name*, para *type* A.
-5. *Answers*: populado pelo DNS *server*, contém os *resource records* para o *hostname* requisitado.
+5. *Answers*: populado pelo DNS *server*, contém os *resource records* para o *hostname* requisitado. 
 6. *Authority*: *records* de *authority servers*
 7. *Additional information*: contém outras informações interessantes.
 
 ##### Adicionando RR no banco de dados DNS
 
-A verificação (de unicidade) e adição de um novo RR no DNS é feito através de entidades comerciais chamadas de *registrar*, as quais são acreditados pela *Internet Assigned Names and Numbers* (ICANN). Para a adição, é necessário prover o *domain name*, por exemplo `google.com.br`, e o endereço de IP do DNS primário e secundário.
+A verificação (de unicidade) e adição de um novo RR no DNS é feito através de entidades comerciais chamadas de *registrar*, as quais são acreditadas pela *Internet Assigned Names and Numbers* (ICANN). Para a adição, é necessário prover o *domain name*, por exemplo `google.com.br`, e o endereço de IP do DNS primário e secundário.
 
 
 #### Complementar
