@@ -114,6 +114,7 @@ Tupla: `(foo.com, mail.bar.foo.com, MX)`
 
 Figura 03: Formato do DNS *message* \
 ![image](imagens/DNS%20message%20format.png)
+*Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 133.*
 
 
 O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
