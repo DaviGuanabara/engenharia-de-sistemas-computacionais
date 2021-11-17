@@ -6,14 +6,12 @@ O objetivo da camada de transporte (*transport layer*), executada nas pontas da 
 
 A multiplexação e demutiplexação são possíveis devido à estrutura de dados *4-tuple*, no qual está contido os endereços de IP da origem e do destino, e os identificadores únicos de 16 *bits*, chamado de porta (*port*), dos *sockets* de origem e destino. 
 
-Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino descrita no *header* do *segment*  (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação, ocorrendo no *request*, e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação. 
+Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino descrita no *header* do *segment*  (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação, ocorrendo no *request*, e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação.
+
+É importante perceber que um processo pode conter multiplos *sockets*, com cada um associando-se à uma *thread*. Assim, em servidores HTTP atuais, por exemplo, cada *request* recebido gera um novo conjunto *thread* e *socket* e o fim da conexão encerra esse conjunto. Portanto, o período de vida do *thread* e *socket* pode ser longo, durando toda a comunicação no modo persistente, ou curto, com a conexão encerrando-se logo após o envio do *response* no modo não persistente.
+Requisições frequentes no modo não persistente podem impactar no desempenho do sistema.
 
 
-Assim, na demultiplexação, utilizando-se dessa estrutura, o protocolo da macada de transporte direciona o *segment* recebido para o respectivo *socket*. O 
-
-No UDP, 
-
-Porém, os serviços disponibilizados por essa camada ir
 
 
-A camada de transporte tem, como principal responsabilidade, expandir as capacidades da *network layer*
+
