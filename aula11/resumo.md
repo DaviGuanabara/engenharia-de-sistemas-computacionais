@@ -17,3 +17,28 @@ Figura 01: Multiplexação e Demultiplexação \
 ![image](imagens/Multiplexação%20e%20Demultiplexação.png)
 
 
+### *Reliable Data Transfer Protocol*
+
+Para entender melhor sobre como funciona uma transferência de dados confiável (*Reliable Data Transfer Protocol*, RDT), será adotada uma máquina computacional abstrada com um número finito de estados, no qual assume somente um único estado por vez, chamada de Máquina de Estados Finitos (*Finite-State Machine*, FSM).
+
+A cada nível de RDT será adicionado uma nova camada de complexidade, até chegar no modelo mais próximo do real.
+
+
+#### RDT 1.0
+
+
+No primeiro caso, consideramos que as camadas mais baixas são confiáveis. Ou seja não há perda ou alteração de dados e nem alteração na ordem de envio.
+Assim:
+
+Emissor:
+
+1. rdt_send(data)
+2. packet=make_pkt(data)
+3. udt_send(packet)
+
+Receptor:
+
+1. deliver_data(data)
+2. extract(packet,data)
+3. rdt_rcv(packet)
+
