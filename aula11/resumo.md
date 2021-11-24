@@ -1,5 +1,5 @@
 
-### *Transport-Layer*
+### *Transport-Layer* (Aula dia 10/11)
 
 O objetivo da camada de transporte (*transport layer*), executada nos dispositivos localizados nas pontas da comunicação, é extender as funcionalidades da *network layer* com a preparação e envio dos dados enviados pelos diferentes *sockets*, técnica chamada de *multiplexação*, e o direcionamento do pacote recebido para o *socket* competente, procedimento chamado de demultiplexação. Dessa maneira, do ponto de vista da aplicação, a *transport layer* provê uma comunicação lógica, como se os processos estivessem interconectados diretamente, algo similar ocorre na *network layer*. Porém os diferentes protocolos existentes nessa camada podem fornecer serviços adicionais, como confiabilidade da transferência dos dados e controle de congestionamento, ambos presentes no protocolo TCP (*Transmission Control Protocol*, ou Protocolo de Controle de Transmissão) e não encontrados no UDP (*User Datagram Protocol*).
 
