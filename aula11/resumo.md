@@ -38,8 +38,15 @@ Emissor:
 
 Receptor:
 
-1. deliver_data(data)
-2. extract(packet,data)
-3. rdt_rcv(packet)
+4. rdt_rcv(packet)
+5. extract(packet,data)
+6. deliver_data(data)
+
+
+
+#### RDT 2.0
+
+Em RDT 2.0, vamos considerar que, durante a transmissão, algum bit pode ter sido corrompido. Assim, é necessário utilizar o protocolo ARQ (*Automatic Repeat reQuest*), o qual é baseado em três pontos: detecção de erro, permitindo o receptor reconhecer a ocorrência de erro; o *feedback* do receptor, com o parecer positivo (equivalente à "entendi!") (ACK) ou negativo (equivalente à "pode repetir?") (NAK) (em princípio, esse retorno basta ser de 1 bit de tamanho, sendo 0 para negativo e 1 para positivo); e retrasmissão, com o emissor reenviando os pacotes caso tenha recebido uma negativa (NAK) do receptor.
+
 
 
