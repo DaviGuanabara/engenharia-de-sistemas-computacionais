@@ -96,4 +96,11 @@ Como pode-se observar, não há como determinar um tempo "garantidor", pois um a
 
 A determinação do tempo sofre de uma dicotomia, pois há vantagens e desvantagens tanto com o aumento como com a diminuição do mesmo. Quanto menor for o tempo, maior a chance de ocorrer falsas perdas (ocasionando duplicações na emissão) por consequência de atrasos na rede. Porém, incrementos nesse tempo podem impactar na velocidade da resposta do emissor, pois o mesmo poderá ficar longos períodos de inatividade aguardando uma resposta (perdida durante a transmissão). Assim, a melhora na efetividade do protocolo passa pela derterminação de um tempo de espera ótimo (provavelmente desenvolvido para o atraso mais frequênte).
 
+A Figura 02 mostra como o protocolo RDT 3.0 funciona.
+
+
+Figura 02: Protocolo RDT 3.0 \
+![image](imagens/rdt%203.0.png)
+
+
 
