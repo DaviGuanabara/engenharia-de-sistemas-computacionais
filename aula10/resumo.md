@@ -141,6 +141,6 @@ A verificação (de unicidade) e adição de um novo RR no DNS é feito através
 
 1. https://alexanderell.is/posts/rpc-from-scratch/
 2. https://datatracker.ietf.org/doc/html/rfc/
-3. DNS over HTTPS (DoH): https://developers.cloudflare.com/1.1.1.1/encrypted-dns/dns-over/https/encrypted-dns-browsers
-4. DNS over TLS (DoT)
+3. DNS over HTTPS (DoH): https://datatracker.ietf.org/doc/html/rfc8484 
+4. DNS over TLS (DoT): https://datatracker.ietf.org/doc/html/rfc8310 
 
