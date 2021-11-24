@@ -37,7 +37,9 @@ Emissor:
 2. packet=make_pkt(data)
 3. udt_send(packet)
 
+
 Receptor:
+
 
 4. rdt_rcv(packet)
 5. extract(packet,data)
@@ -53,33 +55,38 @@ Em RDT 2.0, vamos considerar que, durante a transmissão, algum bit pode ter sid
 Emissor:
 
 Envia os dados
+
 1. rdt_send(data)
 2. sndpkt = make_pkt(data,checksum)
 3. udt_send(sndpkt)
 
-Espera por uma resposta
+
+Espera por uma resposta \
 (reemissão em caso de NAK)
 7. rdt_rcv(rcvpkt) && isNAK(rcvpkt)
 8. udt_send(sndpkt)
 
-(Encerra estado em caso de ACK)
+
+(Encerra estado em caso de ACK) \
 9. rdt_rcv(rcvpkt) && isACK(rcvpkt)
 
 
 Receptor:
 (Caso dados corrompidos)
+
 4. rdt_rcv(rcvpkt) && corrupt(rcvpkt)
-5. 
-(Resposta)
+
+(Resposta) \
 5. sndpkt=make_pkt(NAK)
 6. udt_send(sndpkt)
 
 (Caso dados não-corrompidos)
+
 4. rdt_rcv(rcvpkt) && notcorrupt(rcvpkt)
 5. extract(rcvpkt,data)
 6. deliver_data(data)
 
-(Resposta)
+(Resposta) \
 7. sndpkt = make_pkt(ACK)
 8. udt_send(sndpkt)
 
