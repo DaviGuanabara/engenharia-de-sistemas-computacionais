@@ -1,12 +1,12 @@
 
 ### *Transport-Layer* (Aula dia 10/11)
 
-O objetivo da camada de transporte (*transport layer*), executada nos dispositivos localizados nas pontas da comunicação, é extender as funcionalidades da *network layer* com a preparação e envio dos dados enviados pelos diferentes *sockets*, técnica chamada de *multiplexação*, e o direcionamento do pacote recebido para o *socket* competente, procedimento chamado de demultiplexação. Dessa maneira, do ponto de vista da aplicação, a *transport layer* provê uma comunicação lógica, como se os processos estivessem interconectados diretamente, algo similar ocorre na *network layer*. Porém os diferentes protocolos existentes nessa camada podem fornecer serviços adicionais, como confiabilidade da transferência dos dados e controle de congestionamento, ambos presentes no protocolo TCP (*Transmission Control Protocol*, ou Protocolo de Controle de Transmissão) e não encontrados no UDP (*User Datagram Protocol*).
+O objetivo da camada de transporte (*transport layer*), executada nos dispositivos localizados nas pontas da comunicação, é extender as funcionalidades da *network layer* com a preparação e envio dos dados transmitidos pelos diferentes *sockets*, técnica chamada de *multiplexação*, e o direcionamento do pacote recebido para o *socket* competente, procedimento chamado de demultiplexação. Dessa maneira, do ponto de vista da aplicação, a *transport layer* provê uma comunicação lógica, como se os processos estivessem interconectados diretamente [algo similar ocorre na *network layer*]. Porém os diferentes protocolos existentes nessa camada podem fornecer serviços adicionais, como confiabilidade da transferência dos dados e controle de congestionamento, ambos presentes no protocolo TCP (*Transmission Control Protocol*, ou Protocolo de Controle de Transmissão) e não encontrados no UDP (*User Datagram Protocol*).
 
 
 A multiplexação e demutiplexação, ambas demonstradas graficamente na Figura 01, são possíveis devido à estrutura de dados *4-tuple*, no qual está contido os endereços de IP da origem e do destino, e os identificadores únicos de 16 *bits*, chamado de porta (*port*), dos *sockets* de origem e destino.
 
-Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino, descrita no *header* do *segment*, (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação, ocorrendo no *request*, e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação.
+Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino, descrita no *header* do *segment*, (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação (ocorrendo no *request*) e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação.
 Na Figura 01 pode ser observado como os dados contidos na *4-tuple* podem variar conforme o protocolo escolhido.
 
 É importante perceber que um processo pode conter multiplos *sockets*, com cada um associando-se à uma *thread*. Assim, em servidores HTTP atuais, por exemplo, cada *request* recebido gera um novo conjunto *thread* e *socket* e o fim da conexão encerra esse conjunto. Portanto, o período de vida do *thread* e *socket* pode ser longo, durando toda a comunicação no modo persistente, ou curto, com a conexão encerrando-se logo após o envio do *response* no modo não persistente.
@@ -49,7 +49,7 @@ Receptor:
 
 #### RDT 2.0
 
-Em RDT 2.0, vamos considerar que, durante a transmissão, algum bit pode ter sido corrompido. Assim, é necessário utilizar o protocolo ARQ (*Automatic Repeat reQuest*), o qual é baseado em três pontos: detecção de erro, permitindo o receptor reconhecer a ocorrência de erro; o *feedback* do receptor, com o parecer positivo (equivalente à "entendi!") chamado de ACK ou negativo (equivalente à "pode repetir?"), denominado de NAK, (em princípio, esse retorno basta ser de 1 bit de tamanho, sendo 0 para negativo e 1 para positivo); e retrasmissão, com o emissor reenviando os pacotes caso tenha recebido uma negativa (NAK) do receptor.
+Em RDT 2.0, vamos considerar que, durante a transmissão, algum bit pode ter sido corrompido. Assim, é necessário utilizar o protocolo ARQ (*Automatic Repeat reQuest*), o qual é baseado em três pontos: detecção de erro, permitindo o receptor reconhecer a ocorrência de erro; o *feedback* do receptor, com o parecer positivo (equivalente à "entendi!") chamado de ACK ou negativo (equivalente à "pode repetir?"), denominado de NAK (em princípio, esse retorno basta ser de 1 bit de tamanho, sendo 0 para negativo e 1 para positivo); e retrasmissão, com o emissor reenviando os pacotes caso tenha recebido uma negativa (NAK) do receptor.
 
 
 Emissor:
@@ -91,9 +91,9 @@ Receptor:
 8. udt_send(sndpkt)
 
 
-É importante perceber alguns detalhes desse protocolo. Primeiro, esse protocolo é conhecido por *stop-and-wait* pois o emissor não pode receber nenhum comando do seu operador enquanto estiver esperando uma resposta do receptor. Isso só ocorre quando a máquina estiver em um estado apropriado. Segundo, não foi considerada a possibilidade do ACK e NAK estarem corrompidos.
+É importante perceber alguns detalhes desse protocolo. Primeiro, esse protocolo é conhecido por *stop-and-wait* pois o emissor não pode receber nenhum comando do seu operador enquanto estiver esperando uma resposta do receptor (novos comandos só correm quando a máquina estiver em um estado apropriado). Segundo, não foi considerada a possibilidade do ACK e NAK estarem corrompidos.
 
-Para o segundo caso, há duas variações do RDT 2.0 no qual é implementado um protocolo análogo ao incremento feito de RDT 1.0 para 2.0, o RDT 2.1 e 2.2.
+Para o segundo caso, há duas variações do RDT 2.0 no qual é implementado um protocolo análogo ao incremento feito de RDT 1.0 para 2.0, chamados de RDT 2.1 e 2.2.
 
 #### RDT 3.0
 
@@ -112,10 +112,11 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 
 #### Performace
 
-O fundamento dos protocolos mencionados é enviar 1 pacote e esperar por sua resposta. Uma forma de melhorar a performace é utilizar um pardão de enviar multiplos pacotes antes de entrar no estado de espera da resposta de cada um, como mostrado na Figura 03.
+O fundamento dos protocolos mencionados é enviar 1 pacote e esperar por sua resposta. Uma forma de melhorar a performace é utilizar um pardão de enviar multiplos pacotes antes de entrar no estado de espera da resposta de cada um, método chamado de *pipeline*, como mostrado na Figura 03.
 
 
 Figura 03: *Stop-and-wait vs pipelined*\
 ![image](imagens/stop%20and%20wait%20vs%20pipelined.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 213.
 
+Erros na abordagem do *pipeline* são abordados nos protocolos *go-back-n* e *selective repeat*, ambos tratados na próxima aula.
