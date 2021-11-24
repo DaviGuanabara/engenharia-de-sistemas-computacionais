@@ -17,6 +17,7 @@ Figura 01: Multiplexação e Demultiplexação \
 ![image](imagens/Multiplexação%20e%20Demultiplexação.png)
 
 
+
 ### *Reliable Data Transfer Protocol*
 
 Para entender melhor sobre como funciona uma transferência de dados confiável (*Reliable Data Transfer Protocol*, RDT), será adotada uma máquina computacional abstrada com um número finito de estados, no qual assume somente um único estado por vez, chamada de Máquina de Estados Finitos (*Finite-State Machine*, FSM).
@@ -100,6 +101,14 @@ A Figura 02 mostra um exemplo do funcionamento do protocolo RDT 3.0 (também con
 
 Figura 02: Protocolo RDT 3.0 \
 ![image](imagens/rdt%203.0.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 212.
+
+#### Performace
+
+O fundamento dos protocolos mencionados é enviar 1 pacote e esperar por sua resposta. Uma forma de melhorar a performace é utilizar um pardão de enviar multiplos pacotes antes de entrar no estado de espera da resposta de cada um, como mostrado na Figura 03.
 
 
+Figura 03: *Stop-and-wait vs pipelined*\
+![image](imagens/stop%20and%20wait%20vs%20pipelined.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 213.
 
