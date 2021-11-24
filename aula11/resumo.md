@@ -68,6 +68,7 @@ Espera por uma resposta
 Receptor:
 (Caso dados corrompidos)
 4. rdt_rcv(rcvpkt) && corrupt(rcvpkt)
+5. 
 (Resposta)
 5. sndpkt=make_pkt(NAK)
 6. udt_send(sndpkt)
@@ -76,6 +77,23 @@ Receptor:
 4. rdt_rcv(rcvpkt) && notcorrupt(rcvpkt)
 5. extract(rcvpkt,data)
 6. deliver_data(data)
+
 (Resposta)
 7. sndpkt = make_pkt(ACK)
 8. udt_send(sndpkt)
+
+
+É importante perceber alguns detalhes desse protocolo. Primeiro, esse protocolo é conhecido por *stop-and-wait* pois o emissor não pode receber nenhum comando do seu operador enquanto estiver esperando uma resposta do receptor. Isso só ocorre quando a máquina estiver em um estado apropriado. Segundo, não foi considerada a possibilidade do ACK e NAK estarem corrompidos.
+
+Para o segundo caso, há duas variações do RDT 2.0 no qual é implementado um protocolo análogo ao incremento feito de RDT 1.0 para 2.0, o RDT 2.1 e 2.2.
+
+#### RDT 3.0
+
+Por fim, vamos considerar que poderá haver pacotes, ou suas respostas ACK, perdidos durante a transmissão.
+A solução é o emissor esperar tempo suficiente no qual garanta que os dados enviados ou respondidos foram perdidos. Assim, caso o tempo seja ultrapassado, o emissor deve reenviar os pacotes.
+
+Como pode-se observar, não há como determinar um tempo "garantidor", pois um atraso particularmente alto experimentado pelos pacotes pode ser suficiente para ultrapassar o tempo estimado. 
+
+A determinação do tempo sofre de uma dicotomia, pois há vantagens e desvantagens tanto com o aumento como com a diminuição do mesmo. Quanto menor for o tempo, maior a chance de ocorrer falsas perdas (ocasionando duplicações na emissão) por consequência de atrasos na rede. Porém, incrementos nesse tempo podem impactar na velocidade da resposta do emissor, pois o mesmo poderá ficar longos períodos de inatividade aguardando uma resposta (perdida durante a transmissão). Assim, a melhora na efetividade do protocolo passa pela derterminação de um tempo de espera ótimo (provavelmente desenvolvido para o atraso mais frequênte).
+
+
