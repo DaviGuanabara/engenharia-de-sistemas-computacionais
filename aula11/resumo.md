@@ -46,7 +46,36 @@ Receptor:
 
 #### RDT 2.0
 
-Em RDT 2.0, vamos considerar que, durante a transmissão, algum bit pode ter sido corrompido. Assim, é necessário utilizar o protocolo ARQ (*Automatic Repeat reQuest*), o qual é baseado em três pontos: detecção de erro, permitindo o receptor reconhecer a ocorrência de erro; o *feedback* do receptor, com o parecer positivo (equivalente à "entendi!") (ACK) ou negativo (equivalente à "pode repetir?") (NAK) (em princípio, esse retorno basta ser de 1 bit de tamanho, sendo 0 para negativo e 1 para positivo); e retrasmissão, com o emissor reenviando os pacotes caso tenha recebido uma negativa (NAK) do receptor.
+Em RDT 2.0, vamos considerar que, durante a transmissão, algum bit pode ter sido corrompido. Assim, é necessário utilizar o protocolo ARQ (*Automatic Repeat reQuest*), o qual é baseado em três pontos: detecção de erro, permitindo o receptor reconhecer a ocorrência de erro; o *feedback* do receptor, com o parecer positivo (equivalente à "entendi!") chamado de ACK ou negativo (equivalente à "pode repetir?"), denominado de NAK, (em princípio, esse retorno basta ser de 1 bit de tamanho, sendo 0 para negativo e 1 para positivo); e retrasmissão, com o emissor reenviando os pacotes caso tenha recebido uma negativa (NAK) do receptor.
 
 
+Emissor:
 
+Envia os dados
+1. rdt_send(data)
+2. sndpkt = make_pkt(data,checksum)
+3. udt_send(sndpkt)
+
+Espera por uma resposta
+(reemissão em caso de NAK)
+7. rdt_rcv(rcvpkt) && isNAK(rcvpkt)
+8. udt_send(sndpkt)
+
+(Encerra estado em caso de ACK)
+9. rdt_rcv(rcvpkt) && isACK(rcvpkt)
+
+
+Receptor:
+(Caso dados corrompidos)
+4. rdt_rcv(rcvpkt) && corrupt(rcvpkt)
+(Resposta)
+5. sndpkt=make_pkt(NAK)
+6. udt_send(sndpkt)
+
+(Caso dados não-corrompidos)
+4. rdt_rcv(rcvpkt) && notcorrupt(rcvpkt)
+5. extract(rcvpkt,data)
+6. deliver_data(data)
+(Resposta)
+7. sndpkt = make_pkt(ACK)
+8. udt_send(sndpkt)
