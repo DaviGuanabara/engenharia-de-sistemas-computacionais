@@ -15,4 +15,4 @@ Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/cont
 
 
 
-Caso algum segmento seja perdido durante o envio, as respostas dos seguintes serão descartadas, como mostrado na Animação 02.
+Caso algum segmento seja perdido durante o envio, o computador receptor enviará, para cada novo segmento recebido fora de ordem, a resposta referente ao último segmento em ordem, como mostrado na Animação 02.
