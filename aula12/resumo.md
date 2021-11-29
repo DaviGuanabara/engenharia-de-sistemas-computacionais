@@ -11,5 +11,5 @@ A ideia do protocolo gbn é de transmitir um subconjunto de até N pacotes, nos 
 
 
 Figura 01: Go-Back-N Animation \
-![gif](aula12/imagens/animação%20gbn.gif)
+![Alt Text](aula12/imagens/animação%20gbn.gif)
 
