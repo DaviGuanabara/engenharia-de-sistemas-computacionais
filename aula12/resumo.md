@@ -1,6 +1,6 @@
 ### Continuação: *Transport Layer*
 
-Como citado na aula anterior, o protocolo de enviar o próximo pacote somente após o recebimento da resposta do pacote anterior é uma solução ineficiente para a transferência de dados confiáveis (*reliable data transfer*, rdt). Para aumentar a eficiência do processo, fora propostos dois protocolos alternativos: *Go-Back-N* (bgn); e *selective repeat* 
+Como citado na aula anterior, o protocolo *stop and wait*, no qual o envio do próximo pacote ocorre somente após o recebimento da resposta do pacote anterior, é uma forma ineficiente para a transferência de dados confiáveis (*reliable data transfer*, rdt) pois, após a transmissão de um pacote, os recursos disponíveis para a conexão ficarão osciosos até a chegada da resposta do pacote enviado. Dessa maneira, objetivando o aumento da eficiência do mesmo, fora propostos duas soluções: *Go-Back-N* (bgn); e *selective repeat* 
 
 #### *GO-BACK-N*
 
