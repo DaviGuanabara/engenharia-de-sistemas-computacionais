@@ -13,3 +13,6 @@ Animação 01: Animação Go-Back-N\
 
 Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html
 
+
+
+Caso algum segmento seja perdido durante o envio, as respostas dos seguintes serão descartadas, como mostrado na Animação 02.
