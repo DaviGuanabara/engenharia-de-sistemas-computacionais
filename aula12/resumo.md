@@ -4,12 +4,16 @@ Como citado na aula anterior, o protocolo de enviar o próximo pacote somente ap
 
 #### *GO-BACK-N*
 
-A ideia do protocolo gbn é basear-se em um subconjunto de N elementos da fila de transmissão. Os elementos dessa fila são compostos por espaços que podem ser preenchidos por pacotes oriundo das camadas superiores. Esse subconjunto, chamado de janela, contém os espaços preenchidos por pacotes enviados mas sem confirmação (*acknowledged*) e espaços ainda não preenchidos. Ao receber uma resposta, o espaço relacionado ao respectivo pacote sai da janela, um novo elemento da fila de transmissão é adicionado, criando-se o efeito de deslizar da janela para a direita da fila de transmissão, e por isso esse protocolo é chamado de *sliding-window protocol*.
+A ideia do protocolo gbn é basear-se em um subconjunto de N elementos da fila de transmissão. Os elementos dessa fila são compostos por espaços que podem ser preenchidos por pacotes oriundo das camadas superiores. Esse subconjunto, chamado de janela, contém os espaços preenchidos por pacotes enviados mas sem confirmação (*acknowledged*) e espaços ainda não preenchidos. Ao receber uma resposta, o espaço relacionado ao respectivo pacote sai da janela, um novo elemento da fila de transmissão é adicionado, gerando o efeito de deslizar da janela para a direita na fila de transmissão, devido a esse efeito o gbn é chamado de *sliding-window protocol*.
 
-A ideia do protocolo gbn é de transmitir um subconjunto de até N pacotes, nos quais os N foram a chamada janela de envio. Conforme 
+Na metade superior da Animação 01 pode ser identificado os parâmetros: `base`, que identifica o valor inicial incluido; `nextseqnum`, referente ao próximo espaço a ser adicionado na janela; e `send window size`, tamanho da janela (valor do N supracitado). A metade inferior mostra o registro dos eventos ocorridos durante o protocolo. 
 
 
 
-Figura 01: Go-Back-N Animation\
+
+
+Animação 01: Animação Go-Back-N\
 ![Alt Text](imagens/animação%20gbn.gif)
+
+Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html
 
