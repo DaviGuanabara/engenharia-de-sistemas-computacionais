@@ -7,3 +7,9 @@ Como citado na aula anterior, o protocolo de enviar o próximo pacote somente ap
 A ideia do protocolo gbn é basear-se em um subconjunto de N elementos da fila de transmissão. Os elementos dessa fila são compostos por espaços que podem ser preenchidos por pacotes oriundo das camadas superiores. Esse subconjunto, chamado de janela, contém os espaços preenchidos por pacotes enviados mas sem confirmação (*acknowledged*) e espaços ainda não preenchidos. Ao receber uma resposta, o espaço relacionado ao respectivo pacote sai da janela, um novo elemento da fila de transmissão é adicionado, criando-se o efeito de deslizar da janela para a direita da fila de transmissão, e por isso esse protocolo é chamado de *sliding-window protocol*.
 
 A ideia do protocolo gbn é de transmitir um subconjunto de até N pacotes, nos quais os N foram a chamada janela de envio. Conforme 
+
+
+
+Figura 01: Go-Back-N Animation \
+![image](aula12/imagens/animação%20gbn.gif)
+
