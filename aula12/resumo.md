@@ -33,7 +33,23 @@ Exemplo 2:
 4. *client* somente o ACK número 5, tendo, o resto, sido perdido durante a transmissão.
 5. *client* qualifica todos os 5 segmentos como tendo sido recebidos corretamente pelo *server*
 
-É importante perceber, como mostrado no Exemplo 1, que um único elemento corrompido pode causar a retransmissão de uma série de segmentos, tornando, assim, o gbn ineficiente para esses casos. O aumento dessa ineficiência é diretamente proporcional ao número de erros provocados pelo canal de transmissão.
+
 
 #### Selective Repeat (SR)
 
+É importante perceber, como mostrado no Exemplo 1, que um único elemento corrompido pode causar a retransmissão de uma série de segmentos, tornando, assim, o gbn ineficiente para esses casos. O aumento dessa ineficiência é diretamente proporcional ao número de erros provocados pelo canal de transmissão.
+
+
+O protocolo *Selective Repeat* (SR), como o próprio nome já induz, tem o objetivo de diminuir o número de retransmissões desnecessárias. Para tal, utiliza um subconjunto de N elementos da fila de transmissão, chamada de janela, com cada elemento sendo um espaço que pode ser preenchido por um segmento e marcado como não usável, usável, enviado e confirmado, algo análogo ao gbn. Porém, diferencia-se pelo seu comportamento. 
+
+1. um elemento só é marcado como confirmado quando o mesmo receber seu respectivo ACK. 
+2. a janela desloca-se somente após o recebimento do ACK relativo ao elemento na posição `base`, localizado no início da janela. 
+3. o *server* enviará um ACK para cada segmento mesmo se ele estiver fora de ordem. 
+4. o *client* terá uma janela própria (do mesmo tamanho da janela do *client*), organizando-a, também, com 4 marcadores: esperado; fora de ordem; aceitado; não usável. 
+5. um segmento recebido fora de ordem não será descartado e sim armazenado em uma memória temporária (*buffer*).
+
+Esse comportamento gera uma possível desincronização da posição das janelas do *cliente* e do *server*, pois o *server* pode receber adequadamente um segmento mas o seu ACK relativo ter sido corrompido ou perdido durante a transmissão. O pior caso de desincronização ocorre quando todos os ACK's enviados tenham sido perdidos e, consequentemente, o *server* estará adiantado em `N` elementos. Assim, caso o *server* receba um segmento com o número da sequência entre entre os intervalos:
+
+1. [`base`, `base` + `N` - 1]: armazenar em memória temporária.
+2. [`base`-N, `base` - 1]: reenviar o ACK.
+3. Fora dos anteriores: ignorar.
