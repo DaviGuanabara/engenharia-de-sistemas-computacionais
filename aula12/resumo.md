@@ -56,11 +56,18 @@ Esse comportamento gera uma possível desincronização da posição das janelas
 
 A desincronização pode causar a recepção de um segmento já recebido, gerando um dilema para o receptor: o segmento recebido é novo ou é uma retransmissão ?
 
+Essa possível desincronização pode causar um dilema para o receptor dos dados, pois, como mostrado na 
+A Figura 01 mostra o dilema ocasionado pela possível dessincronização:  os dados recebidos são derivados de uma retransmissão, como mostrado em (a), ou de um novo segmento (b)? 
+
 Figura 01: Dilema do Selective Repeat\
 ![Image](imagens/Dilema%20do%20Selective%20Repeat.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 225.
 
 
+Colocações importantes:
+
+1. O número de sequência é um valor finito determinado pelo número de bits disponibilizados para tal.
+2. O *buffer* do receptor deve poder armazenar 2 janelas, ou seja, o seu tamanho deve ser, no mínimo, o dobro do `window size` (`N`).
+3. O `N` é determinado durante o *handshaking*, limitado pelo tamanho do *buffer* do receptor (como citado em 2).
 
 
-Em ambos os casos, o `N` é determinado durante o *handshaking*, limitado pelo tamanho do *buffer* do receptor.
-O número de sequência é um valor finito determinado pelo número de bits disponibilizados para tal.
