@@ -53,3 +53,14 @@ Esse comportamento gera uma possível desincronização da posição das janelas
 1. [`base`, `base` + `N` - 1]: armazenar em memória temporária.
 2. [`base`-N, `base` - 1]: reenviar o ACK.
 3. Fora dos anteriores: ignorar.
+
+A desincronização pode causar a recepção de um segmento já recebido, gerando um dilema para o receptor: o segmento recebido é novo ou é uma retransmissão ?
+
+Figura 01: Dilema do Selective Repeat\
+![Image](imagens/Dilema%20do%20Selective%20Repeat.png)
+
+
+
+
+Em ambos os casos, o `N` é determinado durante o *handshaking*, limitado pelo tamanho do *buffer* do receptor.
+O número de sequência é um valor finito determinado pelo número de bits disponibilizados para tal.
