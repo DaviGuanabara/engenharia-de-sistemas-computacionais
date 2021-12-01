@@ -71,3 +71,9 @@ Colocações importantes:
 3. O `N` é determinado durante o *handshaking*, limitado pelo tamanho do *buffer* do receptor (como citado em 2).
 
 
+
+### Revisão de TCP
+
+1. Ponto-a-ponto
+2. Transmissão de confiança, com fluxo de dados ordenado
+3. *Full Duplex*: fluxo de dados bi-direcional na mesma conxeção
