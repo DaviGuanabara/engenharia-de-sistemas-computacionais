@@ -72,8 +72,12 @@ Colocações importantes:
 
 
 
-### Revisão de TCP
+#### Revisão de TCP
 
 1. Ponto-a-ponto
 2. Transmissão de confiança, com fluxo de dados ordenado
 3. *Full Duplex*: fluxo de dados bi-direcional na mesma conxeção
+4. *cumulative* ACK's
+5. *Pipelining*: controle de fluxo e congestionamento
+6. *Connection-oriented*
+7. Fluxo controlado: o emissor não irá sobrecarregar o receptor
