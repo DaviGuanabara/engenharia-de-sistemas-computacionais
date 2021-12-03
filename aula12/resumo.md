@@ -97,6 +97,12 @@ A seguir está listado as características principais do TCP (mencionado em aula
 
 ##### Estrutura do segmento TCP
 
+Como citado anteriormente, o segmento do TCP é composto por seu *header* e pelo pedaço do dado enviado pela camada de aplicação.
+
+
+
+
+
 Ao ser enviado um arquivo
 
 A estrutura do segmento do TCP consiste nos campos *header*, responsável pelas configurações relativas à comunicação, e *data*, no qual está contido um pedaço do dado oriundo da camada de aplicação de tamanho igual ao .
