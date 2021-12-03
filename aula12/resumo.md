@@ -98,7 +98,12 @@ A seguir está listado as características principais do TCP (mencionado em aula
 ##### Estrutura do segmento TCP
 
 Como citado anteriormente, o segmento do TCP é composto por seu *header* e pelo pedaço do dado enviado pela camada de aplicação.
-O *header* é a sessão do segmento responsável pelos parâmentros da conexão, como os números das portas de origem e destino, utilizados na 
+O *header* é a sessão do segmento responsável pelos parâmentros de conexão. São eles:
+
+1. números das portas de origem e destino, utilizados na multiplexação e demultiplexação, respectivamente.
+2. *checksum field*, importante na validação da integralidade dos dados recebidos
+3. 32-bit *sequence number field*
+4. 32-bit *acknowledgment number field* 
 
 
 
