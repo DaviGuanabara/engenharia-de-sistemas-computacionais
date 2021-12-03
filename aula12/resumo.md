@@ -71,8 +71,19 @@ Colocações importantes:
 3. O `N` é determinado durante o *handshaking*, limitado pelo tamanho do *buffer* do receptor (como citado em 2).
 
 
+#### TCP
 
-#### Revisão de TCP
+A camada de aplicação (*application layer*), para o envio de um arquivo, conta com os serviços de transmissão de dados confiáveis fornecidos pelo *Transmission Control Protocol* (TCP), protocolo da camada de transporte. O TCP, ao receber o arquivo oriundo da *application layer*, divide-o em pedaços de comprimentos iguais chamados de *chunk's of data* (com exceção do último, normalmente menor), de tamanho igual ao MSS (*maximum segment size*), normalmente de 1460 *bytes*. O encapsulamento de um *chunk of data*, etapa que une o mesmo com o *header* do TCP, resulta em um conjunto de dados chamado de segmento.  
+
+O parâmetro MSS é determinado pelo MTU (*Maximum Trasmission Unit*), tamanho máximo do *frame* da camada de enlace (*link-layer*), que tem como objetivo garantir que o segmento TCP somado com o *header* do TCP/IP (tipicamente 40 bytes), caberá no *frame* do *link-layer*.
+
+Após sua formação, o segmento é inserido no *send buffer*, memória temporária destinada ao envio dos dados para as camadas inferiores. Essa memória é acessada de tempos em tempos para o envio dos segmentos ali presentes.
+
+Porém, diferente do UDP, o TCP é um protocolo orientado à conexão (*connection-oriented*), pois o primeiro contato entre dois dispositivos ocorre com base no procedimento *3-way handshake*, o qual visa assegurar à confiabilidade na transmissão dos dados a partir da definição dos parâmetros da conexão. 
+O *3-way handshake* é caracterizado pela transmissão de 3 segmentos especiais. O primeiro é emitido pelo *client* visando o início da conexão. O segundo é uma resposta do *server*, indicando que o segmento foi recebido corretamente. Por fim, o *client* confirma que também recebeu o segmento oriundo do *server*. Os dois primeiros segmentos especiais não contém dados, mas o terceiro pode conter.
+
+
+A seguir está listado as características principais do TCP (mencionado em aulas anteriores):
 
 1. Ponto-a-ponto
 2. Transmissão de confiança, com fluxo de dados ordenado
@@ -81,3 +92,11 @@ Colocações importantes:
 5. *Pipelining*: controle de fluxo e congestionamento
 6. *Connection-oriented*
 7. Fluxo controlado: o emissor não irá sobrecarregar o receptor
+
+
+
+##### Estrutura do segmento TCP
+
+Ao ser enviado um arquivo
+
+A estrutura do segmento do TCP consiste nos campos *header*, responsável pelas configurações relativas à comunicação, e *data*, no qual está contido um pedaço do dado oriundo da camada de aplicação de tamanho igual ao .
