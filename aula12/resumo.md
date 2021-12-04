@@ -103,7 +103,17 @@ O *header* é a sessão do segmento responsável pelos parâmentros de conexão.
 1. números das portas de origem e destino, utilizados na multiplexação e demultiplexação, respectivamente.
 2. *checksum field*, importante na validação da integralidade dos dados recebidos
 3. 32-bit *sequence number field*
-4. 32-bit *acknowledgment number field* 
+4. 32-bit *acknowledgment number field*
+5. 16-bit *receiver window*: usado para *flow control*, indica o número de bytes que o receptor está disposto a aceitar 
+6. 4-bit *header length field*: especifica o tamanho do *header* do TCP (como, normalmente, o *options field* não é populado, o tamanho típico do *header* é de 20 *bytes*)
+7. *options field*: é útil para a negociação do MSS entre outros.
+8. *flag field*: campo que contém 6 bits
+8.1. bit ACK: indica a validade do campo ACK
+8.2. bits RST, SYN e FIN: são usados para configuração das conexões
+8.3. bits CWR e ECE: notificações de congestionamento
+8.4. bit PSH: indica que o receptor deve repassar, de imediato, os dados recebidos para as camadas superiores
+8.5. bit URG: marcado pela camada de aplicação do emissor, indica que há dados urgentes
+(Na prática, os bits PSH e URG não são usados)
 
 
 
