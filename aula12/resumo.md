@@ -168,3 +168,15 @@ Para questões de eficiência, é interessante manter o valor do *timeout interv
 ```
 TimeoutInterval = EstimatedRTT + 4 * DevRTT
 ```
+
+#### Flow Control
+
+
+
+#### Adicionais
+
+1. Flow Control (Computer Networking a top-down approach. 8th ed. Pearson, página 246)
+2. TCP Connection Management (Computer Networking a top-down approach. 8th ed. Pearson, página 249)
+3. Congestion Control (Computer Networking a top-down approach. 8th ed. Pearson, página 255)
+4. TCP Congestion Control (Computer Networking a top-down approach. 8th ed. Pearson, página 263) (TCP Cubic, Fairness)
+5. Evolution of Transport-Layer Functionality (Computer Networking a top-down approach. 8th ed. Pearson, página 279) (QUIC (*Quick UDP Internet Connection*))
