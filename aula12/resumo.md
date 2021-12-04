@@ -124,6 +124,13 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 
 O TCP vê os dados como um conjunto ordenado e não estruturado de fluxo (*stream*) de bytes, de forma que o *sequence number* é uma referência à ordem dos bytes (mais especificamente, a ordem do primeiro *byte* dos dados do segmento) e não da série de segmentos enviados. Assim, para um arquivo de 500.000 *bytes* (500 kB) e um MSS de 1.000 bytes (1 kB) serão construidos 500 segmentos, com o primeiro assumindo o *sequence number* de 0, o segundo 1000, o terceiro 2000, e assim em diante.
 
+Já *acknowledgment number* (ACK *number*) é relativo ao *sequence number* do próximo *byte*. Seguindo o exemplo anterior, está contido, no primeiro segmento, 1000 bytes, e o seu *sequence number* é de 0 (marcando o *byte* 0 até 999). Assim, após a chegada no *byte* 999, o receptor enviará a confirmação da recepção desse segmento com o *acknowledgment number* de 1000 (byte seguinte ao último recebido). Dessa maneira, como o receptor só confirma (*acknowledges*) o primeiro byte ausênte, no caso, o byte 1000, o protocolo TCP é dito como provedor de *cumulative acknowledgments*.
+
+##### Segmentos fora de ordem
+
+
+
+
 Esse fato pode ser verificado durante a manipulação do *sequence number*
 
 
