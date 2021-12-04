@@ -142,12 +142,12 @@ Como citado anteriormente, o tratamento dos segmentos fora de ordem, para um sis
 
 #### RTT e Timeout
 
-Após o envio de um segmento, após quanto tempo o TCP deve considerar que os dados foram perdidos (*timeout interval*) ?
+Após o envio de um segmento, após quanto tempo o TCP deve considerar que os dados foram perdidos (`timeout interval`) ?
 Esse tempo sofre de uma dicotomia, pois tanto períodos pequenos como grandes tornam a comunicação ineficiente por causar retransmissões desnecessárias e aumentar o atraso na retransmissão de segmentos perdidos, respectivamente.
 
 Podemos considerar que, no mínimo, o tempo esperado deve superar o *Round-Trip Time* (RTT), período entre o envio de um dado e a chegada de sua resposta. Como pode-se imaginar, por consequência da não previsibilidade de seu uso e da ocorrência de erros, as condições presentes na rede são variáveis (como o congestionamento), algo que impacta diretamente no (RTT), tornando-o, também, variável. 
 
-Assim, a determinação do `*timeout interval*` passa por um cáculo estatístico, determinado pelo *SampleRTT*, uma amostra desse período medida de tempos em tempos, *EstimatedRTT*, uma estimativa do valor do RTT que utiliza a técnica da média móvel exponencialmente ponderada (EWMA, *Exponential Weighted Moving Average*), e o *DevRTT*, uma estimativa de quanto o *SampleRTT* desvia do *EstimatedRTT*. Os cálculos podem ser vistos a seguir.
+Assim, a determinação do `timeout interval` passa por um cáculo estatístico, definido pelo `SampleRTT`, uma amostra desse período medida de tempos em tempos, `EstimatedRTT`, uma estimativa do valor do RTT que utiliza a técnica da média móvel exponencialmente ponderada (EWMA, *Exponential Weighted Moving Average*), e `DevRTT`, uma estimativa de quanto o `SampleRTT` desvia do `EstimatedRTT`. Os cálculos podem ser vistos a seguir.
 
 
 
@@ -163,21 +163,8 @@ EstimatedRTT = (1 – α) * EstimatedRTT + α * SampleRTT
 DevRTT = (1 – β) * DevRTT + β * | SampleRTT – EstimatedRTT |
 ```
 
-Para questões de eficiência, é interessante manter o valor do *timeout interval* algo como o valor estimado do RTT (*EstimatedRTT*) mais uma margem que se adeque à flutuação de valor do *SampleRTT* (*DevRTT*). Dessa maneira, chegamos do cálculo a seguir (sendo 1 segundo o valor inicial):
+Para questões de eficiência, é interessante manter o valor do *timeout interval* algo como o valor estimado do RTT (`EstimatedRTT`) mais uma margem que se adeque à flutuação de valor do `SampleRTT` (`DevRTT`). Dessa maneira, chegamos do cálculo a seguir (sendo 1 segundo o valor inicial):
 
 ```
 TimeoutInterval = EstimatedRTT + 4 * DevRTT
 ```
-
-Para a determinação do tempo de espera, 
-
-
-Esse fato pode ser verificado durante a manipulação do *sequence number*
-
-
-Assim, o *sequence number* é empregado para ordenar o *stream*, e não os segmentos.
-
-
-Ao ser enviado um arquivo
-
-A estrutura do segmento do TCP consiste nos campos *header*, responsável pelas configurações relativas à comunicação, e *data*, no qual está contido um pedaço do dado oriundo da camada de aplicação de tamanho igual ao .
