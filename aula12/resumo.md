@@ -11,7 +11,7 @@ Caso todos os espaços disponibilizados pela janela estejam preenchidos, novos d
 Na metade superior da Animação 01 pode ser identificado os parâmetros: `base`, que identifica o valor inicial incluido; `nextseqnum`, referente ao próximo elemento a ser enviado; e `send window size`, tamanho da janela (valor do N supracitado). A metade inferior mostra o registro dos eventos ocorridos durante o protocolo. 
 
 Animação 01: Animação Go-Back-N\
-![Alt Text](imagens/animação%20gbn.gif)
+![Alt Text](gifs/GBN.gif)
 
 Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html
 
