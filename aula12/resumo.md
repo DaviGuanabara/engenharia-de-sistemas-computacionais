@@ -2,7 +2,7 @@
 
 Como citado na aula anterior, o protocolo *stop and wait*, no qual o envio do próximo segmento (também é chamado de pacote por uma questão histórica) ocorre somente após o recebimento da resposta do segmento anterior, é uma forma ineficiente para a transferência de dados confiáveis (*reliable data transfer*, rdt) pois, após a transmissão de um segmento, os recursos disponíveis para a conexão ficarão osciosos até a chegada da resposta do segmento enviado. Dessa maneira, objetivando o aumento da eficiência do mesmo, fora propostos duas soluções: *Go-Back-N* (bgn); e *selective repeat* 
 
-#### *GO-BACK-N*
+#### GO-BACK-N
 
 A ideia do protocolo gbn é basear-se em um subconjunto de N elementos da fila de transmissão (um dos motivos para a imposição de um tamanho limite é o controle de fluxo). Os elementos dessa fila são compostos por espaços que podem ser preenchidos por segmentos oriundo das camadas superiores. Esse subconjunto, chamado de janela, contém os espaços preenchidos por segmentos enviados mas sem confirmação (*acknowledged*) e espaços ainda não preenchidos. Ao receber uma resposta, o espaço relacionado ao respectivo segmentos sai da janela, um novo elemento da fila de transmissão é adicionado, gerando o efeito de deslizar da janela para a direita na fila de transmissão, devido a esse efeito o gbn é chamado de *sliding-window protocol*. 
 
@@ -115,6 +115,8 @@ O *header* é a sessão do segmento responsável pelos parâmentros de conexão.
 8.5. bit URG: marcado pela camada de aplicação do emissor, indica que há dados urgentes
 (Na prática, os bits PSH e URG não são usados)
 
+A Figura 02 mostra toda a estrutura do segmento TCP.
+
 Figura 02: Estrutura do segmento TCP\
 ![Image](imagens/Dilema%20do%20Selective%20Repeat.png)\
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.
@@ -128,6 +130,12 @@ Já *acknowledgment number* (ACK *number*) é relativo ao *sequence number* do p
 
 ##### Segmentos fora de ordem
 
+Como citado anteriormente, o tratamento dos segmentos fora de ordem, para um sistema confiável de transferência de dados, pode seguir uma dessas suas estratégias, *GO-BACK-N* ou *Selective Repeat* (SR). Por uma questão de eficiência, o protocolo SR é a abordagem praticada.
+
+
+Figura 02: Estrutura do segmento TCP\
+![Image](imagens/troca%20de%20mensagens%20tcp.png)\
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 234.
 
 
 
