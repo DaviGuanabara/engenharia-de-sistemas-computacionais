@@ -116,8 +116,19 @@ O *header* é a sessão do segmento responsável pelos parâmentros de conexão.
 (Na prática, os bits PSH e URG não são usados)
 
 Figura 02: Estrutura do segmento TCP\
-![Image](imagens/Dilema%20do%20Selective%20Repeat.png)
+![Image](imagens/Dilema%20do%20Selective%20Repeat.png)\
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.
+
+#### Sequência e ACK
+
+
+O TCP vê os dados como um conjunto ordenado e não estruturado de fluxo (*stream*) de bytes, de forma que o *sequence number* é uma referência à ordem dos bytes (mais especificamente, a ordem do primeiro *byte* dos dados do segmento) e não da série de segmentos enviados. Assim, para um arquivo de 500.000 *bytes* (500 kB) e um MSS de 1.000 bytes (1 kB) serão construidos 500 segmentos, com o primeiro assumindo o *sequence number* de 0, o segundo 1000, o terceiro 2000, e assim em diante.
+
+Esse fato pode ser verificado durante a manipulação do *sequence number*
+
+
+Assim, o *sequence number* é empregado para ordenar o *stream*, e não os segmentos.
+
 
 Ao ser enviado um arquivo
 
