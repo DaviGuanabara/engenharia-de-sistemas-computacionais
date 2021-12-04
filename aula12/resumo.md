@@ -118,7 +118,7 @@ O *header* é a sessão do segmento responsável pelos parâmentros de conexão.
 A Figura 02 mostra toda a estrutura do segmento TCP.
 
 Figura 02: Estrutura do segmento TCP\
-![Image](imagens/Dilema%20do%20Selective%20Repeat.png)\
+![Image](imagens/Estrutura%20segmento%20TCP.png)\
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.
 
 #### Sequência e ACK
