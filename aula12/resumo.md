@@ -128,15 +128,48 @@ O TCP vê os dados como um conjunto ordenado e não estruturado de fluxo (*strea
 
 Já *acknowledgment number* (ACK *number*) é relativo ao *sequence number* do próximo *byte*. Seguindo o exemplo anterior, está contido, no primeiro segmento, 1000 bytes, e o seu *sequence number* é de 0 (marcando o *byte* 0 até 999). Assim, após a chegada no *byte* 999, o receptor enviará a confirmação da recepção desse segmento com o *acknowledgment number* de 1000 (byte seguinte ao último recebido). Dessa maneira, como o receptor só confirma (*acknowledges*) o primeiro byte ausênte, no caso, o byte 1000, o protocolo TCP é dito como provedor de *cumulative acknowledgments*.
 
+A Figura 03 mostra um exemplo de como a variação do *sequence number* e do *acknowledgment number* ocorrem com o MSS de 1 *byte* no Telnet. O *Host A* envia seu *byte* 42 (*sequence number*) requisitando (ACK) o byte de *sequence number* 79 do *Host B*, e o *Host B* responde com o seu *byte* 79 e requisita o *byte* 43 do *Host A*.
+
+Figura 03: *Sequence number* e ACK\
+![Image](imagens/troca%20de%20mensagens%20tcp.png)\
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 234.
+
 ##### Segmentos fora de ordem
 
 Como citado anteriormente, o tratamento dos segmentos fora de ordem, para um sistema confiável de transferência de dados, pode seguir uma dessas suas estratégias, *GO-BACK-N* ou *Selective Repeat* (SR). Por uma questão de eficiência, o protocolo SR é a abordagem praticada.
 
 
-Figura 02: Estrutura do segmento TCP\
-![Image](imagens/troca%20de%20mensagens%20tcp.png)\
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 234.
 
+#### RTT e Timeout
+
+Após o envio de um segmento, após quanto tempo o TCP deve considerar que os dados foram perdidos (*timeout interval*) ?
+Esse tempo sofre de uma dicotomia, pois tanto períodos pequenos como grandes tornam a comunicação ineficiente por causar retransmissões desnecessárias e aumentar o atraso na retransmissão de segmentos perdidos, respectivamente.
+
+Podemos considerar que, no mínimo, o tempo esperado deve superar o *Round-Trip Time* (RTT), período entre o envio de um dado e a chegada de sua resposta. Como pode-se imaginar, por consequência da não previsibilidade de seu uso e da ocorrência de erros, as condições presentes na rede são variáveis (como o congestionamento), algo que impacta diretamente no (RTT), tornando-o, também, variável. 
+
+Assim, a determinação do `*timeout interval*` passa por um cáculo estatístico, determinado pelo *SampleRTT*, uma amostra desse período medida de tempos em tempos, *EstimatedRTT*, uma estimativa do valor do RTT que utiliza a técnica da média móvel exponencialmente ponderada (EWMA, *Exponential Weighted Moving Average*), e o *DevRTT*, uma estimativa de quanto o *SampleRTT* desvia do *EstimatedRTT*. Os cálculos podem ser vistos a seguir.
+
+
+
+Valor recomendados [RFC 6298]:
+α = 0.125 (1/8)
+β = 0.25  (1/4)
+
+```
+EstimatedRTT = (1 – α) * EstimatedRTT + α * SampleRTT
+```
+
+```
+DevRTT = (1 – β) * DevRTT + β * | SampleRTT – EstimatedRTT |
+```
+
+Para questões de eficiência, é interessante manter o valor do *timeout interval* algo como o valor estimado do RTT (*EstimatedRTT*) mais uma margem que se adeque à flutuação de valor do *SampleRTT* (*DevRTT*). Dessa maneira, chegamos do cálculo a seguir (sendo 1 segundo o valor inicial):
+
+```
+TimeoutInterval = EstimatedRTT + 4 * DevRTT
+```
+
+Para a determinação do tempo de espera, 
 
 
 Esse fato pode ser verificado durante a manipulação do *sequence number*
