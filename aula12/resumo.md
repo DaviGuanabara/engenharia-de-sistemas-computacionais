@@ -115,7 +115,9 @@ O *header* é a sessão do segmento responsável pelos parâmentros de conexão.
 8.5. bit URG: marcado pela camada de aplicação do emissor, indica que há dados urgentes
 (Na prática, os bits PSH e URG não são usados)
 
-
+Figura 02: Estrutura do segmento TCP\
+![Image](imagens/Dilema%20do%20Selective%20Repeat.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.
 
 Ao ser enviado um arquivo
 
