@@ -19,9 +19,12 @@ Na Figura 01 pode ser observado como os dados contidos na *4-tuple* podem variar
 Dessa maneira, pode-se salientar uma forma de operação dos servidores, no qual cada *request* recebido gera um novo conjunto *thread* e *socket* e o fim da conexão encerra esse conjunto. Portanto, o período de vida do *thread* e *socket* pode ser longo, durando toda a comunicação no modo persistente, ou curto, com a conexão encerrando-se logo após o envio do *response* no modo não persistente. Requisições frequentes no modo não persistente podem impactar no desempenho do sistema.
 
 Como criar uma thread ou processo para cada requisição é computacionalmente custoso, os *servers* atuais implementam um sistema produtor-consumidor, como mostrado na Figura 02, composto por uma *thread* produtora e um *pool of threads* consumidoras. A *thread* produtora, vinculada à um *socket*, recebe as requisições oriundas dos *clients* e deposita-os em uma fila chamada *task queue* (*buffer*). Essas requisições serão direcionadas para *threads* consumidoras disponíveis, oriundas do *pool of threads*, as quais manterão-se ocupadas processando as respectivas requisições coletadas (ou seja, não estarão disponíveis e, portanto, não poderão adquirir novas requisições).
-[Para saber mais, acesse: https://httpd.apache.org/docs/2.4/mod/worker.html https://www.nginx.com/blog/thread-pools-boost-performance-9x/]
+
+[Para saber mais, acesse: https://httpd.apache.org/docs/2.4/mod/worker.html e https://www.nginx.com/blog/thread-pools-boost-performance-9x/]
+
+
 Figura 02: Pool of Threads \
-![image](imagens/pool%20of%20threads.png)
+![image](imagens/pool%20of%20threads.png)\
 Imagem retirada de: https://www.nginx.com/blog/thread-pools-boost-performance-9x/ em 05/12/2021
 
 
