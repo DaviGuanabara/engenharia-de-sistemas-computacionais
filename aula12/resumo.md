@@ -1,14 +1,14 @@
 ### Continuação: *Transport Layer*
 
-Como citado na aula anterior, o protocolo *stop and wait*, no qual o envio do próximo segmento (também é chamado de pacote por uma questão histórica) ocorre somente após o recebimento da resposta do segmento anterior, é uma forma ineficiente para a transferência de dados confiáveis (*reliable data transfer*, rdt) pois, após a transmissão de um segmento, os recursos disponíveis para a conexão ficarão osciosos até a chegada da resposta do segmento enviado. Dessa maneira, objetivando o aumento da eficiência do mesmo, fora propostos duas soluções: *Go-Back-N* (bgn); e *selective repeat* 
+Como citado na aula anterior, o protocolo *stop and wait*, no qual o envio do próximo segmento (também é chamado de pacote por uma questão histórica) ocorre somente após o recebimento da resposta do segmento anterior, é uma forma ineficiente para a transferência de dados confiáveis (*reliable data transfer*, rdt) pois, após a transmissão de um segmento, os recursos disponíveis para a conexão ficarão osciosos até a chegada da resposta do segmento enviado. Dessa maneira, objetivando o aumento da eficiência do mesmo, fora propostos duas soluções: *Go-Back-N* (GBN); e *selective repeat* 
 
 #### GO-BACK-N
 
-A ideia do protocolo gbn é basear-se em um subconjunto de N elementos da fila de transmissão (um dos motivos para a imposição de um tamanho limite é o controle de fluxo). Os elementos dessa fila são compostos por espaços que podem ser preenchidos por segmentos oriundo das camadas superiores. Esse subconjunto, chamado de janela, contém os espaços preenchidos por segmentos enviados mas sem confirmação (*acknowledged*) e espaços ainda não preenchidos. Ao receber uma resposta, o espaço relacionado ao respectivo segmentos sai da janela, um novo elemento da fila de transmissão é adicionado, gerando o efeito de deslizar da janela para a direita na fila de transmissão, devido a esse efeito o gbn é chamado de *sliding-window protocol*. 
+A ideia do protocolo GBN é baseado em um subconjunto de N elementos da fila de transmissão (um dos motivos para a imposição de um tamanho limite é o controle de fluxo). Os elementos dessa fila são compostos por espaços que podem ser preenchidos por segmentos oriundo das camadas superiores. Esse subconjunto, chamado de janela, contém os espaços preenchidos por segmentos enviados mas sem confirmação (*acknowledged*) e espaços ainda não preenchidos. Ao receber uma resposta, o espaço relacionado ao respectivo segmentos sai da janela, um novo elemento da fila de transmissão é adicionado, gerando o efeito de deslizar da janela para a direita na fila de transmissão. Devido a esse efeito o GBN é chamado de *sliding-window protocol*. 
 
-Caso todos os espaços disponibilizados pela janela estejam preenchidos, novos dados não poderão ser aceitos, retornando ás camadas superiores, sendo esse retorno uma indicação de indisponibilidade.
+Caso todos os espaços disponibilizados pela janela estejam preenchidos, novos dados não poderão ser aceitos, retornando às camadas superiores, sendo esse retorno uma indicação de indisponibilidade.
 
-Na metade superior da Animação 01 pode ser identificado os parâmetros: `base`, que identifica o valor inicial incluido; `nextseqnum`, referente ao próximo elemento a ser enviado; e `send window size`, tamanho da janela (valor do N supracitado). A metade inferior mostra o registro dos eventos ocorridos durante o protocolo. 
+Na metade superior da Animação 01 podem ser reconhecidos os parâmetros: `base`, que identifica o valor inicial incluido; `nextseqnum`, referente ao próximo elemento a ser enviado; e `send window size`, tamanho da janela (valor do N supracitado). A metade inferior mostra o registro dos eventos ocorridos durante o protocolo. 
 
 Animação 01: Animação Go-Back-N\
 ![Alt Text](gifs/GBN.gif)
@@ -16,7 +16,7 @@ Animação 01: Animação Go-Back-N\
 Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html
 
 
-Como o envio dos segmentos é feito em ordem, é esperado que os respectivos ACK's sejam recebidos em ordem (*cumulative acknowledgment*). Caso o *server* receba um segmento corrompido ou fora de ordem, o mesmo é descartado e um ACK referente ao último segmento íntegro ordenado é disparado. O ACK duplicado recebido é descartado. Da perspectiva do *client*, a não recepção ACK correspondete ao segmento enviado, pode resultar em dois casos. Primeiro, se a recepção do ACK 'x + 1' ocorrer, porém a do 'x' não, o gbn considerará que o segmento 'x' foi recebido corretamente pelo *server* e o seu ACK fora perdido durante a transmissão, marcando, portanto, o segmento 'x' como enviado corretamente. O segundo caso é a respeito da não recepção de respostas dentro de um período predeterminado (*timeout*), algo que resulta na retransmissão dos segmentos relativos.
+Como o envio dos segmentos é feito em ordem, é esperado que os respectivos ACK's sejam recebidos em ordem (*cumulative acknowledgment*). Caso o *server* receba um segmento corrompido ou fora de ordem, o mesmo é descartado e um ACK referente ao último segmento íntegro ordenado é disparado. O ACK duplicado recebido é descartado. Da perspectiva do *client*, a não recepção ACK correspondete ao segmento enviado, pode resultar em dois casos. Primeiro, se a recepção do ACK 'x + 1' ocorrer, porém a do 'x' não, o GBN considerará que o segmento 'x' foi recebido corretamente pelo *server* e o seu ACK fora perdido durante a transmissão, marcando, portanto, o segmento 'x' como enviado corretamente. O segundo caso é a respeito da não recepção de respostas dentro de um período predeterminado (*timeout*), algo que resulta na retransmissão dos segmentos relativos.
 
 Exemplo 1:
 
@@ -34,23 +34,28 @@ Exemplo 2:
 5. *client* qualifica todos os 5 segmentos como tendo sido recebidos corretamente pelo *server*
 
 
-
 #### Selective Repeat (SR)
 
-É importante perceber, como mostrado no Exemplo 1, que um único elemento corrompido pode causar a retransmissão de uma série de segmentos, tornando, assim, o gbn ineficiente para esses casos. O aumento dessa ineficiência é diretamente proporcional ao número de erros provocados pelo canal de transmissão.
+É importante perceber, como mostrado no Exemplo 1, que um único elemento corrompido pode causar a retransmissão de uma série de segmentos, tornando, assim, o GBN ineficiente para esses casos. O aumento dessa ineficiência é diretamente proporcional ao número de erros provocados pelo canal de transmissão.
 
 
-O protocolo *Selective Repeat* (SR), como o próprio nome já induz, tem o objetivo de diminuir o número de retransmissões desnecessárias. Para tal, utiliza um subconjunto de N elementos da fila de transmissão, chamada de janela, com cada elemento sendo um espaço que pode ser preenchido por um segmento e marcado como não usável, usável, enviado e confirmado, algo análogo ao gbn. Porém, diferencia-se pelo seu comportamento. 
+O protocolo *Selective Repeat* (SR), como o próprio nome já induz, tem o objetivo de diminuir o número de retransmissões desnecessárias. Para tal, utiliza um subconjunto de N elementos da fila de transmissão, chamada de janela, com cada elemento sendo um espaço que pode ser preenchido por um segmento e marcado como não usável, usável, enviado e confirmado, algo análogo ao GBN. Porém, diferencia-se pelo seu comportamento, como mostrado na Animação 02.
+
+Animação 02: Animação Selective Repeat\
+![Alt Text](gifs/animation%20of%20selective%20repeat.gif)
+
+Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html
+
 
 1. um elemento só é marcado como confirmado quando o mesmo receber seu respectivo ACK. 
 2. a janela desloca-se somente após o recebimento do ACK relativo ao elemento na posição `base`, localizado no início da janela. 
-3. o *server* enviará um ACK para cada segmento mesmo se ele estiver fora de ordem. 
+3. o *server* enviará um ACK para cada segmento mesmo se ele estiver fora de ordem (mas dentro das condições citadas a seguir). 
 4. o *client* terá uma janela própria (do mesmo tamanho da janela do *client*), organizando-a, também, com 4 marcadores: esperado; fora de ordem; aceitado; não usável. 
-5. um segmento recebido fora de ordem não será descartado e sim armazenado em uma memória temporária (*buffer*).
+5. um segmento recebido fora de ordem não será descartado e sim armazenado em uma memória temporária (*buffer*) (novamente, dentro das condições citadas a seguir).
 
 Esse comportamento gera uma possível desincronização da posição das janelas do *cliente* e do *server*, pois o *server* pode receber adequadamente um segmento mas o seu ACK relativo ter sido corrompido ou perdido durante a transmissão. O pior caso de desincronização ocorre quando todos os ACK's enviados tenham sido perdidos e, consequentemente, o *server* estará adiantado em `N` elementos. Assim, caso o *server* receba um segmento com o número da sequência entre entre os intervalos:
 
-1. [`base`, `base` + `N` - 1]: armazenar em memória temporária.
+1. [`base`, `base` + `N` - 1]: armazenar em memória temporária e enviar o ACK.
 2. [`base`-N, `base` - 1]: reenviar o ACK.
 3. Fora dos anteriores: ignorar.
 
@@ -126,7 +131,7 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 
 O TCP vê os dados como um conjunto ordenado e não estruturado de fluxo (*stream*) de bytes, de forma que o *sequence number* é uma referência à ordem dos bytes (mais especificamente, a ordem do primeiro *byte* dos dados do segmento) e não da série de segmentos enviados. Assim, para um arquivo de 500.000 *bytes* (500 kB) e um MSS de 1.000 bytes (1 kB) serão construidos 500 segmentos, com o primeiro assumindo o *sequence number* de 0, o segundo 1000, o terceiro 2000, e assim em diante.
 
-Já *acknowledgment number* (ACK *number*) é relativo ao *sequence number* do próximo *byte*. Seguindo o exemplo anterior, está contido, no primeiro segmento, 1000 bytes, e o seu *sequence number* é de 0 (marcando o *byte* 0 até 999). Assim, após a chegada no *byte* 999, o receptor enviará a confirmação da recepção desse segmento com o *acknowledgment number* de 1000 (byte seguinte ao último recebido). Dessa maneira, como o receptor só confirma (*acknowledges*) o primeiro byte ausênte, no caso, o byte 1000, o protocolo TCP é dito como provedor de *cumulative acknowledgments*.
+Já *acknowledgment number* (ACK *number*) é relativo ao *sequence number* do próximo *byte*. Seguindo o exemplo anterior, está contido, no primeiro segmento, 1000 bytes, e o seu *sequence number* é de 0 (portanto existem nesse segmento os *bytes* 0 até 999). Assim, após a chegada no *byte* 999, o receptor enviará a confirmação da recepção desse segmento com o *acknowledgment number* de 1000 (byte seguinte ao último recebido). Dessa maneira, como o receptor só confirma (*acknowledges*) o primeiro byte ausênte, no caso, o byte 1000, o protocolo TCP é dito como provedor de *cumulative acknowledgments*.
 
 A Figura 03 mostra um exemplo de como a variação do *sequence number* e do *acknowledgment number* ocorrem com o MSS de 1 *byte* no Telnet. O *Host A* envia seu *byte* 42 (*sequence number*) requisitando (ACK) o byte de *sequence number* 79 do *Host B*, e o *Host B* responde com o seu *byte* 79 e requisita o *byte* 43 do *Host A*.
 
@@ -142,16 +147,16 @@ Como citado anteriormente, o tratamento dos segmentos fora de ordem, para um sis
 
 #### RTT e Timeout
 
-Após o envio de um segmento, após quanto tempo o TCP deve considerar que os dados foram perdidos (`timeout interval`) ?
+Depois do envio de um segmento, ao fim de qual intervalo de tempo o TCP deve considerar que os dados foram perdidos (`timeout interval`) ?
 Esse tempo sofre de uma dicotomia, pois tanto períodos pequenos como grandes tornam a comunicação ineficiente por causar retransmissões desnecessárias e aumentar o atraso na retransmissão de segmentos perdidos, respectivamente.
 
-Podemos considerar que, no mínimo, o tempo esperado deve superar o *Round-Trip Time* (RTT), período entre o envio de um dado e a chegada de sua resposta. Como pode-se imaginar, por consequência da não previsibilidade de seu uso e da ocorrência de erros, as condições presentes na rede são variáveis (como o congestionamento), algo que impacta diretamente no (RTT), tornando-o, também, variável. 
+Podemos considerar que, no mínimo, o tempo esperado deve superar o *Round-Trip Time* (RTT), período entre o envio de um dado e a chegada de sua resposta. Como pode-se imaginar, por consequência da não previsibilidade de uso [da rede] e da ocorrência de erros, as condições presentes na rede são variáveis (como um possível congestionamento), algo que impacta diretamente no (RTT), tornando-o, também, variável. 
 
 Assim, a determinação do `timeout interval` passa por um cáculo estatístico, definido pelo `SampleRTT`, uma amostra desse período medida de tempos em tempos, `EstimatedRTT`, uma estimativa do valor do RTT que utiliza a técnica da média móvel exponencialmente ponderada (EWMA, *Exponential Weighted Moving Average*), e `DevRTT`, uma estimativa de quanto o `SampleRTT` desvia do `EstimatedRTT`. Os cálculos podem ser vistos a seguir.
 
 
 
-Valor recomendados [RFC 6298]:
+Valores recomendados [RFC 6298]:
 α = 0.125 (1/8)
 β = 0.25  (1/4)
 
@@ -168,8 +173,6 @@ Para questões de eficiência, é interessante manter o valor do *timeout interv
 ```
 TimeoutInterval = EstimatedRTT + 4 * DevRTT
 ```
-
-#### Flow Control
 
 
 
