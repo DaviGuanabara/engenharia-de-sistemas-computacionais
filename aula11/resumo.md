@@ -6,15 +6,24 @@ O objetivo da camada de transporte (*transport layer*), executada nos dispositiv
 
 A multiplexação e demutiplexação, ambas demonstradas graficamente na Figura 01, são possíveis devido à estrutura de dados *4-tuple*, no qual está contido os endereços de IP da origem e do destino, e os identificadores únicos de 16 *bits*, chamado de porta (*port*), dos *sockets* de origem e destino.
 
-Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino, descrita no *header* do *segment*, (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação (ocorrendo no *request*) e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação.
-Na Figura 01 pode ser observado como os dados contidos na *4-tuple* podem variar conforme o protocolo escolhido.
-
-É importante perceber que um processo pode ler e escrever no `file descriptor` (*socket*) criado para cada conexão iniciada. E múltiplas conexões podem ser manipuladas por um único processo, vinculando-se o *socket* correspondente a uma thread responsável pelo processamento das requisições do cliente. Desse modo, um processo pode possuir múltiplos *sockets* e interagir individualmente com eles pelo `file descriptor` correspondente na thread específica para a conexão em questão. 
-
-Em servidores HTTP atuais, por exemplo, cada *request* recebido gera um novo conjunto *thread* e *socket* e o fim da conexão encerra esse conjunto. Portanto, o período de vida do *thread* e *socket* pode ser longo, durando toda a comunicação no modo persistente, ou curto, com a conexão encerrando-se logo após o envio do *response* no modo não persistente. Requisições frequentes no modo não persistente podem impactar no desempenho do sistema.
 
 Figura 01: Multiplexação e Demultiplexação \
 ![image](imagens/Multiplexação%20e%20Demultiplexação.png)
+
+Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino, descrita no *header* do *segment*, (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação (ocorrendo no *request*) e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação.
+Na Figura 01 pode ser observado como os dados contidos na *4-tuple* podem variar conforme o protocolo escolhido.
+
+É importante perceber que um processo pode ler e escrever no `file descriptor` (*socket*) criado para cada conexão iniciada. E múltiplas conexões podem ser manipuladas por um único processo, vinculando-se o *socket* correspondente a uma thread responsável pelo processamento das requisições do cliente. Desse modo, um processo pode possuir múltiplos *sockets* e interagir individualmente com eles pelo `file descriptor` correspondente na thread específica para a conexão em questão.
+
+
+Dessa maneira, pode-se salientar uma forma de operação dos servidores, no qual cada *request* recebido gera um novo conjunto *thread* e *socket* e o fim da conexão encerra esse conjunto. Portanto, o período de vida do *thread* e *socket* pode ser longo, durando toda a comunicação no modo persistente, ou curto, com a conexão encerrando-se logo após o envio do *response* no modo não persistente. Requisições frequentes no modo não persistente podem impactar no desempenho do sistema.
+
+Como criar uma thread ou processo para cada requisição é computacionalmente custoso, os *servers* atuais implementam um sistema produtor-consumidor, como mostrado na Figura 02, composto por uma *thread* produtora e um *pool of threads* consumidoras. A *thread* produtora, vinculada à um *socket*, recebe as requisições oriundas dos *clients* e deposita-os em uma fila chamada *task queue* (*buffer*). Essas requisições serão direcionadas para *threads* consumidoras disponíveis, oriundas do *pool of threads*, as quais manterão-se ocupadas processando as respectivas requisições coletadas (ou seja, não estarão disponíveis e, portanto, não poderão adquirir novas requisições).
+[Para saber mais, acesse: https://httpd.apache.org/docs/2.4/mod/worker.html https://www.nginx.com/blog/thread-pools-boost-performance-9x/]
+Figura 02: Pool of Threads \
+![image](imagens/pool%20of%20threads.png)
+Imagem retirada de: https://www.nginx.com/blog/thread-pools-boost-performance-9x/ em 05/12/2021
+
 
 
 
@@ -104,18 +113,18 @@ Como pode-se observar, não há como determinar um tempo "garantidor", pois um a
 
 A determinação do tempo sofre de uma dicotomia, pois há vantagens e desvantagens tanto com o aumento como com a diminuição do mesmo. Quanto menor for o tempo, maior a chance de ocorrer falsas perdas (ocasionando duplicações na emissão) por consequência de atrasos na rede. Porém, incrementos nesse tempo podem impactar na velocidade da resposta do emissor, pois o mesmo poderá ficar longos períodos de inatividade aguardando uma resposta (perdida durante a transmissão). Assim, a melhora na efetividade do protocolo passa pela derterminação de um tempo de espera ótimo (provavelmente desenvolvido para o atraso mais frequênte).
 
-A Figura 02 mostra um exemplo do funcionamento do protocolo RDT 3.0 (também conhecido por *alternating-bit protocol*, por causa da alternância no número da sequência dos pacotes).
+A Figura 03 mostra um exemplo do funcionamento do protocolo RDT 3.0 (também conhecido por *alternating-bit protocol*, por causa da alternância no número da sequência dos pacotes).
 
-Figura 02: Protocolo RDT 3.0 \
+Figura 03: Protocolo RDT 3.0 \
 ![image](imagens/rdt%203.0.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 212.
 
 #### Performace
 
-O fundamento dos protocolos mencionados é enviar 1 pacote e esperar por sua resposta. Uma forma de melhorar a performace é utilizar um pardão de enviar multiplos pacotes antes de entrar no estado de espera da resposta de cada um, método chamado de *pipeline*, como mostrado na Figura 03.
+O fundamento dos protocolos mencionados é enviar 1 pacote e esperar por sua resposta. Uma forma de melhorar a performace é utilizar um pardão de enviar multiplos pacotes antes de entrar no estado de espera da resposta de cada um, método chamado de *pipeline*, como mostrado na Figura 04.
 
 
-Figura 03: *Stop-and-wait vs pipelined*\
+Figura 04: *Stop-and-wait vs pipelined*\
 ![image](imagens/stop%20and%20wait%20vs%20pipelined.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 213.
 
