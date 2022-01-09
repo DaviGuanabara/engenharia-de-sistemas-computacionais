@@ -85,4 +85,4 @@ Um roteador com o protocolo NAT ativo é visto como um dispositivo único (com o
 
 É interessante notar que o roteador obtém o endereço de IP via o servidor DHCP oriundo do ISP (*Internet Service Provider*). E por sua vez, oferece um servidor DHCP para a sua subrede.
 
-
+O segredo para o funcionamento do NAT está no *NAT translation table*
