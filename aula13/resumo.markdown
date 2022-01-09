@@ -74,15 +74,15 @@ Endereço de IP de transmissão: 255.255.255.255: a mensagem é entregue para to
 
 ##### NAT
 
-1. Se cada dispositivo na rede só têm um único IP, como é possível haver tantos dispositivos intercontectados globalmente ?
-2. Como um servidor DHCP local geraria um IP único diferente de um outro servidor geograficamente distante ?
-3. Os diferentes servidores DHCP devem estar sincronizados ou faixas específicas de IP devem ser predeterminadas ?
-4. Há então um número limitado de redes domésticas ?
-5. Eu já encontrei redes domésticas com a mesma faixa de endereço de IP, como isso é possível ?
+
+1. Como um servidor DHCP local geraria um IP único diferente de um outro servidor geograficamente distante ?
+2. Os diferentes servidores DHCP devem estar sincronizados ou faixas específicas de IP devem ser pré-determinadas ?
+3. Eu já encontrei redes domésticas com a mesma faixa de endereço de IP, como isso é possível ?
 
 Essas e outras perguntas vem à tona quando é imaginado como funcionaria uma interação global de subredes.
-A solução é 
+A solução passa pelo uso do protocolo NAT (*Network Address Translation*).
+Um roteador com o protocolo NAT ativo é visto como um dispositivo único (com o IP único) para o resto do mundo, escondendo, assim, os detalhes das configurações de uma rede doméstica para as redes externas. 
 
-
+É interessante notar que o roteador obtém o endereço de IP via o servidor DHCP oriundo do ISP (*Internet Service Provider*). E por sua vez, oferece um servidor DHCP para a sua subrede.
 
 
