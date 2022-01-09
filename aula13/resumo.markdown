@@ -39,5 +39,28 @@ O *datagram* segue o seguinte formato:
 
 #### Endereçamento
 
-a fronteira entre o *host* e a conexão física é chamada de interface.
+A fronteira entre o *host* e a conexão física é chamada de interface. Em um roteador é possível identificar multiplas interfaces. Como cada interface está associado um endereço de IP, um roteador, portanto, pode estar associado a múltiplos endereços de IP.
+O endereço de IP é formado por 4 bytes (32 bits), escritos na notação *dotted-decimal*, no qual cada byte é escrito em decimal e separado por um ponto.
+
+O endereçamento segue a estratégia conhecida como *Classless Interdomain Routing* (CIDR), no qual o endereço de IP (formado por 32 bits) é separado em prefixo (os `x` primeiros bits) e identificador de host (os restantes `32 - x` bits). O número de bits (`x`) que formam o prefixo é determinado pela máscara de rede (*mask subnet*), como mostrado a seguir:
+
+
+
+
+```
+Endereço de IP: a.b.c.d
+Endereço de IP com máscara de rede: a.b.c.d/x
+Notação: 193.32.216.9/24 (11000001 00100000 11011000 00001001)
+Prefixo (Subrede): 193.32.216 (11000001 00100000 11011000)
+Identificador de Host: 9 (00001001)
+```
+
+A máscara de subrede distingue o endereço referente à subrede ao do *host*. A subrede pode ser entendida como uma ilha de rede isolada, com as interfaces compondo as bordas dessa rede.
+
+##### Obter um endereço de IP
+
+Endereço de IP de transmissão: 255.255.255.255: a mensagem é entregue para todos os hots da subrede.
+
+
+
 
