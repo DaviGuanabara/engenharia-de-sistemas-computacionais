@@ -92,6 +92,13 @@ Quando uma requisição é disparada por um *host* para um *server* fora da rede
 Por exemplo:
 
 1. *Host* dispara um *datagram* com origem 10.0.0.1 e porta 3345 para o *server* 128.119.40.186 porta 80.
-2. O roteador gera uma nova porta e substitui o
+2. O roteador gera uma nova porta e substitui os parâmetros de origem para essa porta gerada e para o seu endereço de IP (que por sua vez foi gerado pelo ISP). E registra essa conversão no *NAT translation table*. 
+3. O *server* recebe o *datagram* com os parâmetros de origem do roteador, e o responde.
+4. O roteador converte os parâmetros de destino utilizando a tabela NAT, e, por fim, direciona o *datagram* recebido ao *host*.
+
+Esse registro é mantido até o fim da conexão. Como o tamanho do campo porta é de 16 bits, o protocolo NAT suporta mais de 60 mil conexões com somente um único *IP address*.
+
+Um dos problemas causados por esses protocolos (DHCP e NAT) é referente aos *Home Servers*, pois como um servidor espera por uma requisição de um *client*, como esse *client* pode saber qual é o atual endereço de IP do servidor ? Como funcionaria a arquitetura P2P ?
+Soluções para esse problema incluem *NAT transversal tools* [RFC 5389, RFC 5128], algo que não será debatido nesse texto.  
 
 uma tabela que define a tradução do endereço de IP e porta no lado WAN para o endereço de IP e porta do lado LAN. 
