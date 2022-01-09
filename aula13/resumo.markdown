@@ -85,4 +85,13 @@ Um roteador com o protocolo NAT ativo é visto como um dispositivo único (com o
 
 É interessante notar que o roteador obtém o endereço de IP via o servidor DHCP oriundo do ISP (*Internet Service Provider*). E por sua vez, oferece um servidor DHCP para a sua subrede.
 
-O segredo para o funcionamento do NAT está no *NAT translation table*
+O segredo para o funcionamento do NAT está no *NAT translation table*.
+
+Quando uma requisição é disparada por um *host* para um *server* fora da rede, o roteador converte o endereço de IP de origem para o seu, e gera uma nova porta. Dessa forma, a *NAT translation table* é populada, no lado WAN (rede do ISP), com endereço de IP do roteador e porta gerada, e no lado LAN (rede doméstica), endereço de IP do *host* e porta da *Thread*.
+
+Por exemplo:
+
+1. *Host* dispara um *datagram* com origem 10.0.0.1 e porta 3345 para o *server* 128.119.40.186 porta 80.
+2. O roteador gera uma nova porta e substitui o
+
+uma tabela que define a tradução do endereço de IP e porta no lado WAN para o endereço de IP e porta do lado LAN. 
