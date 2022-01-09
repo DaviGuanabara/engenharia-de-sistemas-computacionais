@@ -55,11 +55,33 @@ Prefixo (Subrede): 193.32.216 (11000001 00100000 11011000)
 Identificador de Host: 9 (00001001)
 ```
 
-A máscara de subrede distingue o endereço referente à subrede ao do *host*. A subrede pode ser entendida como uma ilha de rede isolada, com as interfaces compondo as bordas dessa rede.
+A máscara de subrede (*network mask*) distingue o endereço referente à subrede ao do *host*. A subrede pode ser entendida como uma ilha de rede isolada, com as interfaces compondo as bordas dessa rede.
 
 ##### Obter um endereço de IP
 
+
+A obtenção de um endereço de IP ocorre de forma automática com o protocolo DHCP (*Dynamic Host Configuration Protocol*), chamado também de protocolo *plug-and-play* ou *zeroconf* (*zero configuration*), o qual gera um endereço de IP temporário diferente toda vez que o *host* conecta-se nessa rede.
+O DHCP é um protocolo baseado na arquitetura *client-server*, e o seu processo é feito em quatro passos:
+
+1. Server Discovery: o *client* dispara *datagram* contendo um *discovery message* para o destino 255.255.255.255 (esse endereço de IP indica ao roteador que a mensagem deva ser entregue para todos as interfaces da subrede), com a origem em 0.0.0.0.
+2. Server Offer: O Servidor DHCP, após receber a discovery message*, responde com a *offer message* para 255.255.255.255 (ou seja, disparando para todos os dispositivos da subrede). A *offer message* contém: uma propósta de *IP address*; *network mask*; e o *IP address lease time*, referente à validade do IP. É importante perceber que na mesma rede pode haver múltiplos servidores DHCP e, portanto, múltiplas *offer message* podem ser disparadas durante essa etapa.
+3. Request: o *client* escolhe uma *server offer* e ecoa os seus parâmetros com a *request message*.
+4. ACK: o servidor selecionado confirma a seleção do endereço enviando uma *ACK message*.
+
+Um dispositivo recém conectado em uma rede necessita 
 Endereço de IP de transmissão: 255.255.255.255: a mensagem é entregue para todos os hots da subrede.
+
+
+##### NAT
+
+1. Se cada dispositivo na rede só têm um único IP, como é possível haver tantos dispositivos intercontectados globalmente ?
+2. Como um servidor DHCP local geraria um IP único diferente de um outro servidor geograficamente distante ?
+3. Os diferentes servidores DHCP devem estar sincronizados ou faixas específicas de IP devem ser predeterminadas ?
+4. Há então um número limitado de redes domésticas ?
+5. Eu já encontrei redes domésticas com a mesma faixa de endereço de IP, como isso é possível ?
+
+Essas e outras perguntas vem à tona quando é imaginado como funcionaria uma interação global de subredes.
+A solução é 
 
 
 
