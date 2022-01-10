@@ -101,4 +101,44 @@ Esse registro é mantido até o fim da conexão. Como o tamanho do campo porta �
 Um dos problemas causados por esses protocolos (DHCP e NAT) é referente aos *Home Servers*, pois como um servidor espera por uma requisição de um *client*, como esse *client* pode saber qual é o atual endereço de IP do servidor ? Como funcionaria a arquitetura P2P ?
 Soluções para esse problema incluem *NAT transversal tools* [RFC 5389, RFC 5128], algo que não será debatido nesse texto.  
 
-uma tabela que define a tradução do endereço de IP e porta no lado WAN para o endereço de IP e porta do lado LAN. 
+#### IPv6 datagram
+
+Há uma série de mudanças introduzidas com o IPv6:
+
+1. Capacidade de endereçamento expandido: de 32 bits para 128 bits
+2. *header* de tamanho fixo: o *header* foi fixado em 40 *bytes*, permitindo um processamento mais rápido pelo roteador
+3. fluxo e seu rótulo: capacidade de rotular os *datagrams* de um fluxo específico, o qual cada rótulo sinaliza uma requisição específica, como *real-time service* ou *non-default quality*
+
+
+Os campos do *datagram* do IPv6 são:
+
+1. Version: versão do IP (no caso, 6).
+2. Traffic class: equivalente ao TOS do IPv4, é usado para dar prioridade à algum *datagram*
+3. *flow label*: campo de 20 *bits* usado para rotular um fluxo de *datagrams*
+4. *Payload Length*: campo de 16 *bits* que indica o tamanho do *payload*
+5. *Next Header*: identifica o protocolo para qual o *datagram* (ou o *payload*) será entregue
+6. *Hop limit*: equivalente ao TTL do IPv4, diminui em 1 toda vez que o *datagram* é transmitido por um roteador e descartado quando chega em 0.
+7. Endereço de origem e destino: no formato de 128 *bits*
+8. *Data*: também chamado de *payload*, é o conteudo encapsulado pelo protocolo.
+
+Foram removidos:
+
+1. Fragmentação e remontagem: IPv6 não permite a fragmentação e a remontagem do datagram (essa operação era feita com o objetivo de reduzir o tamanho do *datagram* grande demais para ser transmitido). Assim caso um *datagram* seja muito grande, o roteador descarta esse *datagram* e retorna uma mensagem de erro, de forma que o emissor deverá reenviar o *datagram*. A remoção dessa funcionalidade gera, como resultado, uma redução no tempo de processamento do roteador.
+2. *Header checksum*: Considerado suficientemente redundante e enfatizando a velocidade de processamento, esse campo não se mostrou necessário para os desenvolvedores do IPv6.
+3. Options: a remoção do *options* possibilitou a fixação do tamanho do *header* em 40 *byts*, algo que além de causar um encolhimento no tempo de processamento, também deixa explícito o início do *payload* (afinal, o *payload* sempre estará 40 bytes após o início do *datagram*). 
+
+
+#### Transição de IPv4 para IPv6
+
+Há um problema inerente na atualização dos sistemas distribuidos: a adoção de uma nova tecnologia por todos os elementos da rede
+Um sistema com o IPv6 pode ser projeto para ser retrocompatível com o IPv4, mas um sistema com IPv4 não é capaz de lidar com o IPv6.
+
+Como, então, atualizar todos os incontáveis dispositivos já integrados na rede ?
+
+1. Transição abrupta: substituir todos os elementos de uma vez só, marcando um dia x para inutilizar os dispositivos compatíveis com IPv4.
+2. Transição suave: substituir os elementos de forma gradual.
+
+
+A abordagem da transição suave foi o caminho escolhido. Para tal, fora adotado a prática do *tunneling* (algo que torna os dispositivos IPv6 compatível com o IPv4). O *tunnel* encapsula o *datagram* do IPv6 integralmente, tornando-o o *payload* do IPv4, e transmite-o com o *header* do IPv4.
+
+é o encapsulamento de um *datagram* do IPv6 inteiro, introduzindo-o no campo *payload* do IPv4. 
