@@ -195,9 +195,42 @@ A camada de enlace provê os seguintes serviços:
 
 O *Link Layer* utiliza um sistema de endereçamento similar ao *Network Layer* com o *IP Address*. 
 
-Na fabricação de um NIC, lhe é designado um endereço único de 6 bytes chamados de *MAC Address* (*LAN Address*, ou *Physical Address*), que se complementa ao *IP Address* de forma similar à relação entre o CPF de um brasileiro com seu endereço residencial, pois o endereço residencial é alterado conforme ocorre uma mudança (assim como o *IP Address* é alterado após o dispositivo mudar de rede), mas o seu CPF não é modificado (assim como o *MAC Address*).
+Na fabricação de um NIC, lhe é designado um endereço único de 6 bytes chamados de *MAC Address* (*LAN Address*, ou *Physical Address*), que se complementa ao *IP Address* de forma similar à relação entre o CPF de um brasileiro com seu endereço residencial, pois o endereço residencial é alterado conforme ocorre uma mudança (assim como o *IP Address* é alterado após o dispositivo mudar de rede), mas o seu CPF não é modificado (assim como o *MAC Address*). Portanto, é designado (pelo fabricante) ao NIC um *MAC Address*, e (pela rede) um *IP Address*. 
 
-Portanto, é designado (pelo fabricante) ao NIC um *MAC Address*, e (pela rede) um *IP Address*
+
+#### ARP
+
+
+O *Link Layer* necessita, para o envio de seus *frames*, o endereço MAC do dispositivo receptor. Mas como obter esse endereço ?
+Esse endereço pode ser obtivo através do *Address Resolution Protocol* (ARP), no qual armazena em uma tabela (ARP *table*) as equivalências entre *IP Address* e *MAC Address*. A ARP *table* está localizada nos NICs de cada *host* e *router* da subrede.
+
+O ARP é similar ao DNS, com a diferença de estar limitado à sua subrede (diferente do DNS que está disponível para toda a Internet).
+
+
+##### Funcionamento do ARP
+
+Suponha que o *host* 222.222.222.220 quer enviar um *datagram* para 222.222.222.222, mas não tenha em sua ARP *table* o registro contendo a equivalência entre o IP e o MAC *Address*. Para tal, o emissor deve utilizar o protocolo ARP:
+
+1. O emissor deve inquerir (*query*) todos os *hosts* e *routers* da subrede para determinar a equivalência. Esse inquérito ocorre com a montagem de um ARP *packet* (uma estrutur especial que contém o endereço IP e MAC do emissor e do receptor) destinado ao *MAC Broadcast Address* (um endereço específico, FF-FF-FF-FF-FF-FF, no qual sinaliza que a transmissão deve ser feito para todos os *hosts* da subrede)
+2. O NIC encapsula o ARP *packet* em um *link layer frame* e transmite para a subrede (equivalente a uma pessoa gritar em uma sala quem tem um CPF XXX.XXX.XXX-XX)
+3. O *host* no qual o seu módulo ARP contém o registro inquerido envia de volta (diretamente ao inquisidor) um *response* ARP *packet* com o mapeamento desejado.
+4. O *host* inquisidor, por fim, pode atualizar sua ARP *table* e enviar os seus dados para o endereço MAC correspondente à inquisição.
+
+É importante perceber que:
+1. O *query* ARP *message* é enviado para todos em *broadcast*, enquanto que sua resposta não (ela é enviada em um *frame* padrão).
+2. ARP é *plug-and-play*, montando sua tabela automaticamente.
+3. O ARP é um protocolo localizado entre o *Network Layer* e o *Link Layer*, por conter parâmetros oriundos de ambas as camadas (como o *IP Address* e o MAC *Address*, respectivamente)
+4. O ARP opera quando um *host* quer enviar um *datagram* para outro *host* na mesma subrede.
+
+
+
+
+......
+
+Para a tradução de endereços (de forma similar ao DNS), como de *IP Address* para *MAC Address*, foi desenvolvido o *Address Resolution Protocol* (ARP).
+
+
+A relação entre o *MAC Address* e o *IP Address* de cada NIC é gerenciado pelo protocolo ARP, no qual é criado uma tabela ARP em cada dispositivo da subrede
 
 
 As relações entre 
