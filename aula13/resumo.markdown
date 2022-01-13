@@ -175,11 +175,22 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 
 ## Link Layer
 
-Após a *Network Layer* determinar qual o caminho de comunicação (chamado de *link* ou enlace) o *datagram* deve pecorrer, como o *WiFi* ou o *Ethernet*, entra em cena o *Link Layer* (camada de enlace), responsável por encapsular o *datagram* e transmitir o resultado (o *frame*) através do *link*. Os dispositivos que executam a camada de enlace são chamados de nós (*nodes*). Os 
+Após a *Network Layer* determinar qual o caminho de comunicação (chamado de *link* ou enlace) o *datagram* deve pecorrer, como o *WiFi* ou o *Ethernet*, entra em cena o *Link Layer* (camada de enlace), responsável por encapsular o *datagram* e transmitir o resultado (o *frame*) através do *link*. Os dispositivos que executam a camada de enlace são chamados de nós (*nodes*).
+
+Fundamentalmente, os *links* podem ser classificados em dois canais de comunicação. O primeiro refere-se aquele no qual os nós compartilham do mesmo caminho de transmissão (*single broadcast link*), como os *wireless LANs*. O segundo tipo é de ponto-a-ponto, no qual somente dois nós são conectados em cada *link*.
+
+O *link layer* está presente tanto em *software* (com, por exemplo, a montagem das informações de endereçamento e o controle de interrupções) como em *hardware* (com, por exemplo, *link access* e *framing*) e é implementado em um *chip* chamado de *Network Interface Controller* (NIC).
 
 ### Serviços
 
 A camada de enlace provê os seguintes serviços:
 
 1. *Framing*: constituição do *frame* a partir do encapsulamento do *datagram*.
-2. *Link access*: Um protocolo de 
+2. *Link access*: o controle de acesso é algo fundamental para a realização da transmissão, sendo esse realizado pelo *Medium Access Protocol* (MAC protocol). Nos *links* ponto-a-ponto, o protocolo somente verifica se o *link* está disponível. Em *single broadcast link*, ocorre o problema de multiplos acessos simultâneos, sendo da responsabilidade do protocolo MAC especificar as regras para a transmissão dos *frames*
+3. *Reliable delivery*: protocolo que objetiva garantir a trasmissão de cada *datagram*.
+4. *Error detection and corretion*: devido à possíveis erros introduzidos pela atenuação do sinal ou ruídos eletromagnéticos, vários protocolos fornecem mecanismos de detecção e correção de erros.
+
+
+
+
+
