@@ -223,6 +223,14 @@ Suponha que o *host* 222.222.222.220 quer enviar um *datagram* para 222.222.222.
 4. O ARP opera quando um *host* quer enviar um *datagram* para outro *host* na mesma subrede.
 
 
+Como um emissor pode enviar um *datagram* para fora de sua rede se o MAC *Address* de destino é necessário e o protocolo ARP não fornece o endereço de dispositivos fora da subrede ?
+
+A resposa: Não é necessário que o emissor saiba do MAC *Address* do *host* de destino ! Basta o emissor popular o campo MAC *Address* de destino com o MAC *Address* do roteador da sua rede! (Que pode ser obtido pelo ARP)
+
+O roteador da rede do emissor receberá o *datagram* e avaliará para qual NIC esse *datagram* deve ser direcionado (isso é feito consultando o *fowarding table*). Uma vez no NIC (da subrede 2), o módulo ARP é acionado para obter o MAC *Address* do destinatário. Por fim, o *datagram* é encapsulado pelo *Link Layer* e transmitido para o receptor da mensagem.
+
+
+#### Ethernet
 
 
 ......
