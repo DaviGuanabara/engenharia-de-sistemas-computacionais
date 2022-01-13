@@ -1,4 +1,4 @@
-## IP, o protocolo da network layer
+## IP, o protocolo da Network Layer
 
 O objetivo da *network layer* (camada de rede) é transferir dados de um *host* emissor para o *host* receptor (como não há garantias, esse serviço é conhecido como *best-effort service*). Para tal, é necessário determinar a rota (*route* ou *path*) global que os dados devem pecorrer para alcançar o seu destino, chamado de *routing*, bem como especificar o caminho local com o direcionamento dos dados recém chegados no roteador para a sua saída apropriada, chamado de *fowarding*. 
 
@@ -173,3 +173,10 @@ Figura 07: Tunneling\
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 352.
 
 
+## Link Layer
+
+Após a *Network Layer* determinar qual o caminho de comunicação (chamado de *link* ou enlace) o *datagram* deve pecorrer, como o *WiFi* ou o *Ethernet*, entra em cena o *Link Layer* (camada de enlace), responsável por encapsular o *datagram* e transmitir o resultado (o *frame*) através do *link*. Os dispositivos que executam a camada de enlace são chamados de nós (*nodes*). 
+
+### Serviços
+
+A camada de enlace provê
