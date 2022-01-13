@@ -191,6 +191,19 @@ A camada de enlace provê os seguintes serviços:
 4. *Error detection and corretion*: devido à possíveis erros introduzidos pela atenuação do sinal ou ruídos eletromagnéticos, vários protocolos fornecem mecanismos de detecção e correção de erros.
 
 
+#### Endereçamento o Switches
+
+O *Link Layer* utiliza um sistema de endereçamento similar ao *Network Layer* com o *IP Address*. 
+
+Na fabricação de um NIC, lhe é designado um endereço único de 6 bytes chamados de *MAC Address* (*LAN Address*, ou *Physical Address*), que se complementa ao *IP Address* de forma similar à relação entre o CPF de um brasileiro com seu endereço residencial, pois o endereço residencial é alterado conforme ocorre uma mudança (assim como o *IP Address* é alterado após o dispositivo mudar de rede), mas o seu CPF não é modificado (assim como o *MAC Address*).
+
+Portanto, é designado (pelo fabricante) ao NIC um *MAC Address*, e (pela rede) um *IP Address*
+
+
+As relações entre 
+
+Os *Switches* são dispositivos de segunda camada (*2-layer*) que utilizam o *MAC Address* para direcionar os *frames* aos seus respectivos *links*
+
 
 
 
