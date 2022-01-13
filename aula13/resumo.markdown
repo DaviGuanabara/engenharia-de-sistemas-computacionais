@@ -66,19 +66,26 @@ Prefixo (Subrede): 193.32.216 (11000001 00100000 11011000)
 Identificador de Host: 9 (00001001)
 ```
 
-A máscara de subrede (*network mask*) distingue o endereço referente à subrede ao do *host*. A subrede pode ser entendida como uma ilha de rede isolada, com as interfaces compondo as bordas dessa rede.
+A máscara de subrede (*network mask*) distingue o endereço referente à subrede ao do *host*. A subrede pode ser entendida como uma ilha de rede isolada, com as interfaces compondo as bordas dessa rede, como mostrado na Figura 03.
+
+Figura 03: Subrede\
+![Image](imagens/subnet.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 336.
 
 ##### Obter um endereço de IP
 
 
 A obtenção de um endereço de IP ocorre de forma automática com o protocolo DHCP (*Dynamic Host Configuration Protocol*), chamado também de protocolo *plug-and-play* ou *zeroconf* (*zero configuration*), o qual gera um endereço de IP temporário diferente toda vez que o *host* conecta-se nessa rede.
-O DHCP é um protocolo baseado na arquitetura *client-server*, e o seu processo é feito em quatro passos:
+O DHCP é um protocolo baseado na arquitetura *client-server*, e o seu processo é feito em quatro passos (mostrado na Figura 04):
 
 1. Server Discovery: o *client* dispara *datagram* contendo um *discovery message* para o destino 255.255.255.255 (esse endereço de IP indica ao roteador que a mensagem deva ser entregue para todos as interfaces da subrede), com a origem em 0.0.0.0.
 2. Server Offer: O Servidor DHCP, após receber a discovery message*, responde com a *offer message* para 255.255.255.255 (ou seja, disparando para todos os dispositivos da subrede). A *offer message* contém: uma propósta de *IP address*; *network mask*; e o *IP address lease time*, referente à validade do IP. É importante perceber que na mesma rede pode haver múltiplos servidores DHCP e, portanto, múltiplas *offer message* podem ser disparadas durante essa etapa.
 3. Request: o *client* escolhe uma *server offer* e ecoa os seus parâmetros com a *request message*.
 4. ACK: o servidor selecionado confirma a seleção do endereço enviando uma *ACK message*.
 
+Figura 04: Processo DHCP\
+![Image](imagens/DHCP%20process.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 343.
 
 
 ##### NAT
@@ -89,7 +96,14 @@ O DHCP é um protocolo baseado na arquitetura *client-server*, e o seu processo 
 3. Eu já encontrei redes domésticas com a mesma faixa de endereço de IP, como isso é possível ?
 
 Essas e outras perguntas vem à tona quando é imaginado como funcionaria uma interação global de subredes.
-A solução passa pelo uso do protocolo NAT (*Network Address Translation*).
+A solução passa pelo uso do protocolo NAT (*Network Address Translation*), mostrado na Figura 05.
+
+
+Figura 05: NAT\
+![Image](imagens/NAT.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 345.
+
+
 Um roteador com o protocolo NAT ativo é visto como um dispositivo único (com o IP único) para o resto do mundo, escondendo, assim, os detalhes das configurações de uma rede doméstica para as redes externas. 
 
 É interessante notar que o roteador obtém o endereço de IP via o servidor DHCP oriundo do ISP (*Internet Service Provider*). E por sua vez, oferece um servidor DHCP para a sua subrede.
@@ -112,7 +126,11 @@ Soluções para esse problema incluem *NAT transversal tools* [RFC 5389, RFC 512
 
 #### IPv6 datagram
 
-Há uma série de mudanças introduzidas com o IPv6:
+Há uma série de mudanças introduzidas com o IPv6, mostrado na Figura 06:
+
+Figura 06: IPV6 Datagram\
+![Image](imagens/IPv6%20datagram.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 349.
 
 1. Capacidade de endereçamento expandido: de 32 bits para 128 bits
 2. *header* de tamanho fixo: o *header* foi fixado em 40 *bytes*, permitindo um processamento mais rápido pelo roteador
@@ -148,6 +166,10 @@ Como, então, atualizar todos os incontáveis dispositivos já integrados na red
 2. Transição suave: substituir os elementos de forma gradual.
 
 
-A abordagem da transição suave foi o caminho escolhido. Para tal, fora adotado a prática do *tunneling* (algo que torna os dispositivos IPv6 compatível com o IPv4). O *tunnel* encapsula o *datagram* do IPv6 integralmente, tornando-o o *payload* do IPv4, e transmite-o com o *header* do IPv4.
+A abordagem da transição suave foi o caminho escolhido. Para tal, fora adotado a prática do *tunneling* (algo que torna os dispositivos IPv6 compatível com o IPv4). O *tunnel* encapsula o *datagram* do IPv6 integralmente, tornando-o o *payload* do IPv4, resultando em um *datagram* com o *header* do IPv4.
 
-é o encapsulamento de um *datagram* do IPv6 inteiro, introduzindo-o no campo *payload* do IPv4. 
+Figura 07: Tunneling\
+![Image](imagens/Tunneling.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 352.
+
+
