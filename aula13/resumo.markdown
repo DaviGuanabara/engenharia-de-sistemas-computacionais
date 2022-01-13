@@ -179,4 +179,7 @@ Após a *Network Layer* determinar qual o caminho de comunicação (chamado de *
 
 ### Serviços
 
-A camada de enlace provê
+A camada de enlace provê os seguintes serviços:
+
+1. *Framing*: constituição do *frame* a partir do encapsulamento do *datagram*.
+2. *Link access*: Um protocolo de 
