@@ -232,6 +232,23 @@ O roteador da rede do emissor receberá o *datagram* e avaliará para qual NIC e
 
 #### Ethernet
 
+O *Ethernet* tornou-se o protocolo dominante em redes LAN (*Local Area Network*) por:
+
+1. Ser o primeiro a implantar largamente o *high-speed* LAN
+2. Era mais simples e barato do que seus concorrentes
+3. *Data rates* compatíveis ou maiores do que os seus concorrentes
+4. Por consequência de sua popularidade, dispositivos *Ethernet* são mais baratos.
+
+##### História e dispositivos
+
+O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN.
+
+Nos anos 2000
+
+
+
+se popularizou devido:
+
 
 ......
 
