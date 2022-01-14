@@ -261,7 +261,9 @@ O *frame* do Ethernet é composto por:
 
 O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao envio de uma mensagem. Após enviado uma mensagem, não há respostas confirmando sua chegada (*acknoledgments*). Assim, seu serviço é dito como não confiável, algo que torna o Ethernet simples e barato.
 
+##### Switch
 
+O *Switch*
 
 se popularizou devido:
 
