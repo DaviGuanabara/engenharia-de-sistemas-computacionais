@@ -257,7 +257,8 @@ O *frame* do Ethernet é composto por:
 5. *Cycic redundancy check* (CRC) (4 *bytes*): permite o receptor identificar erros no *frame*.
 6. *Preamble* (8 bytes): o *frame* inicia com o *preamble*. É utilizado para "acordar" o NIC receptor e sincronizar os seus relógios.
 
-O Ethernet é *conectionless* ou seja, não necessita de *handshaking* pr
+O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao envio de uma mensagem. Após enviado uma mensagem, não há respostas confirmando sua chegada (*acknoledgments*). Assim, seu serviço é dito como não confiável.
+
 
 
 se popularizou devido:
