@@ -241,9 +241,11 @@ O *Ethernet* tornou-se o protocolo dominante em redes LAN (*Local Area Network*)
 
 ##### História e dispositivos
 
-O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física (*1-layer*) que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN. Um problema presente nos *Hubs* ocorre quando múltiplos *frames* são transmitidos simultaneamente, algo que gera uma colisão, e os nós que criaram os *frames* devem retransmiti-los.
+O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Os padrões utilizados eram os 10BASE-2 e 10BASE-5 (10 refere-se à velocidade, BASE ao *baseband* Ethernet, significando que a mídia física só carrega o tráfico de dados Ethernet, e a parte final refere-se a mídia física em si, como o cabo coaxial), os quais especificavam 10Mbps Ethernet em cabos coaxiais limitados a 500 metros. Distâncias maiores poderiam ser obtidas com o uso dos *repeaters*, dispositivos da camada física que repetem o sinal de entrada na sua saída. 
 
-A solução para as colisões veio nos anos 2000, quando o *Hub* fora substituido pelo *Switch*, dispositivo de segunda camada (*2-layer*, camada de enlace) que utiliza o *MAC Address* para direcionar os *frames* aos seus respectivos *links*
+Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física (*1-layer*) que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN. Um problema presente nos *Hubs* ocorre quando múltiplos *frames* são transmitidos simultaneamente, algo que gera uma colisão, e os nós que criaram os *frames* devem retransmiti-los.
+
+A solução para as colisões veio nos anos 2000, quando o *Hub* fora substituido pelo *Switch*, dispositivo de segunda camada (*2-layer*, camada de enlace) que armazenam e transmitem (*store-and-foward*) os dados utilizando o *MAC Address* para direcioná-los aos seus respectivos *links*, tornando, assim, dispensável o uso do protocolo MAC (protocolo para controle de colisão).
 
 
 ##### Ethernet Frame
@@ -257,7 +259,7 @@ O *frame* do Ethernet é composto por:
 5. *Cycic redundancy check* (CRC) (4 *bytes*): permite o receptor identificar erros no *frame*.
 6. *Preamble* (8 bytes): o *frame* inicia com o *preamble*. É utilizado para "acordar" o NIC receptor e sincronizar os seus relógios.
 
-O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao envio de uma mensagem. Após enviado uma mensagem, não há respostas confirmando sua chegada (*acknoledgments*). Assim, seu serviço é dito como não confiável.
+O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao envio de uma mensagem. Após enviado uma mensagem, não há respostas confirmando sua chegada (*acknoledgments*). Assim, seu serviço é dito como não confiável, algo que torna o Ethernet simples e barato.
 
 
 
