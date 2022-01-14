@@ -241,10 +241,23 @@ O *Ethernet* tornou-se o protocolo dominante em redes LAN (*Local Area Network*)
 
 ##### História e dispositivos
 
-O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN.
+O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física (*1-layer*) que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN. Um problema presente nos *Hubs* ocorre quando múltiplos *frames* são transmitidos simultaneamente, algo que gera uma colisão, e os nós que criaram os *frames* devem retransmiti-los.
 
-Nos anos 2000
+A solução para as colisões veio nos anos 2000, quando o *Hub* fora substituido pelo *Switch*, dispositivo de segunda camada (*2-layer*, camada de enlace) que utiliza o *MAC Address* para direcionar os *frames* aos seus respectivos *links*
 
+
+##### Ethernet Frame
+
+O *frame* do Ethernet é composto por:
+
+1. *Data Field* (*payload*): é o local no qual é carregado o *datagram* (resultado da camada superior). Tem o tamanho máximo (*Maximum Transmission Unit*, MTU) de 1500 *bytes* e mínimo de 46 *bytes*. Caso o *datagram* seja maior, o *host* deve fragmentá-lo. Caso seja menor, o campo *Data Field* é preenchido (*stuffed*) até o mínimo (o campo *length* presente no *header* do *datagram* indicará o seu tamanho correto).
+2. *Destination Address*: Esse campo contém o MAC *Address* de destino (endereço de 6 bytes).
+3. *Source Adress*: Esse campo contém o MAC *Address* de origem da mensagem (endereço de 6 bytes).
+4. *Type Field* (2 *bytes*): Indica o protocolo utilizado no *datagram* (como IP e ARP).
+5. *Cycic redundancy check* (CRC) (4 *bytes*): permite o receptor identificar erros no *frame*.
+6. *Preamble* (8 bytes): o *frame* inicia com o *preamble*. É utilizado para "acordar" o NIC receptor e sincronizar os seus relógios.
+
+O Ethernet é *conectionless* ou seja, não necessita de *handshaking* pr
 
 
 se popularizou devido:
