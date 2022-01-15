@@ -263,7 +263,16 @@ O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao 
 
 ##### Switch
 
-O *Switch*
+O *Switch* é transparete para os dispositivos da subrede (os dispositivos não sabem da presença do *switch*), e seu princípio de funcionamento é baseado no *Filtering and Fowarding*, no qual o *Filtering* determina se um *frame* deve ser descartado ou transmitido, e o *Fowarding* define qual interface o *frame* deve ser transmitido. O *Filtering and Fowarding* utiliza uma tabela chamada de *switch table*, a qual armazena registros com os campos *address*, referente ao MAC *Address*, *Interface*, indicando qual interface o endereço MAC está anexado, e *Time*, que marca o tempo no qual o registro fora armazenado.
+
+Existem 3 casos para o *Filtering and Fowarding*:
+
+1. Não há registro para o MAC *Address* de destino: dispara para todos os dispositivos (*broadcast*).
+2. O MAC *Address* de destino é o mesmo da interface no qual o *frame* fora recebido: discarta o *frame* (*filtering*).
+3. Há um registro referente ao MAC *Address* de destino com a interface sendo diferente a da origem do *frame*: põe o *frame* no *buffer* que corresponde à interface de destino (*fowarding*).
+
+É interessante perceber que o *switch* é *self learning* (aprende sozinho). Essa capacidade é obtida da seguinte forma:
+
 
 se popularizou devido:
 
