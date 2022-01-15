@@ -263,7 +263,7 @@ O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao 
 
 ##### Switch
 
-O *Switch* é transparete para os dispositivos da subrede (os dispositivos não sabem da presença do *switch*), e seu princípio de funcionamento é baseado no *Filtering and Fowarding*, no qual o *Filtering* determina se um *frame* deve ser descartado ou transmitido, e o *Fowarding* define qual interface o *frame* deve ser transmitido. O *Filtering and Fowarding* utiliza uma tabela chamada de *switch table*, a qual armazena registros com os campos *address*, referente ao MAC *Address*, *Interface*, indicando qual interface o endereço MAC está anexado, e *Time*, que marca o tempo no qual o registro fora armazenado.
+O *Switch* é transparete para os dispositivos da subrede (os dispositivos não sabem da presença do *switch*), e seu princípio de funcionamento (*match plus action*) é baseado no *Filtering and Fowarding*, no qual o *Filtering* determina se um *frame* deve ser descartado ou transmitido, e o *Fowarding* define qual interface o *frame* deve ser transmitido. O *Filtering and Fowarding* utiliza uma tabela chamada de *switch table*, a qual armazena registros com os campos *address*, referente ao MAC *Address*, *Interface*, indicando qual interface o endereço MAC está anexado, e *Time*, que marca o tempo no qual o registro fora armazenado.
 
 Existem 3 casos para o *Filtering and Fowarding*:
 
@@ -272,6 +272,42 @@ Existem 3 casos para o *Filtering and Fowarding*:
 3. Há um registro referente ao MAC *Address* de destino com a interface sendo diferente a da origem do *frame*: põe o *frame* no *buffer* que corresponde à interface de destino (*fowarding*).
 
 É interessante perceber que o *switch* é *self learning* (aprende sozinho). Essa capacidade é obtida da seguinte forma:
+
+1. A *switch table* inicializa vazia.
+2. Para cada *frame* recebido, o *switch* armazena na sua tabela: o MAC *Address* da origem; a interface no qual o *frame* foi recebido; o tempo atual. Dessa maneira, eventualmente, o *switch* preencherá completamente sua tabela.
+3. Um registro é deletado caso não seja recebido *frames* com o seu MAC *Address* de origem após um certo período de tempo (*aging time*).
+
+O *switch* apresenta algumas vantagens sobre o *hub*:
+
+1. Eliminação de colisões: não há perda no compromento de banda por consequência das colisões.
+2. *Links* heterogênios: os diferentes *links* podem operar com velocidades e mídias diferentes.
+3. Gerenciamento: além de melhorar a segurança, os *switches* coletam estatísticas de rede que podem ser usados para melhorá-la.
+
+Em comparação com os roteadores, os *switches* apresentam:
+
+Vantagens:
+
+1. *Plug-and-play*.
+2. Altas taxas de *filtering and fowarding*
+
+Desvantagens:
+
+1. Topologia de rede restrita
+2. Sucetível ao *broadcast storm*: caso um *host* dispare incontáveis *frames* em *broadcast*, a operação do *switch* pode saturar a rede, podendo colapsá-la.
+
+Roteadores:
+
+Vantagens:
+1. *Datagrams not cycle*: mesmo com caminhos redundantes, os *datagrams* não se mantém vivos vagando pela rede (proteção vinda de campos como TTL).
+2. Topologia de rede não restrita
+3. *Firewall* contra *broadcast storm* (não sucetível ao *broadcast storm*).
+4. Provê um isolamento mais robusto
+
+Desvantagens:
+
+1. Não é *plug and play*
+2. Maior tempo de processamento: pois os roteadores devem processar até a terceira camada.
+
 
 
 se popularizou devido:
