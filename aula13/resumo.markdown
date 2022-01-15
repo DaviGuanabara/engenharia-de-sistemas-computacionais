@@ -8,11 +8,9 @@ Figura 01: Control plane e data plane\
 ![Image](imagens/Control%20plane%20and%20data%20plane.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 307.
 
-É importante perceber que apesar dessas duas funcionalidades serem requisitos para que a *network layer*, é possível encontrá-las em dispositivos separados, algo possibilitado pelo SDN (Software-Defined Networks), que aloca o *control plane* em um servidor, algo que torna os roteadores especialistas em *fowarding*.
+É importante perceber que apesar dessas duas funcionalidades serem requisitos para a *network layer*, é possível encontrá-las em dispositivos separados, algo possibilitado pelo SDN (Software-Defined Networks), que aloca o *control plane* em um servidor, algo que torna os roteadores especialistas em *fowarding*.
 
 A *fowarding table*, responsável por determinar, a partir do *header* dos dados recebidos pelo roteador, a saída apropriada, é o elemento chave para a interação entre essas partes (*control plane* e *data plane*), pois seus registros são gerados pelo *control plane* e utilizados pelo *data plane*.
-
-
 
 
 ### Protocolo IP
@@ -23,7 +21,7 @@ Citando o livro-texto desse curso:
 
 "Nevertheless, the datagram plays a central role in the internet - every networking student and professional needs to see it, absorb it, and master it." (Computer Networking a top-down approach. 8th ed. Pearson, página 331)
 
-entender o *datagram* é de suma importância para a aprendizagem de redes de computadores.
+Entender o *datagram* é de suma importância para a aprendizagem de redes de computadores.
 
 
 #### IPv4 Datagram 
@@ -232,7 +230,7 @@ O roteador da rede do emissor receberá o *datagram* e avaliará para qual NIC e
 
 #### Ethernet
 
-O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Os padrões utilizados eram os 10BASE-2 e 10BASE-5 (10 refere-se à velocidade, BASE ao *baseband* Ethernet, significando que a mídia física só carrega o tráfico de dados Ethernet, e a parte final refere-se a mídia física em si, como o cabo coaxial), os quais especificavam 10Mbps Ethernet em cabos coaxiais limitados a 500 metros. Distâncias maiores poderiam ser obtidas com o uso dos *repeaters*, dispositivos da camada física que repetem o sinal de entrada na sua saída. 
+O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Os padrões utilizados eram os 10BASE-2 e 10BASE-5 (10 refere-se à velocidade, em Mbps, BASE ao *baseband* Ethernet, significando que a mídia física só carrega o tráfico de dados Ethernet, e a parte final refere-se a mídia física em si, como o cabo coaxial), os quais especificavam 10Mbps Ethernet em cabos coaxiais limitados a 500 metros. Distâncias maiores poderiam ser obtidas com o uso dos *repeaters*, dispositivos da camada física que repetem o sinal de entrada na sua saída. 
 
 Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física (*1-layer*) que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN. Um problema presente nos *Hubs* ocorre quando múltiplos *frames* são transmitidos simultaneamente, algo que gera uma colisão, e os nós que criaram os *frames* devem retransmiti-los.
 
