@@ -232,15 +232,6 @@ O roteador da rede do emissor receberá o *datagram* e avaliará para qual NIC e
 
 #### Ethernet
 
-O *Ethernet* tornou-se o protocolo dominante em redes LAN (*Local Area Network*) por:
-
-1. Ser o primeiro a implantar largamente o *high-speed* LAN
-2. Era mais simples e barato do que seus concorrentes
-3. *Data rates* compatíveis ou maiores do que os seus concorrentes
-4. Por consequência de sua popularidade, dispositivos *Ethernet* são mais baratos.
-
-##### História e dispositivos
-
 O protocolo *Ethernet* foi inventado nos anos 1970 por Bob Metcalfe e David Boggs. Inicialmente utilizava um barramento coaxial (uma *broadcast* LAN) para interconectar os nós. Os padrões utilizados eram os 10BASE-2 e 10BASE-5 (10 refere-se à velocidade, BASE ao *baseband* Ethernet, significando que a mídia física só carrega o tráfico de dados Ethernet, e a parte final refere-se a mídia física em si, como o cabo coaxial), os quais especificavam 10Mbps Ethernet em cabos coaxiais limitados a 500 metros. Distâncias maiores poderiam ser obtidas com o uso dos *repeaters*, dispositivos da camada física que repetem o sinal de entrada na sua saída. 
 
 Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par trançado conectado em um Hub, um dispositivo da camada física (*1-layer*) que retrasmite os bits de entrada para todos os nós conectados a ele, em uma arquitetura estrela (com todos os *hosts* conectados ao dispositivo cental, o Hub), mantendo-se, portanto, uma *broadcast* LAN. Um problema presente nos *Hubs* ocorre quando múltiplos *frames* são transmitidos simultaneamente, algo que gera uma colisão, e os nós que criaram os *frames* devem retransmiti-los.
@@ -248,9 +239,25 @@ Em 1990, os barramentos coaxiais foram substituidos pelo cabo de cobre de par tr
 A solução para as colisões veio nos anos 2000, quando o *Hub* fora substituido pelo *Switch*, dispositivo de segunda camada (*2-layer*, camada de enlace) que armazenam e transmitem (*store-and-foward*) os dados utilizando o *MAC Address* para direcioná-los aos seus respectivos *links*, tornando, assim, dispensável o uso do protocolo MAC (protocolo para controle de colisão).
 
 
+O *Ethernet* tornou-se o protocolo dominante em redes LAN (*Local Area Network*) por:
+
+1. Ser o primeiro a implantar largamente o *high-speed* LAN
+2. Era mais simples e barato do que seus concorrentes
+3. *Data rates* compatíveis ou maiores do que os seus concorrentes
+4. Por consequência de sua popularidade, dispositivos *Ethernet* são mais baratos.
+
+
+É importante perceber qu, apesar da intensa mudança de padrão sofrida desde os anos 1970, o Ethernet ainda utiliza a mesma estrutura de *frame*, algo que será debatido posteriormente. 
+
 ##### Ethernet Frame
 
-O *frame* do Ethernet é composto por:
+O *frame* do Ethernet, como mostrado na Figura 08, é composto por:
+
+Figura 08: Estrutura do frame Ethernet\
+![Image](imagens/estrutura%20do%20frame%20ethernet.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 486.
+
+
 
 1. *Data Field* (*payload*): é o local no qual é carregado o *datagram* (resultado da camada superior). Tem o tamanho máximo (*Maximum Transmission Unit*, MTU) de 1500 *bytes* e mínimo de 46 *bytes*. Caso o *datagram* seja maior, o *host* deve fragmentá-lo. Caso seja menor, o campo *Data Field* é preenchido (*stuffed*) até o mínimo (o campo *length* presente no *header* do *datagram* indicará o seu tamanho correto).
 2. *Destination Address*: Esse campo contém o MAC *Address* de destino (endereço de 6 bytes).
@@ -260,6 +267,8 @@ O *frame* do Ethernet é composto por:
 6. *Preamble* (8 bytes): o *frame* inicia com o *preamble*. É utilizado para "acordar" o NIC receptor e sincronizar os seus relógios.
 
 O Ethernet é *conectionless* ou seja, não requer de *handshaking* anterior ao envio de uma mensagem. Após enviado uma mensagem, não há respostas confirmando sua chegada (*acknoledgments*). Assim, seu serviço é dito como não confiável, algo que torna o Ethernet simples e barato.
+
+
 
 ##### Switch
 
@@ -307,24 +316,5 @@ Desvantagens:
 
 1. Não é *plug and play*
 2. Maior tempo de processamento: pois os roteadores devem processar até a terceira camada.
-
-
-
-se popularizou devido:
-
-
-......
-
-Para a tradução de endereços (de forma similar ao DNS), como de *IP Address* para *MAC Address*, foi desenvolvido o *Address Resolution Protocol* (ARP).
-
-
-A relação entre o *MAC Address* e o *IP Address* de cada NIC é gerenciado pelo protocolo ARP, no qual é criado uma tabela ARP em cada dispositivo da subrede
-
-
-As relações entre 
-
-Os *Switches* são dispositivos de segunda camada (*2-layer*) que utilizam o *MAC Address* para direcionar os *frames* aos seus respectivos *links*
-
-
 
 
