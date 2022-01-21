@@ -8,11 +8,15 @@ Imagine uma via de veículos com pedágio. Suas entradas direcionam todos os car
 
 O *data plane* de um roteador funciona de forma análoga a essa via imaginada. Os *datagrams*, análogos aos carros, após entrarem no roteador (pelos *inputs*), são enfileirados e ficam no aguardo de serem processados. Após uma série de operações, os mesmos são direcionados para as suas respectivas sáidas (*outputs*).
 
+Assim, o roteador é um caso específico da abstração mais genérica *match plus action* (corresponder e agir), o qual é performado por outros dispositivos, como os *switches*, e não apenas pelos roteadores.
+
 A Figura 01 apresenta a arquitetura de um roteador, separada em *control plane* e *data plane*, que implementam o *routing* e o *fowarding, respectivamente*. 
 
 Figura 01: Arquitetura de um roteador\
 ![Image](imagens/Roteador.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 311.
+
+
 
 #### Descrição
 
@@ -51,6 +55,48 @@ Para as perguntas 1, 2 e 3, fica claro que gerará tráfego na entrada, na saíd
 O mesmo pode ocorrer em um roteador, com a chegada de múltiplos *datagrams* em uma mesma *input port* sendo maior que sua capacidade de processá-los podendo gerar filas, atrasos e perda de dados (com o mesmo ocorrendo na saída). A quantidade limitada de *datagrams* suportada pelo *switch fabric* pode não suportar a alta demanda de fluxo de dados, causando o bloqueio de novos entrantes e, consequentemente, filas e atrasos.
 
 Essas questões serão debatidas posteriormente em mais detalhes.
+
+
+### Input Port
+
+A Figura 02 mostra as execuções ocorridas na *input port*. Inicia-se com a ação de funções relativas a *physical layer* (em *Line Termination*), seguida de funções da *link layer* (em *Data link processing*), por fim o *lookup, fowarding* e *queuing* (em *lookup, fowarding, queuing*). 
+
+Figura 02: Execuções na Input Port\
+![Image](imagens/input%20port.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 314.
+
+A função central da porta de entrada é o *lookup*, no qual o roteador procura (*look up*) na *forwarding table* qual porta o *datagram* recém chegado deve ser direcionado.
+Apesar da proeminente importância do *lookup*, outras ações também devem ser tomadas, como a chacagem do *version number*, *checksum* e *Time to Live*
+
+Como pode-se supor, em uma arquitetura de banco de dados centralizado, os registros da *forwarding table* estariam disponíveis em um único local do roteador, com a operação de *look up* devendo fazer uma requisição de registro à esse banco de dados, algo que gera um possível gargalo afinal, caso o módulo do banco de dados não conseguir suprir a demanda das requisições, deverão ocorrer filas e atrasos. 
+
+Para evitar esse gargalo, cada linha da tabela é copiada para cada um dos *input ports* presentes no roteador, de forma que o acesso à tabela de transmissão (*forwarding table*) seja feita localmente (no *input port*), sem a necessidade de requisições.
+
+No *look up*, o roteador identifica a saída (*link interface*) utilizando a regra de maior correspondência (*longest prefix matching rule*) de prefixo do IP *Address* de destino do *datagram*. Um exemplo dessas correspondências podem ser vistas na Tabela 01.
+(O prefixo é formado por x primeiros dígitos do IP *Address* de destino referencia o endereço da subrede.)
+
+*Tabela 1 Exemplo de forwarding table*
+
+Prefix | Link Interface 
+-----------|-------------
+11001000 00010111 00010       | 0  
+11001000 00010111 00011000    | 1  
+11001000 00010111 00011       | 2    
+otherwise                     | 3       
+
+Por exemplo, o endereço de IP:
+
+´´´
+11001000 00010111 00011000 10101010
+´´´
+
+Tem o prefixo correspondendo ao *link interface* 1 e 2, com o *link* 1 sendo a maior correspondência e, portanto, sendo os dados direcionados ao mesmo.
+
+
+
+
+
+
 
 ..................
 
