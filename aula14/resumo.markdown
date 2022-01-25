@@ -124,10 +124,11 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 ### Filas
 
 As filas podem se formar na entrada e na saída do roteador.
-Primeiro, as filas podem se formar devido ao 
 
+As filas na entrada podem ser formadas pela diferença de velocidade entre o *input* e o *switching fabric* (como citado anteriormente, de forma análoga, na questão 1 do "E se" no tópico" Questões a a cerca do forwarding"). Se um *input* for capaz de lidar com uma taxa de *datagrams* mais alta do que o *switching fabric*, os mesmos ficarão acumulados na entrada até executados pelo *switching fabric*.
 
-#### Input
+Um outro evento que têm como consequência a geração de filas é o chamado *head-of-the-line blocking* (HOL *blocking*). 
+A Figura 03 mostra um exemplo de como o HOL *blocking* pode ocorrer. Os *datagrams* azuis-escuros estão destinados às saídas superiores, enquanto que os azuis-claros estão destinados às saídas centrais. Assim, um azul-escuro oriundo do *input* superior pode bloquear a passagem do *datagram* azuil-escuro oriundo do *input* inferior, travando a fila e impedindo que o *datagram* azul-claro seja processado paralelamente, apesar de sua saída estar livre.
 
 
 Figura 03: Hol Blocking\
