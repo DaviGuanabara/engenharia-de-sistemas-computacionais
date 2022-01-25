@@ -130,6 +130,10 @@ Primeiro, as filas podem se formar devido ao
 #### Input
 
 
+Figura 03: Hol Blocking\
+![Image](imagens/hol%20blocking.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 321.
+
 
 ..................
 
