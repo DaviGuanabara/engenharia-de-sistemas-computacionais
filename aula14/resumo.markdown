@@ -123,7 +123,9 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 
 ### Filas
 
-As filas podem se formar na entrada e na saída do roteador. No *input*, elas podem se formar devido 
+As filas podem se formar na entrada e na saída do roteador.
+Primeiro, as filas podem se formar devido ao 
+
 
 #### Input
 
