@@ -43,7 +43,7 @@ Voltando para a analogia, o *Destination-based fowarding* seria o atendente do p
 
 
 E se:
-1. O atende for capaz de atender 1 carro por minuto, mas chegarem 2 carros por minuto ?
+1. O atendente for capaz de atender 1 carro por minuto, mas chegarem 2 carros por minuto ?
 2. Todos os carros que entrarem quiserem ir para a mesma saída ?
 3. Tiver mais carro entrando do que saindo ?
 4. For necessário tornar prioritário alguns veículos (como ônibus) e bloquear a entrada de outros (como caminhões acima de um certo peso) ?
@@ -107,8 +107,25 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 
 1. *Switching via memory*: o *input port* sinaliza, a partir de uma interrupção, para o processador do roteador a chegada de novos *datagrams*. Após a interrupçãos, os dados recém chegados são copiados para a memória, processados (determinando-se a interface apropriada), e por fim copiados para o *buffer* de saída. Isso é usualmente feito com processos com memória compartilhada.Como desvantagem pode-se citar, primeiro, a impossibilidade de transmissão de mais de um *datagram* ao mesmo tempo, pois somente uma operação de leitura e escrita na memória pode ser feita por vez. Segundo, com a largura de banda sendo B *datagrams* por segundo para memória (B *datagrams* podem ser escritos ou lidos em 1 segundo), significa dizer que a taxa de transferência está limitada em B/2 (pois será necessário fazer 1 operação de escrita e uma de leitura).
 2. *Switching via bus*: a *input port* envia os *datagrams* diretamente para a sua respectiva *output port* através de um barramento compartilhado, sem a intervenção do processador do roteador. Isso é usualmente feito agregando-se um *header* com um rótulo informando sua respectiva interface. Ao ser transmitido, todas as interfaces recebem esses dados, porém somente aquela indicada pelo rótulo irá manter o mesmo, retirando o seu rótulo, processando-o, e transmitindo-o para fora do roteador. O primeiro fato incoveniente dessa arquitetura é que somente 1 pacote de dados podem pecorrer o barramento. Isso significa que se chegarem multiplos *datagrams* em diferentes *input ports*, todos menos 1 devem esperar o barramento tornar-se disponível. O segundo problema é que a velocidade do roteador estará limitada pela velocidade do barramento barramento. Esse tipo de arquitetura é indicado para LAN.
-3. *Switching via an interconnection network*: também chamado de cruzamento de barras, esse tipo de switch, como mostrado na Figura 02, pode alternar cada cruzamento de barra (ou nó) entre aberto e fechado de forma independente. Dessa maneira, multiplos *datagrams* em paralelo podem atravessar o *switch fabric* ao mesmo (ou seja, *non-blocking*). Por exemplo, para emitir um dado entre o *input* A para o *output* Y, basta fechar o cruzamento dos mesmos. Esse fechamento não impedirá que os dados do *input* B alcance a saída X, porém o *output* Y estará bloqueado. 
+3. *Switching via an interconnection network*: também chamado de cruzamento de barras, esse tipo de switch, como mostrado na Figura 02, pode alternar cada cruzamento de barra (ou nó) entre aberto e fechado de forma independente. Dessa maneira, multiplos *datagrams* podem atravessar em paralelo o *switch fabric* ao mesmo (ou seja, *non-blocking* para uma *output port* específica). Por exemplo, para emitir um dado do *input* A para o *output* Y, basta fechar o cruzamento dos mesmos. Esse fechamento não impedirá que os dados do *input* B alcance a saída X, porém o *output* Y estará somente disponível para o *input* A (estando bloqueado para os outros *inputs*). 
 
+
+### Output port
+
+
+A Figura 03 mostra as 3 principais execuções do *output port*. Inicia-se com o enfileiramento (*Queuing*) dos *datagrams* recebidos. Em seguida, são performados ações necessárias relativas as camadas físicas e enlace (*Data link processing*). Por fim, os dados são enviados para fora do roteador (*Line termination*).
+
+
+Figura 03: Output Port\
+![Image](imagens/output%20port.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 319.
+
+
+### Filas
+
+As filas podem se formar na entrada e na saída do roteador. No *input*, elas podem se formar devido 
+
+#### Input
 
 
 
