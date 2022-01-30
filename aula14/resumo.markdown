@@ -136,12 +136,50 @@ Figura 03: Hol Blocking\
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 321.
 
 
-Na saída, as filas podem se formar quando multiplos *datagrams* dos *inputs* são direcionados para o mesmo *output*, como mostrado na Figura 04. Esse evento pode preencher o *buffer* de saída, ocasionando a não recepção de novos *datagrams*, política chamada de *drop-tail*, ou a remoção de um já enfileirado, para assim criar espaço para os dados recém chegados. Em alguns casos, pode ser vantajoso remover um pacote de dados antes que fila fique cheia, de forma a enviar um sinal de congestionamento para o emissor. Os algoritmos responsáveis por isso são chamados de *Active Queue Management* (AQM), ou gerenciador de filas ativo, com o *Random Early Detection* (RED) sendo um algoritmo dessa classe amplamente implementado.
+Na saída, as filas podem se formar quando multiplos *datagrams* dos *inputs* são direcionados para o mesmo *output*, como mostrado na Figura 04. Esse evento pode preencher o *buffer* de saída, ocasionando a "derrubada" de novos *datagrams*, política chamada de *drop-tail*, ou a remoção de um já enfileirado, para assim criar espaço para os dados recém chegados. Em alguns casos, pode ser vantajoso remover um pacote de dados antes que fila fique cheia, de forma a enviar um sinal de congestionamento para o emissor. Os algoritmos responsáveis por isso são chamados de *Active Queue Management* (AQM), ou gerenciador de filas ativo, com o *Random Early Detection* (RED) sendo um algoritmo dessa classe amplamente implementado.
 O *buffer* de saída po
 
 Figura 04: Fila na saída\
 ![Image](imagens/output%20queue.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 322.
+
+
+O tamanho do espaço destinado para as filas sofrem de uma dicotomia. Enquanto que *buffers* pequenos podem não apresentar espaço suficiente para lidar com picos de demanda, algo que aumenta o número de dados perdidos, filas grandes podem representar um longo tempo de espera, aumentando o atraso na entrega dos *datagrams*.
+
+Para equilibrar esses diferentes pontos, o tamanho do *buffer* (`B`) fora relacionado com o *round-trip time* (RTT) médio (período entre a emissão dos dados e a recepção do seu ACK) e a capacidade do link (`C`).
+
+
+```
+B = RTT . C
+
+B = 2.5G bits, para RTT = 250 ms, e C = 10 Gbps
+```
+
+
+Atualmente, também relaciona-se o número de fluxos independentes de TCP (`N`):
+
+```
+B = RTT . C / √N
+```
+
+#### Prioridades dos dados
+
+Na discurssão dos *buffers* fora deixado implícito a política *First-in-First-Out* (FIFO), ou primeiro a chegar, primeiro a sair (modelo mostrado na Figura 05), mas outras regras também podem ser utilizadas, como a classificação dos dados em diferentes filas a partir de sua prioridade (modelo mostrado na Figura 06).
+
+
+Figura 05: Modelo FIFO\
+![Image](imagens/output%20queue.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 325.
+
+Figura 06: Modelo classificação e priorização\
+![Image](imagens/output%20queue.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.
+
+Um exemplo de priorização é o
+
+Um *datagram* recém chegado no *buffer*
+
+
 ..................
 
 
