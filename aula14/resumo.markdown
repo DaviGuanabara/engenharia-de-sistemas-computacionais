@@ -168,26 +168,28 @@ Na discurssão dos *buffers* fora deixado implícito a política *First-in-First
 
 
 Figura 05: Modelo FIFO\
-![Image](imagens/output%20queue.png)
+![Image](imagens/FIFO.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 325.
 
 Figura 06: Modelo classificação e priorização\
-![Image](imagens/output%20queue.png)
+![Image](imagens/priority%20queue.png)
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.
 
-Um exemplo de priorização é o
-
-Um *datagram* recém chegado no *buffer*
+Uma forma generalizada de classificação e priorização dos dados que tem sido bastante implementada é o chamado *Weighted Fair Queuing* (WFQ), no qual as filas de maior peso são tratadas primeiro, seguindo para as de menor peso, até reiniciar o ciclo, como mostrado na Figura 07.
 
 
-..................
+Figura 07: Weighted Fair Queuing\
+![Image](imagens/WFQ.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.
+
+##### Neutralidade das redes
 
 
-Várias outras vias anexam-se a ela  é delimitada por um pedágio, e o seu "corpo" conecta-se com  
 
+Como qualquer regra pode ser imposta para a classificação dos dados, os ISP's podem não ser neutros no oferecimento de seus serviços, algo que vem resultando leis que regulamentam do que os ISP's podem ou não fazer.
 
-Um roteador é form
-Um roteador é formado por 3 componentes, as portas de entrada, o comutador, e as portas de saída. De forma análoga, um roteador pode ser visto como uma via de carros, com uma rotatória no centro.
+Em geral, a defesa da neutralidade das redes pode ser resumido em 3 pontos:
 
-
-1. Porta de entrada (*input port*) (vias de entradas de carros): análogo ás vias de entrada de carros, é responsável por executar funções relacionadas as camadas físicas e enlace, com a função mais crucial sendo a de *lookup* (a determinação da porta de saída)
+1. Conteúdos não devem ser bloqueados (*No Blocking*).
+2. Tráfico de Internet não deve ser penalizado (*No Throttling*).
+3. Não deve haver priorização paga (*Paid Prioritization*).
