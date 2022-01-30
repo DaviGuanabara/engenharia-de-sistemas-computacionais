@@ -136,6 +136,12 @@ Figura 03: Hol Blocking\
 Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 321.
 
 
+Na saída, as filas podem se formar quando multiplos *datagrams* dos *inputs* são direcionados para o mesmo *output*, como mostrado na Figura 04. Esse evento pode preencher o *buffer* de saída, ocasionando a não recepção de novos *datagrams*, política chamada de *drop-tail*, ou a remoção de um já enfileirado, para assim criar espaço para os dados recém chegados. Em alguns casos, pode ser vantajoso remover um pacote de dados antes que fila fique cheia, de forma a enviar um sinal de congestionamento para o emissor. Os algoritmos responsáveis por isso são chamados de *Active Queue Management* (AQM), ou gerenciador de filas ativo, com o *Random Early Detection* (RED) sendo um algoritmo dessa classe amplamente implementado.
+O *buffer* de saída po
+
+Figura 04: Fila na saída\
+![Image](imagens/output%20queue.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 322.
 ..................
 
 
