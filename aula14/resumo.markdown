@@ -193,3 +193,36 @@ Em geral, a defesa da neutralidade das redes pode ser resumido em 3 pontos:
 1. Conteúdos não devem ser bloqueados (*No Blocking*).
 2. Tráfico de Internet não deve ser penalizado (*No Throttling*).
 3. Não deve haver priorização paga (*Paid Prioritization*).
+
+
+### Generalized Forwarding
+
+O *Generalized Forwarding* é a forma genérica do paradigma *match plus action*, no qual utiliza os *headers* associados aos protocolos de diferentes camadas para determinar o que deve ser feito com os dados recebidos. Para a sua implementação, é utilizado o padrão OpenFlow, o qual basea-se no SDN (*Software Defined Network*), que aplica um controlador remoto para o cálculo das regras da rede.
+
+A base do *Generalized Forwarding* está na *Flow Table*, tabela no qual está contido as regras do *match plus action*. 
+Cada regra têm:
+
+1. Um conjunto de *headers* à serem verificados.
+2. Um conjunto de contadores.
+3. Um conjunto de ações à serem tomadas.
+
+
+Perceba que essa tabela é uma forma limitada de programação. Atualmente, vem ganhando força uma alternativa mais rica de possibilidades de implementação (com variáveis e funções), a linguagem *Programming Protocol-independent Packet Processors* (P4).
+
+
+Dentro do padrão OpenFlow, os *headers* podem ser oriundos das camadas de enlace, rede e transporte, como mostrado na Figura 08. É importante perceber que nem todos os *headers* podem ser escolhidos para a ação de correspondência (*match*) (assim fora implementado como uma forma de equilibrar a funcionalidade e complexidade. É melhor fazer algo simples e bem, do que muita coisa e ruim).
+
+Figura 08: OpenFlow Headers\
+![Image](imagens/Open%20Flow%20headers.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 356.
+
+As ações a serem tomadas são:
+
+1. *Forwarding*: a transmissão dos dados.
+2. *Dropping*: o "deixar de lado".
+3. *Modify-field*: a modificação de algum *header*.
+
+
+
+
+
