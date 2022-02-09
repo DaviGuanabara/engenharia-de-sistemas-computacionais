@@ -282,7 +282,31 @@ Alguns pontos são importantes para a comparação entre os *link-state algorith
 
 
 
-#### Intra Autonomous Sistems Routing: OSPF
+#### Intra-Autonomous Sistems Routing: OSPF
 
-Um sistema autônomo (Autonomous Sistems, AS) é 
+Um sistema autônomo (Autonomous Sistems, AS) consiste de um conjunto de roteadores que estão sob um mesmo controle administrativo. Isso torna possível a escalabilidade e a autonomia administrativa do sistema. Os algoritmos de roteamento que rodam em um SA são chamados de *intra-autonomous system routing protocol*. Um exemplo de algoritmo é o *Open Shortest Path First*, um protocolo LS no qual as especificações do protocolo de roteamento está disponível publicamente (a parte *Open* do nome). No OSPF, cada roteador monta um mapa topológico completo de todo o SA, e então executa o algoritmo de Dijkstra utilizado para a determinação da árvore de caminhos de menor custo para todas as subredes, com os custos das conexões sendo configurados pelo administrador da rede.
+
+Observe que is roteadores que conectam-se com outros de diferentes ASs são chamados de *gateway routers* (eles estão nos limites da AS). Já aqueles que estão no interior da AS, são chamados de *internal routers*.
+
+Alguns pontos importantes de mencionar:
+
+1. *Security*: as trocas de informações entre os roteadores OSPF podem ser autenticadas por meio da geração de um *hash* MD5 (utilizando-se uma chave secreta, que está contida no roteador e não é compartilhada) por ambos (emissor e receptor da mensagem). Em seguida o *hash* do emissor é comparado com o do receptor. O emissor pode ser considerado autêntico caso os *hashs* gerados sejam iguais. Caso contrário, a mensagem dese ser ignorada.
+
+2. *Multiple same-cost path*: O tráfego de dados poderá ser distribuído em todas as rotas que contenham o custo mínimo.
+
+3. *Support for hierarchy within a single AS*: o sistema pode ser configurado hierarquicamente em áreas.
+
+
+#### Inter-Autonomous Sistems Routing: BGP
+
+Por necessitar a coordenação de múltiplos ASs, a comunicação entre ASs deve ocorrer utilizando-se o mesmo protocolo. O protocolo usado é o *Border Gateway Protocol* (BGP), e é conhecido também por ser a "cola" da Internet (por unir os diferentes ASs).
+
+O roteamento pelo BGP ocorre entre subredes e não para um endereço específico da rede. Dessa forma, a *forwarding table* do roteador toma a forma de `(x, I)`, onde `x` é o prefixo e o `I` é a interface do roteador. 
+
+O BGP provê para os roteadores meios para:
+
+1. Obter o prefixo de AS vizinhos: com a publicação da existência de cada subrede para o resto da Internet.
+2. Determinar a melhor rota para cada prefixo: no qual a melhor rota é baseada nas políticas determinadas pelo administrador da rede e na acessibilidade da informação.
+
+
 
