@@ -227,17 +227,66 @@ As ações a serem tomadas são:
 
 Na aula anterior, foi debatido a importância da *Fowarding Table* para o *Data Plane*. Os dados registrados nessa tabela são computados pela *Control Plane*, a qual tem como objetivo controlar a rota global que os *datagrams* precisarão pecorrer para sair de uma ponta à outra da rede (end-to-end). A *Control Plane* também configura e gerencia os componentes e serviços fornecidos pela camada de rede.
 
-Uma rede pode ser vista como um grafo, no qual os vértices (ou nós) são os roteadores e as arestas são a conexão entre dois vértices. Dessa forma, os algorítmos de roteamento determinam o melhor caminho que um dado pode pecorrer para sair de um vértice da rede até outro vértice. 
+Uma rede pode ser vista como um grafo, no qual os vértices (ou nós) são os roteadores e as arestas são a conexão entre dois vértices, como pode ser visto na Figura 09. Dessa forma, os algorítmos de roteamento determinam o melhor caminho que um dado pode pecorrer para sair de um vértice da rede até outro vértice.
 
 As caractarísticas de cada conexão (velocidade, tarifas financeiras, etc.) são contabilizadas (a partir de métricas estabelecidas pela instituição dona da rede), resultando no custo (ou peso) agregado à conexão. Como cada aresta apresenta características diferentes, serão agregados pesos diferentes ao uso de cada uma. Assim, os algorítmos de roteamento, como o OSPF e o BGP (conhecido como a "cola" da Internet), tem o objetivo de encontrar um caminho entre dois nós que apresente o menor custo de ser pecorrido (custo total do caminho).
 
+Figura 09: Grafo com pesos\
+![Image](imagens/grafo.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 381.
+
 É importante perceber que o caminho de menor custo (*least-cost path*) é diferente do caminho mais curto (*shortest path*), pois o primeiro é caracterizado por aquele que apresenta o menor somátorio dos pesos das conexões inseridas no mesmo, enquanto que o segundo é determinado pela menor quantidade de nós que deve ser pecorrido.
 
-Ambos os algoritmos citados (OSPF e BGP) utilizam a abordagem *per-router control*, em que o algorítmo de roteamento é processado dentro de cada roteador, sendo necessário interações entre *routers* para a determinação das rotas. Outra possível abordagem é a *Logically centralized control*, em que há uma centralização computação em um servidor e distribuição dos parâmetros determinados para os nós da rede, como adotado pelo SDN (*Software Defined Network*). 
+Ambos os algoritmos citados (OSPF e BGP) utilizam a abordagem *per-router control* (mostrado na Figura 10), em que o algoritmo de roteamento é processado dentro de cada roteador, sendo necessário interações entre *routers* para a determinação das rotas. Outra possível abordagem é a *Logically centralized control* (mostrado na Figura 11), em que há uma centralização computação em um servidor e distribuição dos parâmetros determinados para os nós da rede, como adotado pelo SDN (*Software Defined Network*). 
+
+Figura 10: Per Router Control\
+![Image](imagens/per%20router%20control.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 378.
+
+Figura 11: Logically Centralized Controller\
+![Image](imagens/Logically%20centralized%20controller.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 379.
+
+
+
+
+#### Classificação dos algoritmos
 
 De forma abrangente, podemos classificar os algoritmos de roteamento em:
 
-*Centralized routing algorithm*: 
+1. *Centralized routing algorithm*: os algoritmos dessa categoria, comumente referidos como *link-state* (LS) *algorithms*, computam o caminho a partir de um conhecimento completo a cerca da conectividade e custos de cada conexão da rede (tendo um conhecimento global da rede). Um exemplo é o algoritmo de Dijkstra.
+
+2. *Decentralized routing algorithm*: a determinação do caminho de menor custo é feita de forma iterativa e distribuida em cada roteador. Como, inicialmente, cada roteador só têm conhecimento dos custos de seus próprios *links*, o cálculo do menor caminho necessitará da troca de informações entre os outros roteadores da rede. Isso ocorre de forma iterativa e gradual. Um exemplo é o *Distance-Vector Routing Algorithm* (DV), um algoritmo iterativo, assíncrono e distribuído, com cada nó mantendo um vetor de estimativas de custos de todos os outros nós da rede (com a atualização ocorrendo conforme mudanças na rede acontecem) (alguns protocolos que utilizam o DV: Internet's RIP, BGP, ISO IDRP, Novel IPX e o original ARPAnet).
+
+
+LS vs DV
+
+Alguns pontos são importantes para a comparação entre os *link-state algorithms* e o *Distance-Vector Routing Algorithm*:
+
+1. *Message complexity*: o LS requer que cada nó saiba os custos de cada conexão da rede, com uma mudança em um custo devendo ser enviada para todos os nós. Já no DV, o envio do novo custo somente ocorre quando o mesmo impacta no caminho de menor custo dos nós anexados ao *link* relativo à alteração (DV melhor que LS).
+
+2. *Speed of convergence*: LS converge mais rápido do que o DV (LS melhor que DV).
+
+3. *Robustness*: no DV, um caminho de menor custo calculado incorretamente por um nó será publicado para todos os nós da rede, diferentemente do LS, no qual os caminhos são cálculados em cada nó, provendo assim um certo nível de robustez.
+
+Uma segunda forma de classificação é:
+
+*Static Routing Algorithms*: os roteadores mudam muito pouco no decorrer do tempo (frequentemente como resultado de uma intervenção humana).
+*Dynamic routing algorithms*: as rotas mudam conforme a mudança de carga ou carga de tráfego (apesar dessa categoria apresentar maior responsividade em mudanças na rede, também estão mais susetíveis a problemas como *loops* e oscilações).
+
+Uma terceira forma:
+
+*Load-Sensitive algorithm*: os custos dos *links* variam dinamicamente conforme o nível de congestionamento.
+*Load-Insensitive algotihm*: os custos dos *links* não refletem explicitamente o nível de congestionamento.
+
+
+
+
+
+
+Inicialmente, cada vértice têm somente os custos de suas próprias conexões. Então, de forma iterativa, ocorre uma troca de informações entre os diversos roteadores na rede algo que torna necessário a troca de informações com os seus vizinhos (nós no qual fazem conexão com o vértice citado). Assim, a determinação do 
+
+cada roteador conhece somente os custos das conexões na qual ele está relacionado. É a partir das interações entre outros roteadores que as informações da rede são trocadas e o caminho de menor custo é determinado.
 
 
 Como as conexões apresentam características diferentes, como velocidade tarifa (financeira), o seu uso 
