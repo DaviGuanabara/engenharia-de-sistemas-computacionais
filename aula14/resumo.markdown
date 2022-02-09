@@ -223,6 +223,26 @@ As ações a serem tomadas são:
 3. *Modify-field*: a modificação de algum *header*.
 
 
+### Camada de rede: Control Plane
+
+Na aula anterior, foi debatido a importância da *Fowarding Table* para o *Data Plane*. Os dados registrados nessa tabela são computados pela *Control Plane*, a qual tem como objetivo controlar a rota global que os *datagrams* precisarão pecorrer para sair de uma ponta à outra da rede (end-to-end). A *Control Plane* também configura e gerencia os componentes e serviços fornecidos pela camada de rede.
+
+Uma rede pode ser vista como um grafo, no qual os vértices (ou nós) são os roteadores e as arestas são a conexão entre dois vértices. Dessa forma, os algorítmos de roteamento determinam o melhor caminho que um dado pode pecorrer para sair de um vértice da rede até outro vértice. 
+
+As caractarísticas de cada conexão (velocidade, tarifas financeiras, etc.) são contabilizadas (a partir de métricas estabelecidas pela instituição dona da rede), resultando no custo (ou peso) agregado à conexão. Como cada aresta apresenta características diferentes, serão agregados pesos diferentes ao uso de cada uma. Assim, os algorítmos de roteamento, como o OSPF e o BGP (conhecido como a "cola" da Internet), tem o objetivo de encontrar um caminho entre dois nós que apresente o menor custo de ser pecorrido (custo total do caminho).
+
+É importante perceber que o caminho de menor custo (*least-cost path*) é diferente do caminho mais curto (*shortest path*), pois o primeiro é caracterizado por aquele que apresenta o menor somátorio dos pesos das conexões inseridas no mesmo, enquanto que o segundo é determinado pela menor quantidade de nós que deve ser pecorrido.
+
+Ambos os algoritmos citados (OSPF e BGP) utilizam a abordagem *per-router control*, em que o algorítmo de roteamento é processado dentro de cada roteador, sendo necessário interações entre *routers* para a determinação das rotas. Outra possível abordagem é a *Logically centralized control*, em que há uma centralização computação em um servidor e distribuição dos parâmetros determinados para os nós da rede, como adotado pelo SDN (*Software Defined Network*). 
+
+De forma abrangente, podemos classificar os algoritmos de roteamento em:
+
+*Centralized routing algorithm*: 
+
+
+Como as conexões apresentam características diferentes, como velocidade tarifa (financeira), o seu uso 
+
+o melhor caminho é aquele no qual apresenta o menor custo
 
 
 
