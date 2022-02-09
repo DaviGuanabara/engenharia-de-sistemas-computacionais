@@ -259,16 +259,6 @@ De forma abrangente, podemos classificar os algoritmos de roteamento em:
 2. *Decentralized routing algorithm*: a determinação do caminho de menor custo é feita de forma iterativa e distribuida em cada roteador. Como, inicialmente, cada roteador só têm conhecimento dos custos de seus próprios *links*, o cálculo do menor caminho necessitará da troca de informações entre os outros roteadores da rede. Isso ocorre de forma iterativa e gradual. Um exemplo é o *Distance-Vector Routing Algorithm* (DV), um algoritmo iterativo, assíncrono e distribuído, com cada nó mantendo um vetor de estimativas de custos de todos os outros nós da rede (com a atualização ocorrendo conforme mudanças na rede acontecem) (alguns protocolos que utilizam o DV: Internet's RIP, BGP, ISO IDRP, Novel IPX e o original ARPAnet).
 
 
-LS vs DV
-
-Alguns pontos são importantes para a comparação entre os *link-state algorithms* e o *Distance-Vector Routing Algorithm*:
-
-1. *Message complexity*: o LS requer que cada nó saiba os custos de cada conexão da rede, com uma mudança em um custo devendo ser enviada para todos os nós. Já no DV, o envio do novo custo somente ocorre quando o mesmo impacta no caminho de menor custo dos nós anexados ao *link* relativo à alteração (DV melhor que LS).
-
-2. *Speed of convergence*: LS converge mais rápido do que o DV (LS melhor que DV).
-
-3. *Robustness*: no DV, um caminho de menor custo calculado incorretamente por um nó será publicado para todos os nós da rede, diferentemente do LS, no qual os caminhos são cálculados em cada nó, provendo assim um certo nível de robustez.
-
 Uma segunda forma de classificação é:
 
 *Static Routing Algorithms*: os roteadores mudam muito pouco no decorrer do tempo (frequentemente como resultado de uma intervenção humana).
@@ -280,18 +270,19 @@ Uma terceira forma:
 *Load-Insensitive algotihm*: os custos dos *links* não refletem explicitamente o nível de congestionamento.
 
 
+##### LS vs DV
+
+Alguns pontos são importantes para a comparação entre os *link-state algorithms* e o *Distance-Vector Routing Algorithm*:
+
+1. *Message complexity*: o LS requer que cada nó saiba os custos de cada conexão da rede, com uma mudança em um custo devendo ser enviada para todos os nós. Já no DV, o envio do novo custo somente ocorre quando o mesmo impacta no caminho de menor custo dos nós anexados ao *link* relativo à alteração (DV melhor que LS).
+
+2. *Speed of convergence*: LS converge mais rápido do que o DV (LS melhor que DV).
+
+3. *Robustness*: no DV, um caminho de menor custo calculado incorretamente por um nó será publicado para todos os nós da rede, diferentemente do LS, no qual os caminhos são cálculados em cada nó, provendo assim um certo nível de robustez.
 
 
 
+#### Intra Autonomous Sistems Routing: OSPF
 
-Inicialmente, cada vértice têm somente os custos de suas próprias conexões. Então, de forma iterativa, ocorre uma troca de informações entre os diversos roteadores na rede algo que torna necessário a troca de informações com os seus vizinhos (nós no qual fazem conexão com o vértice citado). Assim, a determinação do 
-
-cada roteador conhece somente os custos das conexões na qual ele está relacionado. É a partir das interações entre outros roteadores que as informações da rede são trocadas e o caminho de menor custo é determinado.
-
-
-Como as conexões apresentam características diferentes, como velocidade tarifa (financeira), o seu uso 
-
-o melhor caminho é aquele no qual apresenta o menor custo
-
-
+Um sistema autônomo (Autonomous Sistems, AS) é 
 
