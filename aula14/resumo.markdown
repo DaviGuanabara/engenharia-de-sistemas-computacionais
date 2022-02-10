@@ -8,7 +8,7 @@ Imagine uma via de veículos com pedágio. Suas entradas direcionam todos os car
 
 O *data plane* de um roteador funciona de forma análoga a essa via imaginada. Os *datagrams*, análogos aos carros, após entrarem no roteador (pelos *inputs*), são enfileirados e ficam no aguardo de serem processados. Após uma série de operações, os mesmos são direcionados para as suas respectivas sáidas (*outputs*).
 
-Assim, o roteador é um caso específico da abstração mais genérica *match plus action* (corresponder e agir), o qual é performado por outros dispositivos, como os *switches*, e não apenas pelos roteadores.
+Assim, o roteador é um caso específico da abstração mais genérica *match plus action* (corresponder e agir), o qual é performado também por outros dispositivos, como os *switches*, e não apenas pelos roteadores.
 
 A Figura 01 apresenta a arquitetura de um roteador, separada em *control plane* e *data plane*, que implementam o *routing* e o *fowarding, respectivamente*. 
 
@@ -44,8 +44,8 @@ Voltando para a analogia, o *Destination-based fowarding* seria o atendente do p
 
 
 E se:
-1. O atendente for capaz de atender 1 carro por minuto, mas chegarem 2 carros por minuto ?
-2. Todos os carros que entrarem quiserem ir para a mesma saída ?
+1. O atendente somente for capaz de atender 1 carro por minuto, mas chegarem 2 carros por minuto ?
+2. Todos os carros que entrarem forem orientados para a mesma saída ?
 3. Tiver mais carro entrando do que saindo ?
 4. For necessário tornar prioritário alguns veículos (como ônibus) e bloquear a entrada de outros (como caminhões acima de um certo peso) ?
 
@@ -71,9 +71,9 @@ A Figura 02 mostra as execuções ocorridas na *input port*. Inicia-se com a aç
 
 
 A função central da porta de entrada é o *lookup*, no qual o roteador procura (*look up*) na *forwarding table* qual porta o *datagram* recém chegado deve ser direcionado.
-Apesar da proeminente importância do *lookup*, outras ações também devem ser tomadas, como a chacagem do *version number*, *checksum* e *Time to Live*
+Apesar da proeminente importância do *lookup*, outras ações também devem ser tomadas, como a checagem do *version number*, *checksum* e *Time to Live*
 
-Como pode-se supor, em uma arquitetura de banco de dados centralizado, os registros da *forwarding table* estariam disponíveis em um único local do roteador, com a operação de *look up* devendo fazer uma requisição de registro à esse banco de dados, algo que gera um possível gargalo afinal, caso o módulo do banco de dados não conseguir suprir a demanda das requisições, deverão ocorrer filas e atrasos. 
+Como pode-se supor, em uma arquitetura de banco de dados centralizado, os registros da *forwarding table* estariam disponíveis em um único local do roteador, com a operação de *look up* devendo fazer uma requisição de registro à esse banco de dados, algo que gera um possível gargalo, afinal, caso o módulo do banco de dados não conseguir suprir a demanda das requisições, deverão ocorrer filas e atrasos. 
 
 Para evitar esse gargalo, cada linha da tabela é copiada para cada um dos *input ports* presentes no roteador, de forma que o acesso à tabela de transmissão (*forwarding table*) seja feita localmente (no *input port*), sem a necessidade de requisições.
 
@@ -91,6 +91,8 @@ No *look up*, o roteador identifica a saída (*link interface*) utilizando a reg
  otherwise                      3  
 
 <b>Tabela 1 Exemplo de forwarding table</b>
+
+
 
 Por exemplo, o endereço de IP:
 
@@ -137,10 +139,10 @@ A Figura 04 mostra as 3 principais execuções do *output port*. Inicia-se com o
 
 As filas podem se formar na entrada e na saída do roteador.
 
-As filas na entrada podem ser formadas pela diferença de velocidade entre o *input* e o *switching fabric* (como citado anteriormente, de forma análoga, na questão 1 do "E se" no tópico" Questões a a cerca do forwarding"). Se um *input* for capaz de lidar com uma taxa de *datagrams* mais alta do que o *switching fabric*, os mesmos ficarão acumulados na entrada até executados pelo *switching fabric*.
+As filas na entrada podem ser formadas pela diferença de velocidade entre o *input* e o *switching fabric* (como citado anteriormente, de forma análoga, na questão 1 do "E se" no tópico" Questões a a cerca do forwarding"). Se um *input* for capaz de lidar com uma taxa de *datagrams* mais alta do que o *switching fabric*, os mesmos ficarão acumulados na entrada até serem executados pelo *switching fabric*.
 
 Um outro evento que têm como consequência a geração de filas é o chamado *head-of-the-line blocking* (HOL *blocking*). 
-A Figura 05 mostra um exemplo de como o HOL *blocking* pode ocorrer. Os *datagrams* azuis-escuros estão destinados às saídas superiores, enquanto que os azuis-claros estão destinados às saídas centrais. Assim, um azul-escuro oriundo do *input* superior pode bloquear a passagem do *datagram* azuil-escuro oriundo do *input* inferior, travando a fila e impedindo que o *datagram* azul-claro seja processado paralelamente, apesar de sua saída estar livre.
+A Figura 05 mostra um exemplo de como o HOL *blocking* pode ocorrer. Os *datagrams* azuis-escuros estão destinados às saídas superiores, enquanto que os azuis-claros estão destinados às saídas centrais. Assim, um azul-escuro oriundo do *input* superior pode bloquear a passagem do *datagram* azul-escuro oriundo do *input* inferior, travando a fila e impedindo que o *datagram* azul-claro seja processado paralelamente, apesar do caminho até sua saída estar livre.
 
 
 
@@ -150,7 +152,7 @@ A Figura 05 mostra um exemplo de como o HOL *blocking* pode ocorrer. Os *datagra
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 321.</b>|
 
 Na saída, as filas podem se formar quando multiplos *datagrams* dos *inputs* são direcionados para o mesmo *output*, como mostrado na Figura 06. Esse evento pode preencher o *buffer* de saída, ocasionando a "derrubada" de novos *datagrams*, política chamada de *drop-tail*, ou a remoção de um já enfileirado, para assim criar espaço para os dados recém chegados. Em alguns casos, pode ser vantajoso remover um pacote de dados antes que fila fique cheia, de forma a enviar um sinal de congestionamento para o emissor. Os algoritmos responsáveis por isso são chamados de *Active Queue Management* (AQM), ou gerenciador de filas ativo, com o *Random Early Detection* (RED) sendo um algoritmo dessa classe amplamente implementado.
-O *buffer* de saída po
+
 
 
 | ![Image](imagens/output%20queue.png)|
@@ -195,7 +197,7 @@ Na discurssão dos *buffers* fora deixado implícito a política *First-in-First
 |<b>Figura 08: Modelo classificação e priorização</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.</b>|
 
-Uma forma generalizada de classificação e priorização dos dados que tem sido bastante implementada é o chamado *Weighted Fair Queuing* (WFQ), no qual as filas de maior peso são tratadas primeiro, seguindo para as de menor peso, até reiniciar o ciclo, como mostrado na Figura 09.
+Uma forma generalizada de classificação e priorização dos dados que tem sido bastante implementada é o chamada de *Weighted Fair Queuing* (WFQ), na qual as filas de maior peso são tratadas primeiro, seguindo para as de menor peso, até reiniciar o ciclo, como mostrado na Figura 09.
 
 
 | ![Image](imagens/WFQ.png)|
@@ -207,7 +209,7 @@ Uma forma generalizada de classificação e priorização dos dados que tem sido
 
 
 
-Como qualquer regra pode ser imposta para a classificação dos dados, os ISP's podem não ser neutros no oferecimento de seus serviços, algo que vem resultando leis que regulamentam do que os ISP's podem ou não fazer.
+Como qualquer regra pode ser imposta para a classificação dos dados, os ISP's podem não ser neutros no oferecimento de seus serviços, algo que vem resultando leis que regulamentam o que os ISP's podem ou não fazer.
 
 Em geral, a defesa da neutralidade das redes pode ser resumido em 3 pontos:
 
@@ -289,13 +291,13 @@ De forma abrangente, podemos classificar os algoritmos de roteamento em:
 
 1. *Centralized routing algorithm*: os algoritmos dessa categoria, comumente referidos como *link-state* (LS) *algorithms*, computam o caminho a partir de um conhecimento completo a cerca da conectividade e custos de cada conexão da rede (tendo um conhecimento global da rede). Um exemplo é o algoritmo de Dijkstra.
 
-2. *Decentralized routing algorithm*: a determinação do caminho de menor custo é feita de forma iterativa e distribuida em cada roteador. Como, inicialmente, cada roteador só têm conhecimento dos custos de seus próprios *links*, o cálculo do menor caminho necessitará da troca de informações entre os outros roteadores da rede. Isso ocorre de forma iterativa e gradual. Um exemplo é o *Distance-Vector Routing Algorithm* (DV), um algoritmo iterativo, assíncrono e distribuído, com cada nó mantendo um vetor de estimativas de custos de todos os outros nós da rede (com a atualização ocorrendo conforme mudanças na rede acontecem) (alguns protocolos que utilizam o DV: Internet's RIP, BGP, ISO IDRP, Novel IPX e o original ARPAnet).
+2. *Decentralized routing algorithm*: a determinação do caminho de menor custo é feita de forma iterativa e distribuida em cada roteador. Como, inicialmente, cada roteador só têm conhecimento dos custos de seus próprios *links*, o cálculo do menor caminho necessitará da troca de informações entre os outros roteadores da rede. Isso ocorre de forma iterativa e gradual. Um exemplo é o *Distance-Vector Routing Algorithm* (DV), um algoritmo iterativo, assíncrono e distribuído, com cada nó mantendo um vetor de estimativas de custos de todos os outros nós da rede (com a atualização ocorrendo conforme mudanças na rede acontecem). Podemos citar alguns protocolos que utilizam o DV: Internet's RIP, BGP, ISO IDRP, Novel IPX e o original ARPAnet.
 
 
 Uma segunda forma de classificação é:
 
-*Static Routing Algorithms*: os roteadores mudam muito pouco no decorrer do tempo (frequentemente como resultado de uma intervenção humana).
-*Dynamic routing algorithms*: as rotas mudam conforme a mudança de carga ou carga de tráfego (apesar dessa categoria apresentar maior responsividade em mudanças na rede, também estão mais susetíveis a problemas como *loops* e oscilações).
+1. *Static Routing Algorithms*: os roteadores mudam muito pouco no decorrer do tempo (frequentemente como resultado de uma intervenção humana).
+2. *Dynamic routing algorithms*: as rotas mudam conforme a ocorre mudança na topologia da rede ou carga de tráfego (apesar dessa categoria apresentar maior responsividade em mudanças na rede, também estão mais susetíveis a problemas como *loops* e oscilações).
 
 Uma terceira forma:
 
@@ -311,13 +313,13 @@ Alguns pontos são importantes para a comparação entre os *link-state algorith
 
 2. *Speed of convergence*: LS converge mais rápido do que o DV (LS melhor que DV).
 
-3. *Robustness*: no DV, um caminho de menor custo calculado incorretamente por um nó será publicado para todos os nós da rede, diferentemente do LS, no qual os caminhos são cálculados em cada nó, provendo assim um certo nível de robustez.
+3. *Robustness*: no DV, um caminho de menor custo calculado incorretamente por um nó será publicado para todos os nós da rede, diferentemente do LS, no qual os caminhos são cálculados em cada nó, provendo assim um certo nível de robustez (LS melhor que DV).
 
 
 
 #### Intra-Autonomous Sistems Routing: OSPF
 
-Um sistema autônomo (Autonomous Sistems, AS) consiste de um conjunto de roteadores que estão sob um mesmo controle administrativo. Isso torna possível a escalabilidade e a autonomia administrativa do sistema. Os algoritmos de roteamento que rodam em um SA são chamados de *intra-autonomous system routing protocol*. Um exemplo de algoritmo é o *Open Shortest Path First*, um protocolo LS no qual as especificações do protocolo de roteamento está disponível publicamente (a parte *Open* do nome). No OSPF, cada roteador monta um mapa topológico completo de todo o SA, e então executa o algoritmo de Dijkstra utilizado para a determinação da árvore de caminhos de menor custo para todas as subredes, com os custos das conexões sendo configurados pelo administrador da rede.
+Um sistema autônomo (Autonomous Sistems, AS) consiste de um conjunto de roteadores que estão sob um mesmo controle administrativo. Isso torna possível a escalabilidade e a autonomia administrativa do sistema. Os algoritmos de roteamento que rodam em um AS são chamados de *intra-autonomous system routing protocol*. Um exemplo de algoritmo é o *Open Shortest Path First*, um protocolo LS no qual as especificações do protocolo de roteamento está disponível publicamente (a parte *Open* do nome). No OSPF, cada roteador monta um mapa topológico completo de todo o AS, e então executa o algoritmo de Dijkstra para a determinação da árvore de caminhos de menor custo para todas as subredes, com os custos das conexões sendo configurados pelo administrador da rede.
 
 Observe que is roteadores que conectam-se com outros de diferentes ASs são chamados de *gateway routers* (eles estão nos limites da AS). Já aqueles que estão no interior da AS, são chamados de *internal routers*.
 
@@ -338,7 +340,7 @@ O roteamento pelo BGP ocorre entre subredes e não para um endereço específico
 
 O BGP provê para os roteadores meios para:
 
-1. Obter o prefixo de AS vizinhos: com a publicação da existência de cada subrede para o resto da Internet.
+1. Obter o prefixo de AS vizinhos: com a publicação da existência de cada rede para o resto da Internet.
 2. Determinar a melhor rota para cada prefixo: no qual a melhor rota é baseada nas políticas determinadas pelo administrador da rede e na acessibilidade da informação.
 
 As conexões BGP entram em duas categorias (graficamente representado na Figura 14):
@@ -352,7 +354,7 @@ As conexões BGP entram em duas categorias (graficamente representado na Figura 
 |<b>Figura 14: eBGP e iBGP</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 402.</b>|
 
-A publicação no BGP ocorre de forma bem direta. A Figura 15 mostra a adição de uma subrede (`x`) em uma rede com 3 ASs. Primeiro o AS 3 envia uma BGP *message* (`AS3 x`) para o AS 2 dizendo que a subrede `x` existe e é acessível através dele. Em seguida, o AS 2 avisa para o AS 1 a existência de `x` e que o mesmo é acessível através de AS 2 e AS 3 (`AS 2 AS 3 x`). 
+A publicação no BGP ocorre de forma bem direta. A Figura 15 mostra a adição de uma subrede (`x`) em uma rede com 3 ASs. Primeiro o AS3 envia uma BGP *message* (`AS3 x`) para o AS2 dizendo que a subrede `x` existe e é acessível através dele. Em seguida, o AS2 avisa para o AS1 a existência de `x` e que o mesmo é acessível através do caminho AS2-AS3 (`AS2 AS3 x`). 
 
 
 
@@ -361,13 +363,13 @@ A publicação no BGP ocorre de forma bem direta. A Figura 15 mostra a adição 
 |<b>Figura 15: ASs com adição de x</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 401.</b>|
 
-O BGP *message* é composto pelo prefixo e outros múltiplos atributos, como o *AS-PATH*, que explicita a lista de AS na qual a publicação de existência da nova rede passou (como mostrado no exemplo anterior), e *NEXT-HOP*, que é o endereço da interface do roteador que inicia a o *AS-PATH*.
+O BGP *message* é composto pelo prefixo e outros múltiplos atributos, como o *AS-PATH*, que explicita a lista de ASs na qual a mensagem publicação de existência da nova rede precorreu (como mostrado no exemplo anterior), e *NEXT-HOP*, que é o endereço da interface do roteador que inicia a o *AS-PATH*.
 
 
 #### Hot Potato
 
 
-Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores transmitem os dados objetivam transmitir os dados para fora do AS o mais rápido possivel. Para tal, o roteador com os dados disparará para o endereço do *NEXT-HOP* que tiver o menor custo de conexão, sem se preocupar com o resto do trajeto desses dados. Assim, apesar de localmente eficiente, a rota global escolhida pode não ser a mais rápida. A Figura 16 mostra duas possibilidades de *NEXT-HOP*. A rota escolhida será aquela que apresentar o menor custo de conexão relacionado ao *NEXT-HOP*. A Figura 17 mostra os passos para a adição de um destino externo ao AS na *forwarding table*
+Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores objetivam transmitir os dados para fora do AS o mais rápido possivel. Para tal, o roteador com os dados disparará para o endereço do *NEXT-HOP* que tiver o menor custo de conexão, sem se preocupar com o resto do trajeto desses dados. Assim, apesar de localmente eficiente, a rota global escolhida pode não ser a mais rápida. A Figura 16 mostra duas possibilidades de *NEXT-HOP*. A rota escolhida será aquela que apresentar o menor custo de conexão relacionado ao *NEXT-HOP*. A Figura 17 mostra os passos para a adição de um destino externo ao AS na *forwarding table*
 
 
 
@@ -390,18 +392,18 @@ Na prática, a rota selecionada utiliza outros parâmetros além do *Hot Potato*
 
 1. Política de decisão da preferência local de transmissão: essa política é escolhida pelo administrador da rede
 2. Para os restantes, será escolhido o que tiver o menor *AS-PATH*.
-3. Para os restantes, o *Hot Potato* entra em ação, escolhendo a rota no qual o custo de transmissão para o *NEXT-HOP* seja o menor.
+3. Para os restantes, o *Hot Potato* entra em ação, escolhendo a rota com o menor custo de transmissão para o *NEXT-HOP*.
 4. Para os restantes, é utilizado os indentificadores BGP para a seleção da rota.
 
 
 ##### Política de preferência local e Protocolos Intra vs Inter 
 
-O AS é dito como sistema autônomo pois o mesmo apresenta uma idenpendência administrativa. Isso é algo que pode gerar alguns problemas de confiança, com descisões como não permitir que dados originário de um AS passe através de outro AS específico. E, de forma similar, um AS pode ter interesse em querer controlar o tráfego de dados entre outros ASs. Um reflexo no cenário atual é a desconfiança dos americanos sob empresas chinesas, que, comumentemente, recebe interferência do governo chinês.
+O AS é dito como sistema autônomo pois o mesmo apresenta uma idenpendência administrativa. Isso é algo que pode gerar alguns problemas de confiança, com descisões como não permitir que dados originário de um AS passe através de outro AS específico. E, de forma similar, um AS pode ter interesse em querer controlar o tráfego de dados entre outros ASs. Um reflexo no cenário atual é a desconfiança dos americanos sob empresas chinesas, que, comumentemente, recebe interferência do governo chinês, um inimigo declarado dos EUA (assim, deve-se ser evitado que dados críticos do governo americanos sejam transmitidos através de empresas chinesas).
 
-Outra questão é acerca de uma sudrede de um cliente fazer parte da rota dos dados de outros clientes. Um cliente deve ser origem e destino das mensagens e não um meio.
+Outra questão gira em torno do problema de uma sudrede de um cliente fazer parte da rota dos dados de outros clientes. Um cliente deve ser origem ou destino das mensagens e não um meio.
 
 
-A política é uma questão tão forte na comunicação inter-ASs, que ela é um dos maiores motivos para que os protocolos inter-ASs seja diferente dos intra-ASs, tanto que até a qualidade das rotas (externas) utilizadas da rede se torna uma preocupação secundária. Por fim, a questão da escala não é tão forte intra-ASs quanto é em inter-ASs. Assim, os 3 motivos para que os protocolos sejam diferentes são:
+A política é uma questão tão forte na comunicação inter-ASs, que ela é um dos maiores motivos para que os protocolos inter-ASs sejam diferentes dos intra-ASs, tanto que até a qualidade das rotas (externas) utilizadas é uma preocupação secundária. Por fim, a questão da escala não é tão forte no intra-ASs quanto é em inter-ASs. Assim, os 3 motivos para que os protocolos sejam diferentes são:
 
 1. Política: intra-ASs é secundário, inter-ASs é primário.
 2. Escala: intra-ASs é secundário, inter-ASs é primário.
