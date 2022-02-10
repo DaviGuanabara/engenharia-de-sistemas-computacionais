@@ -5,12 +5,15 @@ O objetivo da *network layer* (camada de rede) é transferir dados de um *host* 
 Dessa forma, a *network layer* pode ser decomposta em duas partes, *control plane* e *data plane*, nas quais estão contidos o *routing* e o *fowarding*, como mostrado na Figura 01.
 
 
-| ![Image](imagens/Control%20plane%20and%20data%20plane.png)
-||:--:||
-<b>Figura 01: Control plane e data plane</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 307.</b>|
 
+
+
+
+
+| ![Image](imagens/Control%20plane%20and%20data%20plane.png)|
+|:--------:|
+|<b>Figura 01: Control plane e data plane</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 307.</b>|
 
 
 É importante perceber que apesar dessas duas funcionalidades serem requisitos para a *network layer*, é possível encontrá-las em dispositivos separados, algo possibilitado pelo SDN (Software-Defined Networks), que aloca o *control plane* em um servidor, algo que torna os roteadores especialistas em *fowarding*.
@@ -46,13 +49,11 @@ O *datagram*, como mostrado na Figura 02, segue o seguinte formato:
 11. Data (payload): contém o segmento da camada de transporte.
 
 
-| ![Image](imagens/IPv4%20Datagram.png)
-||:--:||
-<b>Figura 02: IPv4 Datagra</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 331.</b>|
 
-
+| ![Image](imagens/IPv4%20Datagram.png)|
+|:--------:|
+|<b>Figura 02: IPv4 Datagra</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 331.</b>|
 
 
 #### Endereçamento
@@ -76,11 +77,11 @@ Identificador de Host: 9 (00001001)
 A máscara de subrede (*network mask*) distingue o endereço referente à subrede ao do *host*. A subrede pode ser entendida como uma ilha de rede isolada, com as interfaces compondo as bordas dessa rede, como mostrado na Figura 03.
 
 
-| ![Image](imagens/subnet.png)
-||:--:||
-<b>Figura 03: Subrede</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 336.</b>|
+
+| ![Image](imagens/subnet.png)|
+|:--------:|
+|<b>Figura 03: Subrede</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 336.</b>|
 
 
 ##### Obter um endereço de IP
@@ -95,11 +96,11 @@ O DHCP é um protocolo baseado na arquitetura *client-server*, e o seu processo 
 4. ACK: o servidor selecionado confirma a seleção do endereço enviando uma *ACK message*.
 
 
-| ![Image](imagens/DHCP%20process.png)
-||:--:||
-<b>Figura 04: Processo DHCP</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 343.</b>|
+
+| ![Image](imagens/subnet.png)|
+|:--------:|
+|<b>Figura 04: Processo DHCP</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 343.</b>|
 
 ##### NAT
 
@@ -112,11 +113,11 @@ Essas e outras perguntas vem à tona quando é imaginado como funcionaria uma in
 A solução passa pelo uso do protocolo NAT (*Network Address Translation*), mostrado na Figura 05.
 
 
-| ![Image](imagens/NAT.png)
-||:--:||
-<b>Figura 05: NAT</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 345.</b>|
+
+| ![Image](imagens/NAT.png))|
+|:--------:|
+|<b>Figura 05: NAT</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 345.</b>|
 
 
 Um roteador com o protocolo NAT ativo é visto como um dispositivo único (com o IP único) para o resto do mundo, escondendo, assim, os detalhes das configurações de uma rede doméstica para as redes externas. 
@@ -144,11 +145,11 @@ Soluções para esse problema incluem *NAT transversal tools* [RFC 5389, RFC 512
 Há uma série de mudanças introduzidas com o IPv6, mostrado na Figura 06:
 
 
-| ![Image](imagens/IPv6%20datagram.png)
-||:--:||
-<b>Figura 06: IPV6 Datagram</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 349.</b>|
+
+| ![Image](imagens/IPv6%20datagram.png))|
+|:--------:|
+|<b>Figura 06: IPV6 Datagram</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 349.</b>|
 
 1. Capacidade de endereçamento expandido: de 32 bits para 128 bits
 2. *header* de tamanho fixo: o *header* foi fixado em 40 *bytes*, permitindo um processamento mais rápido pelo roteador
@@ -273,11 +274,12 @@ O *Ethernet* tornou-se o protocolo dominante em redes LAN (*Local Area Network*)
 
 O *frame* do Ethernet, como mostrado na Figura 08, é composto por:
 
-Figura 08: Estrutura do frame Ethernet\
-![Image](imagens/estrutura%20do%20frame%20ethernet.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 486.
 
 
+| ![Image](imagens/estrutura%20do%20frame%20ethernet.png))|
+|:--------:|
+|<b>Figura 08: Estrutura do frame Ethernet/b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 486.</b>|
 
 1. *Data Field* (*payload*): é o local no qual é carregado o *datagram* (resultado da camada superior). Tem o tamanho máximo (*Maximum Transmission Unit*, MTU) de 1500 *bytes* e mínimo de 46 *bytes*. Caso o *datagram* seja maior, o *host* deve fragmentá-lo. Caso seja menor, o campo *Data Field* é preenchido (*stuffed*) até o mínimo (o campo *length* presente no *header* do *datagram* indicará o seu tamanho correto).
 2. *Destination Address*: Esse campo contém o MAC *Address* de destino (endereço de 6 bytes).
