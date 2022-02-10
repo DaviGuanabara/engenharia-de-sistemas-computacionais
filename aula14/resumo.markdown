@@ -308,5 +308,58 @@ O BGP provê para os roteadores meios para:
 1. Obter o prefixo de AS vizinhos: com a publicação da existência de cada subrede para o resto da Internet.
 2. Determinar a melhor rota para cada prefixo: no qual a melhor rota é baseada nas políticas determinadas pelo administrador da rede e na acessibilidade da informação.
 
+As conexões BGP entram em duas categorias (graficamente representado na Figura 12):
 
+1. iBGP (*internal* BGP): conexão BGP internas aos ASs
+2. eBGP (*external* BGP): conexão externa aos ASs (entre ASs)
+
+Figura 12: eBGP e iBGP\
+![Image](imagens/BGP%20e%20iBGP.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 402.
+
+A publicação no BGP ocorre de forma bem direta. A Figura 13 mostra a adição de uma subrede (`x`) em uma rede com 3 ASs. Primeiro o AS 3 envia uma BGP *message* (`AS3 x`) para o AS 2 dizendo que a subrede `x` existe e é acessível através dele. Em seguida, o AS 2 avisa para o AS 1 a existência de `x` e que o mesmo é acessível através de AS 2 e AS 3 (`AS 2 AS 3 x`). 
+
+Figura 13: ASs com adição de x\
+![Image](imagens/SAs%20com%20a%20adicao%20de%20x.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 401.
+
+O BGP *message* é composto pelo prefixo e outros múltiplos atributos, como o *AS-PATH*, que explicita a lista de AS na qual a publicação de existência da nova rede passou (como mostrado no exemplo anterior), e *NEXT-HOP*, que é o endereço da interface do roteador que inicia a o *AS-PATH*.
+
+
+#### Hot Potato
+
+
+Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores transmitem os dados objetivam transmitir os dados para fora do AS o mais rápido possivel. Para tal, o roteador com os dados disparará para o endereço do *NEXT-HOP* que tiver o menor custo de conexão, sem se preocupar com o resto do trajeto desses dados. Assim, apesar de localmente eficiente, a rota global escolhida pode não ser a mais rápida. A Figura 14 mostra duas possibilidades de *NEXT-HOP*. A rota escolhida será aquela que apresentar o menor custo de conexão relacionado ao *NEXT-HOP*. A Figura 15 mostra os passos para a adição de um destino externo ao AS na *forwarding table*
+
+Figura 14: Duas possibilidades de NEXT-HOP\
+![Image](imagens/rota%20com%20menor%20next-hop.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 403.
+
+Figura 15: Passos para a adição de um destino externo na forwarding table
+![Image](imagens/passos%20para%20a%20adição%20de%20um%20destino%20externo.png)
+Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 404.
+
+
+##### Seleção da rota.
+
+Na prática, a rota selecionada utiliza outros parâmetros além do *Hot Potato*:
+
+1. Política de decisão da preferência local de transmissão: essa política é escolhida pelo administrador da rede
+2. Para os restantes, será escolhido o que tiver o menor *AS-PATH*.
+3. Para os restantes, o *Hot Potato* entra em ação, escolhendo a rota no qual o custo de transmissão para o *NEXT-HOP* seja o menor.
+4. Para os restantes, é utilizado os indentificadores BGP para a seleção da rota.
+
+
+##### Política de preferência local e Protocolos Intra vs Inter 
+
+O AS é dito como sistema autônomo pois o mesmo apresenta uma idenpendência administrativa. Isso é algo que pode gerar alguns problemas de confiança, com descisões como não permitir que dados originário de um AS passe através de outro AS específico. E, de forma similar, um AS pode ter interesse em querer controlar o tráfego de dados entre outros ASs. Um reflexo no cenário atual é a desconfiança dos americanos sob empresas chinesas, que, comumentemente, recebe interferência do governo chinês.
+
+Outra questão é acerca de uma sudrede de um cliente fazer parte da rota dos dados de outros clientes. Um cliente deve ser origem e destino das mensagens e não um meio.
+
+
+A política é uma questão tão forte na comunicação inter-ASs, que ela é um dos maiores motivos para que os protocolos inter-ASs seja diferente dos intra-ASs, tanto que até a qualidade das rotas (externas) utilizadas da rede se torna uma preocupação secundária. Por fim, a questão da escala não é tão forte intra-ASs quanto é em inter-ASs. Assim, os 3 motivos para que os protocolos sejam diferentes são:
+
+1. Política: intra-ASs é secundário, inter-ASs é primário.
+2. Escala: intra-ASs é secundário, inter-ASs é primário.
+3. Performace: intra-ASs é primário, inter-ASs é secundário (impactado pelas políticas).
 
