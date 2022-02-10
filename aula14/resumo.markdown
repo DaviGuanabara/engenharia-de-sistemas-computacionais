@@ -80,14 +80,17 @@ Para evitar esse gargalo, cada linha da tabela é copiada para cada um dos *inpu
 No *look up*, o roteador identifica a saída (*link interface*) utilizando a regra de maior correspondência (*longest prefix matching rule*) de prefixo do IP *Address* de destino do *datagram*. Um exemplo dessas correspondências podem ser vistas na Tabela 01.
 (O prefixo é formado por x primeiros dígitos do IP *Address* de destino referencia o endereço da subrede.)
 
-*Tabela 1 Exemplo de forwarding table*
 
-Prefix | Link Interface 
+
+
+ Prefix | Link Interface 
 -----------|-------------
-11001000 00010111 00010       | 0  
-11001000 00010111 00011000    | 1  
-11001000 00010111 00011       | 2    
-otherwise                     | 3       
+ 11001000 00010111 00010        0  
+ 11001000 00010111 00011000     1  
+ 11001000 00010111 00011        2   
+ otherwise                      3  
+
+<b>Tabela 1 Exemplo de forwarding table</b>
 
 Por exemplo, o endereço de IP:
 
@@ -346,7 +349,7 @@ As conexões BGP entram em duas categorias (graficamente representado na Figura 
 
 | ![Image](imagens/BGP%20e%20iBGP.png)|
 |:--------:|
-|<b>Figura 14: eBGP e iBGP\</b> 
+|<b>Figura 14: eBGP e iBGP</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 402.</b>|
 
 A publicação no BGP ocorre de forma bem direta. A Figura 15 mostra a adição de uma subrede (`x`) em uma rede com 3 ASs. Primeiro o AS 3 envia uma BGP *message* (`AS3 x`) para o AS 2 dizendo que a subrede `x` existe e é acessível através dele. Em seguida, o AS 2 avisa para o AS 1 a existência de `x` e que o mesmo é acessível através de AS 2 e AS 3 (`AS 2 AS 3 x`). 
@@ -355,7 +358,7 @@ A publicação no BGP ocorre de forma bem direta. A Figura 15 mostra a adição 
 
 | ![Image](imagens/SAs%20com%20a%20adicao%20de%20x.png)|
 |:--------:|
-|<b>Figura 15: ASs com adição de x\</b> 
+|<b>Figura 15: ASs com adição de x</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 401.</b>|
 
 O BGP *message* é composto pelo prefixo e outros múltiplos atributos, como o *AS-PATH*, que explicita a lista de AS na qual a publicação de existência da nova rede passou (como mostrado no exemplo anterior), e *NEXT-HOP*, que é o endereço da interface do roteador que inicia a o *AS-PATH*.
