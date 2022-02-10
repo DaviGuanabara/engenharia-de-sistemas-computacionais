@@ -114,7 +114,7 @@ A solução passa pelo uso do protocolo NAT (*Network Address Translation*), mos
 
 
 
-| ![Image](imagens/NAT.png))|
+| ![Image](imagens/NAT.png)|
 |:--------:|
 |<b>Figura 05: NAT</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 345.</b>|
@@ -146,7 +146,7 @@ Há uma série de mudanças introduzidas com o IPv6, mostrado na Figura 06:
 
 
 
-| ![Image](imagens/IPv6%20datagram.png))|
+| ![Image](imagens/IPv6%20datagram.png)|
 |:--------:|
 |<b>Figura 06: IPV6 Datagram</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 349.</b>|
@@ -188,11 +188,11 @@ Como, então, atualizar todos os incontáveis dispositivos já integrados na red
 A abordagem da transição suave foi o caminho escolhido. Para tal, fora adotado a prática do *tunneling* (algo que torna os dispositivos IPv6 compatível com o IPv4). O *tunnel* encapsula o *datagram* do IPv6 integralmente, tornando-o o *payload* do IPv4, resultando em um *datagram* com o *header* do IPv4.
 
 
-| ![Image](imagens/Tunneling.png)
-||:--:||
-<b>Figura 07: Tunneling</b> \
-<b>Imagem retirada de: Computer Networking a top-down approach. 8th
-ed. Pearson, página 352.</b>|
+
+| ![Image](imagens/Tunneling.png)|
+|:--------:|
+|<b>Figura 07: Tunneling</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 352.</b>|
 
 ## Link Layer
 
@@ -276,7 +276,7 @@ O *frame* do Ethernet, como mostrado na Figura 08, é composto por:
 
 
 
-| ![Image](imagens/estrutura%20do%20frame%20ethernet.png))|
+| ![Image](imagens/estrutura%20do%20frame%20ethernet.png)|
 |:--------:|
 |<b>Figura 08: Estrutura do frame Ethernet/b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 486.</b>|
