@@ -12,10 +12,11 @@ Assim, o roteador é um caso específico da abstração mais genérica *match pl
 
 A Figura 01 apresenta a arquitetura de um roteador, separada em *control plane* e *data plane*, que implementam o *routing* e o *fowarding, respectivamente*. 
 
-Figura 01: Arquitetura de um roteador\
-![Image](imagens/Roteador.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 311.
 
+| ![Image](imagens/Roteador.png)|
+|:--------:|
+|<b>Figura 01: Arquitetura de um roteador</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 311.</b>|
 
 
 #### Descrição
@@ -61,9 +62,13 @@ Essas questões serão debatidas posteriormente em mais detalhes.
 
 A Figura 02 mostra as execuções ocorridas na *input port*. Inicia-se com a ação de funções relativas a *physical layer* (em *Line Termination*), seguida de funções da *link layer* (em *Data link processing*), por fim o *lookup, fowarding* e *queuing* (em *lookup, fowarding, queuing*). 
 
-Figura 02: Execuções na Input Port\
-![Image](imagens/input%20port.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 314.
+
+
+| ![Image](imagens/input%20port.png)|
+|:--------:|
+|<b>Figura 02: Execuções na Input Port</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 314.</b>|
+
 
 A função central da porta de entrada é o *lookup*, no qual o roteador procura (*look up*) na *forwarding table* qual porta o *datagram* recém chegado deve ser direcionado.
 Apesar da proeminente importância do *lookup*, outras ações também devem ser tomadas, como a chacagem do *version number*, *checksum* e *Time to Live*
@@ -97,12 +102,15 @@ Tem o prefixo correspondendo ao *link interface* 1 e 2, com o *link* 1 sendo a m
 ### Switching
 
 
-O *switching fabric* tem a função de conectar as *input ports* com as *output ports*. Há diferentes formas de implementá-lo, mas três delas, mostradas na Figura 02, destacam-se:
+O *switching fabric* tem a função de conectar as *input ports* com as *output ports*. Há diferentes formas de implementá-lo, mas três delas, mostradas na Figura 03, destacam-se:
 
 
-Figura 02: Tipos de Switching\
-![Image](imagens/switching.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 317.
+
+
+| ![Image](imagens/switching.png)|
+|:--------:|
+|<b>Figura 03: Tipos de Switching</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 317.</b>|
 
 
 1. *Switching via memory*: o *input port* sinaliza, a partir de uma interrupção, para o processador do roteador a chegada de novos *datagrams*. Após a interrupçãos, os dados recém chegados são copiados para a memória, processados (determinando-se a interface apropriada), e por fim copiados para o *buffer* de saída. Isso é usualmente feito com processos com memória compartilhada.Como desvantagem pode-se citar, primeiro, a impossibilidade de transmissão de mais de um *datagram* ao mesmo tempo, pois somente uma operação de leitura e escrita na memória pode ser feita por vez. Segundo, com a largura de banda sendo B *datagrams* por segundo para memória (B *datagrams* podem ser escritos ou lidos em 1 segundo), significa dizer que a taxa de transferência está limitada em B/2 (pois será necessário fazer 1 operação de escrita e uma de leitura).
@@ -113,13 +121,14 @@ Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, p�
 ### Output port
 
 
-A Figura 03 mostra as 3 principais execuções do *output port*. Inicia-se com o enfileiramento (*Queuing*) dos *datagrams* recebidos. Em seguida, são performados ações necessárias relativas as camadas físicas e enlace (*Data link processing*). Por fim, os dados são enviados para fora do roteador (*Line termination*).
+A Figura 04 mostra as 3 principais execuções do *output port*. Inicia-se com o enfileiramento (*Queuing*) dos *datagrams* recebidos. Em seguida, são performados ações necessárias relativas as camadas físicas e enlace (*Data link processing*). Por fim, os dados são enviados para fora do roteador (*Line termination*).
 
 
-Figura 03: Output Port\
-![Image](imagens/output%20port.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 319.
 
+| ![Image](imagens/output%20port.png)|
+|:--------:|
+|<b>Figura 04: Output Port</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 319.</b>|
 
 ### Filas
 
@@ -128,21 +137,23 @@ As filas podem se formar na entrada e na saída do roteador.
 As filas na entrada podem ser formadas pela diferença de velocidade entre o *input* e o *switching fabric* (como citado anteriormente, de forma análoga, na questão 1 do "E se" no tópico" Questões a a cerca do forwarding"). Se um *input* for capaz de lidar com uma taxa de *datagrams* mais alta do que o *switching fabric*, os mesmos ficarão acumulados na entrada até executados pelo *switching fabric*.
 
 Um outro evento que têm como consequência a geração de filas é o chamado *head-of-the-line blocking* (HOL *blocking*). 
-A Figura 03 mostra um exemplo de como o HOL *blocking* pode ocorrer. Os *datagrams* azuis-escuros estão destinados às saídas superiores, enquanto que os azuis-claros estão destinados às saídas centrais. Assim, um azul-escuro oriundo do *input* superior pode bloquear a passagem do *datagram* azuil-escuro oriundo do *input* inferior, travando a fila e impedindo que o *datagram* azul-claro seja processado paralelamente, apesar de sua saída estar livre.
+A Figura 05 mostra um exemplo de como o HOL *blocking* pode ocorrer. Os *datagrams* azuis-escuros estão destinados às saídas superiores, enquanto que os azuis-claros estão destinados às saídas centrais. Assim, um azul-escuro oriundo do *input* superior pode bloquear a passagem do *datagram* azuil-escuro oriundo do *input* inferior, travando a fila e impedindo que o *datagram* azul-claro seja processado paralelamente, apesar de sua saída estar livre.
 
 
-Figura 03: Hol Blocking\
-![Image](imagens/hol%20blocking.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 321.
 
+| ![Image](imagens/hol%20blocking.png)|
+|:--------:|
+|<b>Figura 05: Hol Blocking</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 321.</b>|
 
-Na saída, as filas podem se formar quando multiplos *datagrams* dos *inputs* são direcionados para o mesmo *output*, como mostrado na Figura 04. Esse evento pode preencher o *buffer* de saída, ocasionando a "derrubada" de novos *datagrams*, política chamada de *drop-tail*, ou a remoção de um já enfileirado, para assim criar espaço para os dados recém chegados. Em alguns casos, pode ser vantajoso remover um pacote de dados antes que fila fique cheia, de forma a enviar um sinal de congestionamento para o emissor. Os algoritmos responsáveis por isso são chamados de *Active Queue Management* (AQM), ou gerenciador de filas ativo, com o *Random Early Detection* (RED) sendo um algoritmo dessa classe amplamente implementado.
+Na saída, as filas podem se formar quando multiplos *datagrams* dos *inputs* são direcionados para o mesmo *output*, como mostrado na Figura 06. Esse evento pode preencher o *buffer* de saída, ocasionando a "derrubada" de novos *datagrams*, política chamada de *drop-tail*, ou a remoção de um já enfileirado, para assim criar espaço para os dados recém chegados. Em alguns casos, pode ser vantajoso remover um pacote de dados antes que fila fique cheia, de forma a enviar um sinal de congestionamento para o emissor. Os algoritmos responsáveis por isso são chamados de *Active Queue Management* (AQM), ou gerenciador de filas ativo, com o *Random Early Detection* (RED) sendo um algoritmo dessa classe amplamente implementado.
 O *buffer* de saída po
 
-Figura 04: Fila na saída\
-![Image](imagens/output%20queue.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 322.
 
+| ![Image](imagens/output%20queue.png)|
+|:--------:|
+|<b>Figura 06: Fila na saída</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 322.</b>|
 
 O tamanho do espaço destinado para as filas sofrem de uma dicotomia. Enquanto que *buffers* pequenos podem não apresentar espaço suficiente para lidar com picos de demanda, algo que aumenta o número de dados perdidos, filas grandes podem representar um longo tempo de espera, aumentando o atraso na entrega dos *datagrams*.
 
@@ -164,23 +175,30 @@ B = RTT . C / √N
 
 #### Prioridades dos dados
 
-Na discurssão dos *buffers* fora deixado implícito a política *First-in-First-Out* (FIFO), ou primeiro a chegar, primeiro a sair (modelo mostrado na Figura 05), mas outras regras também podem ser utilizadas, como a classificação dos dados em diferentes filas a partir de sua prioridade (modelo mostrado na Figura 06).
+Na discurssão dos *buffers* fora deixado implícito a política *First-in-First-Out* (FIFO), ou primeiro a chegar, primeiro a sair (modelo mostrado na Figura 07), mas outras regras também podem ser utilizadas, como a classificação dos dados em diferentes filas a partir de sua prioridade (modelo mostrado na Figura 08).
 
 
-Figura 05: Modelo FIFO\
-![Image](imagens/FIFO.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 325.
-
-Figura 06: Modelo classificação e priorização\
-![Image](imagens/priority%20queue.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.
-
-Uma forma generalizada de classificação e priorização dos dados que tem sido bastante implementada é o chamado *Weighted Fair Queuing* (WFQ), no qual as filas de maior peso são tratadas primeiro, seguindo para as de menor peso, até reiniciar o ciclo, como mostrado na Figura 07.
 
 
-Figura 07: Weighted Fair Queuing\
-![Image](imagens/WFQ.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.
+| ![Image](imagens/FIFO.png)|
+|:--------:|
+|<b>Figura 07: Modelo FIFO</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 325.</b>|
+
+
+
+| ![Image](imagens/priority%20queue.png)|
+|:--------:|
+|<b>Figura 08: Modelo classificação e priorização</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.</b>|
+
+Uma forma generalizada de classificação e priorização dos dados que tem sido bastante implementada é o chamado *Weighted Fair Queuing* (WFQ), no qual as filas de maior peso são tratadas primeiro, seguindo para as de menor peso, até reiniciar o ciclo, como mostrado na Figura 09.
+
+
+| ![Image](imagens/WFQ.png)|
+|:--------:|
+|<b>Figura 09: Weighted Fair Queuing</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 326.</b>|
 
 ##### Neutralidade das redes
 
@@ -210,11 +228,13 @@ Cada regra têm:
 Perceba que essa tabela é uma forma limitada de programação. Atualmente, vem ganhando força uma alternativa mais rica de possibilidades de implementação (com variáveis e funções), a linguagem *Programming Protocol-independent Packet Processors* (P4).
 
 
-Dentro do padrão OpenFlow, os *headers* podem ser oriundos das camadas de enlace, rede e transporte, como mostrado na Figura 08. É importante perceber que nem todos os *headers* podem ser escolhidos para a ação de correspondência (*match*) (assim fora implementado como uma forma de equilibrar a funcionalidade e complexidade. É melhor fazer algo simples e bem, do que muita coisa e ruim).
+Dentro do padrão OpenFlow, os *headers* podem ser oriundos das camadas de enlace, rede e transporte, como mostrado na Figura 10. É importante perceber que nem todos os *headers* podem ser escolhidos para a ação de correspondência (*match*) (assim fora implementado como uma forma de equilibrar a funcionalidade e complexidade. É melhor fazer algo simples e bem, do que muita coisa e ruim).
 
-Figura 08: OpenFlow Headers\
-![Image](imagens/Open%20Flow%20headers.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 356.
+
+| ![Image](imagens/Open%20Flow%20headers.png)|
+|:--------:|
+|<b>Figura 10: OpenFlow Headers</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 356.</b>|
 
 As ações a serem tomadas são:
 
@@ -227,26 +247,36 @@ As ações a serem tomadas são:
 
 Na aula anterior, foi debatido a importância da *Fowarding Table* para o *Data Plane*. Os dados registrados nessa tabela são computados pela *Control Plane*, a qual tem como objetivo controlar a rota global que os *datagrams* precisarão pecorrer para sair de uma ponta à outra da rede (end-to-end). A *Control Plane* também configura e gerencia os componentes e serviços fornecidos pela camada de rede.
 
-Uma rede pode ser vista como um grafo, no qual os vértices (ou nós) são os roteadores e as arestas são a conexão entre dois vértices, como pode ser visto na Figura 09. Dessa forma, os algorítmos de roteamento determinam o melhor caminho que um dado pode pecorrer para sair de um vértice da rede até outro vértice.
+Uma rede pode ser vista como um grafo, no qual os vértices (ou nós) são os roteadores e as arestas são a conexão entre dois vértices, como pode ser visto na Figura 11. Dessa forma, os algorítmos de roteamento determinam o melhor caminho que um dado pode pecorrer para sair de um vértice da rede até outro vértice.
 
 As caractarísticas de cada conexão (velocidade, tarifas financeiras, etc.) são contabilizadas (a partir de métricas estabelecidas pela instituição dona da rede), resultando no custo (ou peso) agregado à conexão. Como cada aresta apresenta características diferentes, serão agregados pesos diferentes ao uso de cada uma. Assim, os algorítmos de roteamento, como o OSPF e o BGP (conhecido como a "cola" da Internet), tem o objetivo de encontrar um caminho entre dois nós que apresente o menor custo de ser pecorrido (custo total do caminho).
 
-Figura 09: Grafo com pesos\
-![Image](imagens/grafo.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 381.
+
+
+| ![Image](imagens/grafo.png)|
+|:--------:|
+|<b>Figura 11: Grafo com pesos</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 381.</b>|
+
+
 
 É importante perceber que o caminho de menor custo (*least-cost path*) é diferente do caminho mais curto (*shortest path*), pois o primeiro é caracterizado por aquele que apresenta o menor somátorio dos pesos das conexões inseridas no mesmo, enquanto que o segundo é determinado pela menor quantidade de nós que deve ser pecorrido.
 
-Ambos os algoritmos citados (OSPF e BGP) utilizam a abordagem *per-router control* (mostrado na Figura 10), em que o algoritmo de roteamento é processado dentro de cada roteador, sendo necessário interações entre *routers* para a determinação das rotas. Outra possível abordagem é a *Logically centralized control* (mostrado na Figura 11), em que há uma centralização computação em um servidor e distribuição dos parâmetros determinados para os nós da rede, como adotado pelo SDN (*Software Defined Network*). 
+Ambos os algoritmos citados (OSPF e BGP) utilizam a abordagem *per-router control* (mostrado na Figura 12), em que o algoritmo de roteamento é processado dentro de cada roteador, sendo necessário interações entre *routers* para a determinação das rotas. Outra possível abordagem é a *Logically centralized control* (mostrado na Figura 13), em que há uma centralização computação em um servidor e distribuição dos parâmetros determinados para os nós da rede, como adotado pelo SDN (*Software Defined Network*). 
 
-Figura 10: Per Router Control\
-![Image](imagens/per%20router%20control.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 378.
 
-Figura 11: Logically Centralized Controller\
-![Image](imagens/Logically%20centralized%20controller.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 379.
 
+| ![Image](imagens/per%20router%20control.png)|
+|:--------:|
+|<b>Figura 12: Per Router Control</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 378.</b>|
+
+
+
+| ![Image](imagens/Logically%20centralized%20controller.png)|
+|:--------:|
+|<b>Figura 13: Logically Centralized Controller</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 379.</b>|
 
 
 
@@ -308,20 +338,25 @@ O BGP provê para os roteadores meios para:
 1. Obter o prefixo de AS vizinhos: com a publicação da existência de cada subrede para o resto da Internet.
 2. Determinar a melhor rota para cada prefixo: no qual a melhor rota é baseada nas políticas determinadas pelo administrador da rede e na acessibilidade da informação.
 
-As conexões BGP entram em duas categorias (graficamente representado na Figura 12):
+As conexões BGP entram em duas categorias (graficamente representado na Figura 14):
 
 1. iBGP (*internal* BGP): conexão BGP internas aos ASs
 2. eBGP (*external* BGP): conexão externa aos ASs (entre ASs)
 
-Figura 12: eBGP e iBGP\
-![Image](imagens/BGP%20e%20iBGP.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 402.
 
-A publicação no BGP ocorre de forma bem direta. A Figura 13 mostra a adição de uma subrede (`x`) em uma rede com 3 ASs. Primeiro o AS 3 envia uma BGP *message* (`AS3 x`) para o AS 2 dizendo que a subrede `x` existe e é acessível através dele. Em seguida, o AS 2 avisa para o AS 1 a existência de `x` e que o mesmo é acessível através de AS 2 e AS 3 (`AS 2 AS 3 x`). 
+| ![Image](imagens/BGP%20e%20iBGP.png)|
+|:--------:|
+|<b>Figura 14: eBGP e iBGP\</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 402.</b>|
 
-Figura 13: ASs com adição de x\
-![Image](imagens/SAs%20com%20a%20adicao%20de%20x.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 401.
+A publicação no BGP ocorre de forma bem direta. A Figura 15 mostra a adição de uma subrede (`x`) em uma rede com 3 ASs. Primeiro o AS 3 envia uma BGP *message* (`AS3 x`) para o AS 2 dizendo que a subrede `x` existe e é acessível através dele. Em seguida, o AS 2 avisa para o AS 1 a existência de `x` e que o mesmo é acessível através de AS 2 e AS 3 (`AS 2 AS 3 x`). 
+
+
+
+| ![Image](imagens/SAs%20com%20a%20adicao%20de%20x.png)|
+|:--------:|
+|<b>Figura 15: ASs com adição de x\</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 401.</b>|
 
 O BGP *message* é composto pelo prefixo e outros múltiplos atributos, como o *AS-PATH*, que explicita a lista de AS na qual a publicação de existência da nova rede passou (como mostrado no exemplo anterior), e *NEXT-HOP*, que é o endereço da interface do roteador que inicia a o *AS-PATH*.
 
@@ -329,15 +364,21 @@ O BGP *message* é composto pelo prefixo e outros múltiplos atributos, como o *
 #### Hot Potato
 
 
-Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores transmitem os dados objetivam transmitir os dados para fora do AS o mais rápido possivel. Para tal, o roteador com os dados disparará para o endereço do *NEXT-HOP* que tiver o menor custo de conexão, sem se preocupar com o resto do trajeto desses dados. Assim, apesar de localmente eficiente, a rota global escolhida pode não ser a mais rápida. A Figura 14 mostra duas possibilidades de *NEXT-HOP*. A rota escolhida será aquela que apresentar o menor custo de conexão relacionado ao *NEXT-HOP*. A Figura 15 mostra os passos para a adição de um destino externo ao AS na *forwarding table*
+Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores transmitem os dados objetivam transmitir os dados para fora do AS o mais rápido possivel. Para tal, o roteador com os dados disparará para o endereço do *NEXT-HOP* que tiver o menor custo de conexão, sem se preocupar com o resto do trajeto desses dados. Assim, apesar de localmente eficiente, a rota global escolhida pode não ser a mais rápida. A Figura 16 mostra duas possibilidades de *NEXT-HOP*. A rota escolhida será aquela que apresentar o menor custo de conexão relacionado ao *NEXT-HOP*. A Figura 17 mostra os passos para a adição de um destino externo ao AS na *forwarding table*
 
-Figura 14: Duas possibilidades de NEXT-HOP\
-![Image](imagens/rota%20com%20menor%20next-hop.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 403.
 
-Figura 15: Passos para a adição de um destino externo na forwarding table
-![Image](imagens/passos%20para%20a%20adição%20de%20um%20destino%20externo.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 404.
+
+| ![Image](imagens/rota%20com%20menor%20next-hop.png)|
+|:--------:|
+|<b>Figura 16: Duas possibilidades de NEXT-HOP</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 403.</b>|
+
+
+
+| ![Image](imagens/rota%20com%20menor%20next-hop.png)|
+|:--------:|
+|<b>Figura 17: Passos para a adição de um destino externo na forwarding table</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 404.</b>|
 
 
 ##### Seleção da rota.
