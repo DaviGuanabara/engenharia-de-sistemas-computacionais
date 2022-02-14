@@ -380,10 +380,11 @@ Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores objetivam transm
 
 
 
-| ![Image](imagens/passos%20para%20a%20adição%20de%20um%20destino%20externo.png)|
+| ![Image](imagens/adição%20destino.png)|
 |:--------:|
 |<b>Figura 17: Passos para a adição de um destino externo na forwarding table</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 404.</b>|
+
 
 
 ##### Seleção da rota.
