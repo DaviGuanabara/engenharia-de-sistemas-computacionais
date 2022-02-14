@@ -83,12 +83,12 @@ No *look up*, o roteador identifica a saída (*link interface*) utilizando a reg
 
 
 
- Prefix | Link Interface 
+Prefix | Link Interface
 -----------|-------------
- 11001000 00010111 00010        0  
- 11001000 00010111 00011000     1  
- 11001000 00010111 00011        2   
- otherwise                      3  
+ 11001000 00010111 00010  |      0
+ 11001000 00010111 00011000 |    1
+ 11001000 00010111 00011   |     2
+ otherwise             |         3
 
 <b>Tabela 1 Exemplo de forwarding table</b>
 
@@ -96,9 +96,9 @@ No *look up*, o roteador identifica a saída (*link interface*) utilizando a reg
 
 Por exemplo, o endereço de IP:
 
-´´´
+```
 11001000 00010111 00011000 10101010
-´´´
+```
 
 Tem o prefixo correspondendo ao *link interface* 1 e 2, com o *link* 1 sendo a maior correspondência e, portanto, sendo os dados direcionados ao mesmo.
 
@@ -349,7 +349,7 @@ As conexões BGP entram em duas categorias (graficamente representado na Figura 
 2. eBGP (*external* BGP): conexão externa aos ASs (entre ASs)
 
 
-| ![Image](imagens/BGP%20e%20iBGP.png)|
+| ![Image](imagens/eBGP%20e%20iBGP.png)|
 |:--------:|
 |<b>Figura 14: eBGP e iBGP</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 402.</b>|
@@ -380,7 +380,7 @@ Os ASs operam com a bordagem *Hot Potato*, o qual os roteadores objetivam transm
 
 
 
-| ![Image](imagens/rota%20com%20menor%20next-hop.png)|
+| ![Image](imagens/passos%20para%20a%20adição%20de%20um%20destino%20externo.png)|
 |:--------:|
 |<b>Figura 17: Passos para a adição de um destino externo na forwarding table</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 404.</b>|
