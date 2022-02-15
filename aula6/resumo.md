@@ -1,11 +1,12 @@
 ## Introdução.
 
 
-*Figura 1: Loja de único atendente*
 
-![Figura 1](imagens/single%20worker%20store.jpg)
 
-*Autor: rawkkim, de: unsplash.com*
+|![Figura 1](imagens/single%20worker%20store.jpg)|
+|:--------:|
+|<b>Figura 1: Loja de único atendente</b> 
+<b>Autor: rawkkim, de: unsplash.com</b>| 
 
 Imagine, caro leitor, que você seja dono de uma loja e que você não tenha funcionários, como na Figura 1. Todas as tarefas, entre administrar o estoque, dar baixa no caixa e atender os clientes, deve ser feito por você. 
 Qual estratégia você deve tomar para tornar isso possível ?
@@ -15,11 +16,12 @@ A proposta natural é a de seguir uma sequência de passos: inicialmente deve-se
 
 A vantagem é que todo o processo de venda é concluído antes de iniciar o próximo ciclo. A desvantagem é que os novos clientes terão que esperar bastante tempo para serem atendidos, e a fila de espera pode desanimar possíveis compradores, como na Figura 2. É preciso perceber também que o gargalo desse processo está no atendimento ao cliente, afinal, a escolha do cliente (ou *input* do usuário do processo) não tem um momento determinado para ocorrer. Outro problema é que um travamento (por conta de um problema imprevisto) em uma dessas tarefas impedirá (ou atrasará) que as próximas sejam trabalhadas.
 
-*Figura 2: Fila de espera*
 
-![Figura 2](imagens/waiting%20queue.jpg)
 
-*Autor: Levi Jones, de: unsplash.com*
+|![Figura 2](imagens/waiting%20queue.jpg)|
+|:--------:|
+|<b>Figura 2: Fila de espera</b> 
+<b>Autor: Levi Jones, de: unsplash.com</b>| 
 
 
 Para solucionar esse gargalo, poderíamos pensar em alocar, para cada tarefa, uma parcela de tempo, digamos 10 minutos, de forma que, após esgotado esse tempo, você terá que alterar a tarefa a ser executada, independente se a mesma foi concluída ou não, passando para a próxima não interdenpendente (*non-blocking*). Assim, o leitor iniciaria o processo chamando o primeiro da fila. Após 10 minutos, caso o atendimento não seja concluído (por exemplo, o cliente ainda não tenha escolhido o produto que quer), essa tarefa atualmente em trabalho será deixada de lado (entrando no estado de espera), e a próxima tarefa não interdenpendente (que no caso seria chamar o próximo da fila) deverá ser executada. A vantagem dessa abordagem é que o tempo dentro da fila de espera deve cair substancialmente, pois aproveita-se o tempo (no qual, anteriormente, você ficava oscioso) de escolha (de um produto) de um cliente, atendendo o próximo da fila. 
@@ -30,11 +32,12 @@ Pode-se pensar também em abrir uma segunda (ou terceira, quarta, etc) loja ao l
 
 Então, a solução mais simples (e com diversas vantagens) é a contratação de empregados para que múltiplas tarefas possam ser desempenhadas em paralelo, como mostrado na Figura 3.
 
-*Figura 3: Três trabalhos em paralelo*
 
-![Figura 3](imagens/dois%20trabalhos%20em%20simultâneo.jpg)
 
-*Autor: Charlie Firth de: Unsplash*
+|![Figura 3](imagens/dois%20trabalhos%20em%20simultâneo.jpg)|
+|:--------:|
+|<b>Figura 3: Três trabalhos em paralelo</b> 
+<b>Autor: Charlie Firth de: Unsplash</b>| 
 
 
 A história acima é uma analogia ao que ocorre nos sistemas computacionais modernos, de forma que:
@@ -61,12 +64,12 @@ O capítulo atual foi dividido em:
 A *Thread* (unidade de processamento do processo) é composto pela *thread id* (seu identificador único), PC (*program counter*), valores dos registradores, memória *stack*. Ela compartilha, com outras *theads* do mesmo processo, recursos como as sessões de memória *text*, *data* e os arquivos abertos, como mostrado na Figura 4.
 
 
-*Figura 4: Processos com uma ou múltiplas threads*
 
-![Figura 4](imagens/single%20threaded%20x%20multi%20threaded.png)
 
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 160.*
-
+|![Figura 4](imagens/single%20threaded%20x%20multi%20threaded.png)|
+|:--------:|
+|<b>Figura 4: Processos com uma ou múltiplas threads</b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 160.</b>|
 
 
 ### Benefícios e Desafios.
@@ -103,31 +106,33 @@ Há dois tipos diferentes de *threads*, aquelas que estão no nível de usuário
 
 
 
-*Figura 5: Modelo Many-to-One*
 
-![Figura 5](imagens/many-to-one.png)
+|![Figura 5](imagens/many-to-one.png)|
+|:--------:|
+|<b>Figura 5: Modelo Many-to-One</b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 166.</b>|
 
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 166.*
 
 
-*Figura 6: Modelo One-to-One*
+|![Figura 6](imagens/one-to-one.png)|
+|:--------:|
+|<b>Figura 6: Modelo One-to-One</b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 167.</b>|
 
-![Figura 6](imagens/one-to-one.png)
 
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 167.*
 
-*Figura 7: Modelo Many-to-Many*
 
-![Figura 7](imagens/many-to-many.png)
+|![Figura 7](imagens/many-to-many.png)|
+|:--------:|
+|<b>Figura 7: Modelo Many-to-Many</b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 167.</b>|
 
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 167.*
 
-*Figura 8: Modelo Many-to-One*
 
-![Figura 8](imagens/two-level.png)
-
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 168.*
-
+|![Figura 8](imagens/two-level.png)|
+|:--------:|
+|<b>Figura 8: Modelo Many-to-One/b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 168.</b>|
 
 ### *Threads* e o Linux
 
