@@ -10,7 +10,7 @@ A multiplexação e demutiplexação, ambas demonstradas graficamente na Figura 
 
 
 
-|![image](imagens/Multiplexação%20e%20Demultiplexação.png)|
+|![image](imagens/Multiplexacao%20e%20Demultiplexacao.png)|
 |:--------:|
 |<b>Figura 01: Multiplexação e Demultiplexação</b>|  
 
