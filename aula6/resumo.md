@@ -131,7 +131,7 @@ Há dois tipos diferentes de *threads*, aquelas que estão no nível de usuário
 
 |![Figura 8](imagens/two-level.png)|
 |:--------:|
-|<b>Figura 8: Modelo Many-to-One/b> 
+|<b>Figura 8: Modelo Many-to-One</b> 
 <b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 168.</b>|
 
 ### *Threads* e o Linux
@@ -266,12 +266,12 @@ Perceba que, sem proteção, os resultados não são consistentes.
 
 Para que essas duas *threads* trabalhem de forma síncrona, é necessário que haja um semáforo (mesmo conceito de controle de tráfego de carros), para o controle de acesso, como mostrado na Figura 9. Os semáforos que previnem que as *threads* não se choquem são chamadas de `mutex` (*mutually exclusive*, só permite uma única *thread* na região crítica) e também de `locks`.
 
-*Figura 9: Semáforo para controle de acesso.*
 
-![Figura 8](imagens/semáforo.png)
-
-*Imagem retirada de: Griffiths, David; Griffiths, Dawn; Head First C, página 513.*
-
+ 
+|![Figura 9](imagens/semáforo.png)|
+|:--------:|
+|<b>Figura 9: Semáforo para controle de acesso.</b> 
+<b>Imagem retirada de: Griffiths, David; Griffiths, Dawn; Head First C, página 513.</b>|
 
 
 Existem, então, duas soluções para o trecho de código anterior, cada qual gerará resultados de saída, desempenho e sincronicidade diferentes.
