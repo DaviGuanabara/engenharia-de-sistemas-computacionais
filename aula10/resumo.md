@@ -49,8 +49,11 @@ No modelo iterativo, o *local server* envia um *request* para cada um dos servid
 7. *local server*: *response* do *Authorative server*
 8. Usuário: *response* do *local server*
 
-Figura 01: Modelo Iterativo \
-![image](imagens/modelo%20iterativo.png)
+
+
+|![image](imagens/modelo%20iterativo.png)|
+|:--------:|
+|<b>Figura 01: Modelo Iterativo </b>|  
 
 
 ##### Recursivo
@@ -68,11 +71,10 @@ No modelo recursivo, a sequência de *requests* ocorrem em cadeia entre os servi
 8. Usuário: *response* do *local server*
 
 
-Figura 02: Modelo Recursivo \
-![image](imagens/modelo%20recursivo.png)
 
-
-
+|![image](imagens/modelo%20recursivo.png)|
+|:--------:|
+|<b>Figura 02: Modelo Recursivo</b>| 
 
 ##### DNS *caching*
 
@@ -112,9 +114,12 @@ Tupla: `(foo.com, mail.bar.foo.com, MX)`
 
 ##### DNS *Messages*
 
-Figura 03: Formato do DNS *message* \
-![image](imagens/DNS%20message%20format.png)
-*Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 133.*
+
+
+|![image](imagens/DNS%20message%20format.png)|
+|:--------:|
+|<b>Figura 03: Formato do DNS *message* </b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 133.</b>| 
 
 
 O formato da mensagem DNS é mostrado na Figura 03, segue a seguinte estrutura:
