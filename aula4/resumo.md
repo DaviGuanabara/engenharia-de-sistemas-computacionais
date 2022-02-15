@@ -164,9 +164,12 @@ rompendo essa limitação, passando à *multi-threading* (múltiplas *threads* p
 processo), como mostrado na Figura 1.
 
 
-*Figura 1: Single and Multi-Threaded Example*
-![Figura 1](single-multi-threaded.png)
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 160.*
+
+
+|![Figura 1](single-multi-threaded.png)|
+|:--------:|
+|<b>Figura 1: Single and Multi-Threaded Example</b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 160.</b>|
 
 O *multi-threading* trás consigo diversas vantagens, como:
 
