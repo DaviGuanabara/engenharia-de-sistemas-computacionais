@@ -70,7 +70,7 @@ A Figura 3 mostra, graficamente, esse processo.
 
 |![Figura 3](imagens/store-and-forwarding.png)|
 |:--------:|
-|<b>Figura 3: Store and Fowarding*</b> 
+|<b>Figura 3: Store and Fowarding</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson. Página 24.</b>| 
 
 Considerando L = 10 kbits e R = 100 Mbps, então L/P = 0.1 milisegundos.
@@ -104,7 +104,7 @@ A desvantagem desse sistema é a ocorrência de osciosidade em perídos no qual 
 
 |![Figura 4](imagens/circuit-switching.png)|
 |:--------:|
-|<b>Figura 4: Store and Fowarding</b> 
+|<b>Figura 4: Circuit Switching</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson. Página 28.</b>| 
 
 
