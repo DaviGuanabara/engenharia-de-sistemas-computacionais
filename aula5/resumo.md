@@ -45,7 +45,7 @@ De forma geral, os processos podem assumir 5 estados (Como mostrado na Figura 3)
 No Linux, todos os PCB's encontram-se em uma lista duplamente encadeada (com o próximo e o anterior), com o sistema operacional armazenando um ponteiro para a estrutura que está atualmente em execução pela CPU. Mostrado na Figura 4.
 
 
-|![Figura 4](Representação%20da%20fila%20encadeada.png)|
+|![Figura 4](Representacao%20da%20fila%20encadeada.png)|
 |:--------:|
 |<b>Figura 4: Representação da fila encadeada</b> 
 <b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 111.</b>|
@@ -85,7 +85,7 @@ Cada processo tem uma identificação única chamada de `pid` (*process identifi
 
 
 
-|![Figura 8](Árvore%20de%20processos%20em%20um%20sistema%20linux.png)|
+|![Figura 8](Arvore%20de%20processos%20em%20um%20sistema%20linux.png)|
 |:--------:|
 |<b>Figura 8: Árvore de processos típico de sistema Linux</b> 
 <b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 116.</b>|
