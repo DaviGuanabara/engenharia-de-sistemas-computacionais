@@ -13,11 +13,11 @@ O usuário final tem acesso à internet através das ISP's (*Internet Service Pr
 
 
 
-*Figura 1: Rede de redes*
 
-![Figura 1](imagens/redes.png)
 
-*Produzido pelo autor*
+|![Figura 1](imagens/redes.png)|
+|:--------:|
+|<b>Figura 1: Rede de redes</b>| 
 
 #### Dispositivos
 
@@ -37,11 +37,10 @@ As duas últimas camadas, enlace e física, são implementadas pela NIC (*Networ
 O receptor desses dados fará o processo inverso, extraindo o *header* de sua respectiva camada de forma a desencapsular o pacote, até que a mensagem seja entregue para a aplicação receptora, como mostrado na Figura 2.
 
 
-*Figura 2: Emissor e receptor dos dados*
 
-![Figura 2](imagens/Emissor%20e%20receptor%20dos%20dados.png)
-
-*Produzido pelo autor*
+|![Figura 2](imagens/Emissor%20e%20receptor%20dos%20dados.png)|
+|:--------:|
+|<b>Figura 2: Emissor e receptor dos dados</b>| 
 
 É interessante perceber que essa arquiterura de protocolos empilhados transforma cada camada em uma provedora de serviços à camada superior, algo que torna o sistema modular, fácil de ser atualizado e fácil de ser debatido e explicado. Porém, esses sistema de camadas pode conter duplicações de funcionalidade e de informação.
 
@@ -68,12 +67,11 @@ Ao ser transmitido, a mensagem demora L/R (*transmission delay*) para sair do co
 Sendo N o número total de pacotes que deve ser transmitido.
 A Figura 3 mostra, graficamente, esse processo.
 
-*Figura 3: Store and Fowarding*
 
-![Figura 3](imagens/store-and-forwarding.png)
-
-*Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson. Página 24*
-
+|![Figura 3](imagens/store-and-forwarding.png)|
+|:--------:|
+|<b>Figura 3: Store and Fowarding*</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson. Página 24.</b>| 
 
 Considerando L = 10 kbits e R = 100 Mbps, então L/P = 0.1 milisegundos.
 
@@ -102,11 +100,11 @@ A alternativa ao *packet-switching* é o *circuit-switching* (mostrado na Figura
 
 A desvantagem desse sistema é a ocorrência de osciosidade em perídos no qual os computadores não estão se comunicando (*silent periods*), assim recursos de rede estão sendo alocados e não utilizados, portanto desperdiçados. Outra inferioridade (comparado ao *packet-switching*) vem da complexidade de reservar uma capacidade de transmissão ponta a ponta (*end-to-end transmission*) e de coordenar a sinalização relacionada com a multiplexação.
 
-*Figura 4: Store and Fowarding*
 
-![Figura 4](imagens/circuit-switching.png)
 
-*Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson. Página 28*
-
+|![Figura 4](imagens/circuit-switching.png)|
+|:--------:|
+|<b>Figura 4: Store and Fowarding</b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson. Página 28.</b>| 
 
 
