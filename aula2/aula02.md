@@ -39,9 +39,10 @@ operacional.
 
 
 
-![Figura 1](funcionamento%20do%20computador.png)
-*Figura 1: Sistema Computacional*
 
+|![Figura 1](funcionamento%20do%20computador.png)|
+|:--------:|
+|<b>Figura 1: Sistema Computacional</b> |
 
 ### Prática
 
@@ -107,8 +108,10 @@ objeto original. Tem como saída um arquivo binário executável sem extensão.
 A Figura 2 mostra as etapas de compilação do gcc.
 
 
-![Figura 2](compilac%CC%A7a%CC%83o.png)
-*Figura 2: Etapas de compilação do `gcc`*
+
+|![Figura 2](compilac%CC%A7a%CC%83o.png)|
+|:--------:|
+|<b>Figura 2: Etapas de compilação do `gcc`</b>|
 
 
 #### Compilando um arquivo `.c`
