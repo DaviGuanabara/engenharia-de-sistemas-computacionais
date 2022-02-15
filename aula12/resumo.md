@@ -133,7 +133,7 @@ A Figura 02 mostra toda a estrutura do segmento TCP.
   
 |![Image](imagens/Estrutura%20segmento%20TCP.png)|
 |:--------:|
-|<b>Figura 02: Estrutura do segmento TCP/b> 
+|<b>Figura 02: Estrutura do segmento TCP</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.</b>|
   
   
@@ -151,7 +151,7 @@ A Figura 03 mostra um exemplo de como a variação do *sequence number* e do *ac
   
 |![Image](imagens/troca%20de%20mensagens%20tcp.png)|
 |:--------:|
-|<b>Figura 03: *Sequence number* e ACK/b> 
+|<b>Figura 03: *Sequence number* e ACK</b> 
 <b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 234.</b>|  
   
 ##### Segmentos fora de ordem
