@@ -28,9 +28,11 @@ liberar a memória ocupada com a função `free(3)`. Por fim, o código executá
 referente a esse programa está armazenado na seção `text`. No programa em C, os
 argumentos da função main são armazenados em uma seção específica.
 
-![Figura 1](Aloca%C3%A7%C3%A3o%20de%20mem%C3%B3ria%20de%20um%20programa%20c.png)
-*Figura 1: Alocação de memória de um programa em C*
-*Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 108.*
+
+|![Figura 1](Aloca%C3%A7%C3%A3o%20de%20mem%C3%B3ria%20de%20um%20programa%20c.png)|
+|:--------:|
+|<b>Figura 1: Alocação de memória de um programa em C</b> 
+<b>Imagem retirada de: Silberschatz, A. Operating System Concepts, 10th, página 108.</b>|
 
 
 Como a seção `text` e a `heap` crescem e diminuem dinamicamente durante
