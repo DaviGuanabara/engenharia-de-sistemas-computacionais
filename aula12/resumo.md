@@ -10,10 +10,10 @@ Caso todos os espaços disponibilizados pela janela estejam preenchidos, novos d
 
 Na metade superior da Animação 01 podem ser reconhecidos os parâmetros: `base`, que identifica o valor inicial incluido; `nextseqnum`, referente ao próximo elemento a ser enviado; e `send window size`, tamanho da janela (valor do N supracitado). A metade inferior mostra o registro dos eventos ocorridos durante o protocolo. 
 
-Animação 01: Animação Go-Back-N\
-![Alt Text](gifs/GBN.gif)
-
-Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html
+| ![Alt Text](gifs/GBN.gif)|
+|:--------:|
+|<b>Animação 01: Animação Go-Back-N</b> 
+<b>Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html</b>|
 
 
 Como o envio dos segmentos é feito em ordem, é esperado que os respectivos ACK's sejam recebidos em ordem (*cumulative acknowledgment*). Caso o *server* receba um segmento corrompido ou fora de ordem, o mesmo é descartado e um ACK referente ao último segmento íntegro ordenado é disparado. O ACK duplicado recebido é descartado. Da perspectiva do *client*, a não recepção ACK correspondete ao segmento enviado, pode resultar em dois casos. Primeiro, se a recepção do ACK 'x + 1' ocorrer, porém a do 'x' não, o GBN considerará que o segmento 'x' foi recebido corretamente pelo *server* e o seu ACK fora perdido durante a transmissão, marcando, portanto, o segmento 'x' como enviado corretamente. O segundo caso é a respeito da não recepção de respostas dentro de um período predeterminado (*timeout*), algo que resulta na retransmissão dos segmentos relativos.
@@ -41,10 +41,12 @@ Exemplo 2:
 
 O protocolo *Selective Repeat* (SR), como o próprio nome já induz, tem o objetivo de diminuir o número de retransmissões desnecessárias. Para tal, utiliza um subconjunto de N elementos da fila de transmissão, chamada de janela, com cada elemento sendo um espaço que pode ser preenchido por um segmento e marcado como não usável, usável, enviado e confirmado, algo análogo ao GBN. Porém, diferencia-se pelo seu comportamento, como mostrado na Animação 02.
 
-Animação 02: Animação Selective Repeat\
-![Alt Text](gifs/animation%20of%20selective%20repeat.gif)
 
-Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html
+
+|![Alt Text](gifs/animation%20of%20selective%20repeat.gif)|
+|:--------:|
+|<b>Animação 02: Animação Selective Repeat/b> 
+<b>Disponível em: https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html</b>|
 
 
 1. um elemento só é marcado como confirmado quando o mesmo receber seu respectivo ACK. 
@@ -64,10 +66,15 @@ A desincronização pode causar a recepção de um segmento já recebido, gerand
 Essa possível desincronização pode causar um dilema para o receptor dos dados, pois, como mostrado na 
 A Figura 01 mostra o dilema ocasionado pela possível dessincronização:  os dados recebidos são derivados de uma retransmissão, como mostrado em (a), ou de um novo segmento (b)? 
 
-Figura 01: Dilema do Selective Repeat\
-![Image](imagens/Dilema%20do%20Selective%20Repeat.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 225.
+  
+  
+  
 
+|![Image](imagens/Dilema%20do%20Selective%20Repeat.png)|
+|:--------:|
+|<b>Figura 01: Dilema do Selective Repeat/b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 225.</b>|
+  
 
 Colocações importantes:
 
@@ -122,9 +129,14 @@ O *header* é a sessão do segmento responsável pelos parâmentros de conexão.
 
 A Figura 02 mostra toda a estrutura do segmento TCP.
 
-Figura 02: Estrutura do segmento TCP\
-![Image](imagens/Estrutura%20segmento%20TCP.png)\
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.
+
+  
+|![Image](imagens/Estrutura%20segmento%20TCP.png)|
+|:--------:|
+|<b>Figura 02: Estrutura do segmento TCP/b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 231.</b>|
+  
+  
 
 #### Sequência e ACK
 
@@ -135,10 +147,13 @@ Já *acknowledgment number* (ACK *number*) é relativo ao *sequence number* do p
 
 A Figura 03 mostra um exemplo de como a variação do *sequence number* e do *acknowledgment number* ocorrem com o MSS de 1 *byte* no Telnet. O *Host A* envia seu *byte* 42 (*sequence number*) requisitando (ACK) o byte de *sequence number* 79 do *Host B*, e o *Host B* responde com o seu *byte* 79 e requisita o *byte* 43 do *Host A*.
 
-Figura 03: *Sequence number* e ACK\
-![Image](imagens/troca%20de%20mensagens%20tcp.png)\
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 234.
 
+  
+|![Image](imagens/troca%20de%20mensagens%20tcp.png)|
+|:--------:|
+|<b>Figura 03: *Sequence number* e ACK/b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 234.</b>|  
+  
 ##### Segmentos fora de ordem
 
 Como citado anteriormente, o tratamento dos segmentos fora de ordem, para um sistema confiável de transferência de dados, pode seguir uma dessas suas estratégias, *GO-BACK-N* ou *Selective Repeat* (SR). Por uma questão de eficiência, o protocolo SR é a abordagem praticada.
