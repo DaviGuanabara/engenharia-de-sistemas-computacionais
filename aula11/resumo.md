@@ -7,8 +7,13 @@ O objetivo da camada de transporte (*transport layer*), executada nos dispositiv
 A multiplexação e demutiplexação, ambas demonstradas graficamente na Figura 01, são possíveis devido à estrutura de dados *4-tuple*, no qual está contido os endereços de IP da origem e do destino, e os identificadores únicos de 16 *bits*, chamado de porta (*port*), dos *sockets* de origem e destino.
 
 
-Figura 01: Multiplexação e Demultiplexação \
-![image](imagens/Multiplexação%20e%20Demultiplexação.png)
+
+
+
+|![image](imagens/Multiplexação%20e%20Demultiplexação.png)|
+|:--------:|
+|<b>Figura 01: Multiplexação e Demultiplexação</b>|  
+
 
 Diferentemente do UDP, no qual a demultiplexação ocorre com o encaminhamento dos dados diretamente para a porta de destino, descrita no *header* do *segment*, (ou seja, o *socket* UDP é completamente identificável com *2-tuple*, ou estrutura de dados que contém o IP e *port* de destino), o TCP necessita da *4-tuple* completa para a identificação do respectivo socket. Essa abordagem simplifica a arquitetura *client-server*, pois o servidor pode utilizar de um única porta (como uma *well-known port number*, número de porta que varia de 0 até 1023) para a execução do *handshaking*, como a 80 no caso do HTTP, enquanto que entrega dinamismo à criação (ocorrendo no *request*) e finalização dos *sockets*, algo que sucede o encerramento do canal de comunicação.
 Na Figura 01 pode ser observado como os dados contidos na *4-tuple* podem variar conforme o protocolo escolhido.
@@ -23,11 +28,12 @@ Como criar uma thread ou processo para cada requisição é computacionalmente c
 [Para saber mais, acesse: https://httpd.apache.org/docs/2.4/mod/worker.html e https://www.nginx.com/blog/thread-pools-boost-performance-9x/]
 
 
-Figura 02: Pool of Threads \
-![image](imagens/pool%20of%20threads.png)\
-Imagem retirada de: https://www.nginx.com/blog/thread-pools-boost-performance-9x/ em 05/12/2021
 
 
+|![image](imagens/pool%20of%20threads.png)|
+|:--------:|
+|<b>Figura 02: Pool of Threads</b> 
+<b>Imagem retirada de: https://www.nginx.com/blog/thread-pools-boost-performance-9x/ em 05/12/2021.</b>|  
 
 
 ### *Reliable Data Transfer Protocol*
@@ -118,17 +124,22 @@ A determinação do tempo sofre de uma dicotomia, pois há vantagens e desvantag
 
 A Figura 03 mostra um exemplo do funcionamento do protocolo RDT 3.0 (também conhecido por *alternating-bit protocol*, por causa da alternância no número da sequência dos pacotes).
 
-Figura 03: Protocolo RDT 3.0 \
-![image](imagens/rdt%203.0.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 212.
+
+|![image](imagens/rdt%203.0.png)|
+|:--------:|
+|<b>Figura 03: Protocolo RDT 3.0 </b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 212.</b>|  
 
 #### Performace
 
 O fundamento dos protocolos mencionados é enviar 1 pacote e esperar por sua resposta. Uma forma de melhorar a performace é utilizar um pardão de enviar multiplos pacotes antes de entrar no estado de espera da resposta de cada um, método chamado de *pipeline*, como mostrado na Figura 04.
 
 
-Figura 04: *Stop-and-wait vs pipelined*\
-![image](imagens/stop%20and%20wait%20vs%20pipelined.png)
-Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 213.
+
+
+|![image](imagens/stop%20and%20wait%20vs%20pipelined.png)|
+|:--------:|
+|<b>Figura 04: *Stop-and-wait vs pipelined* </b> 
+<b>Imagem retirada de: Computer Networking a top-down approach. 8th ed. Pearson, página 213.</b>|  
 
 Erros na abordagem do *pipeline* são abordados nos protocolos *go-back-n* e *selective repeat*, ambos tratados na próxima aula.
